@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<title>Datasette</title>
+<link rel="stylesheet" type="text/css" href="/static/site.css">
+</head>
+<body>
+<header>
+    <nav>
+        <ul>
+            <li><a href="/">About</a></li>
+            <li><a href="/for">Uses</a></li>
+            <li><a href="/docs">Documentation</a></li>
+            <li><a href="/examples">Examples</a></li>
+            <li><a href="/plugins">Plugins</a></li>
+            <li><a href="/news">News</a></li>
+        </ul>
+    </nav>
+    <h1>
+        <img class="datasette-logo" src="/static/datasette-logo.svg" alt="Datasette">
+    </h1>
+    <p class="tagline">An open source multi-tool for exploring and publishing data</p>
+</header>
+
+<main>
+    <img class="datasette-screenshot" src="/static/datasette-screenshot.png">
+    <div class="about">
+        <p>Datasette is a tool for exploring and publishing data. It helps people take data of any shape or size and publish it as an interactive, explorable website and accompanying API.</p>
+        <p>Datasette is aimed at data journalists, museum curators, archivists, local governments and anyone else who has data that they wish to share with the world. It is part of a <a href="/docs/ecosystem">wider ecosystem</a> of tools and plugins dedicated to making working with structured data as productive as possible.</p>
+    </div>
+    <div class="use-cases">
+            <div class="card">
+                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10" viewBox="0 0 24 24">
+                  <line x1="18" y1="20" x2="18" y2="10"></line>
+                  <line x1="12" y1="20" x2="12" y2="4"></line>
+                  <line x1="6" y1="20" x2="6" y2="14"></line>
+                </svg>
+                <h2><a href="/for/exploratory-analysis">Exploratory data analysis</a></h2>
+                <p>Import data from CSVs, JSON, database connections and more. Datasette will automatically show you patterns in your data and help you share your findings with your colleagues.</p>
+              </div>
+            </div>
+            <div class="card">
+                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10" viewBox="0 0 24 24">
+                  <polyline points="16 16 12 12 8 16"></polyline>
+        <line x1="12" y1="12" x2="12" y2="21"></line>
+        <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path>
+        <polyline points="16 16 12 12 8 16"></polyline>
+                </svg>
+                <h2><a href="/for/data-publishing">Instant data publishing</a></h2>
+                <p><code>datasette publish</code> lets you instantly publish your data to hosting providers like Google Cloud Run, Heroku or Vercel.</p>
+              </div>
+            </div>
+            <div class="card">
+                <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10" viewBox="0 0 24 24">
+                  <polyline points="16 18 22 12 16 6"></polyline>
+                  <polyline points="8 6 2 12 8 18"></polyline>
+                </svg>
+                <h2><a href="/for/rapid-prototyping">Rapid prototyping</a></h2>
+                <p>Spin up a JSON API for any data in minutes. Use it to prototype and prove your ideas without building a custom backend.</p>
+            </div>
+    </div>
+</main>
+</body>
+</html>

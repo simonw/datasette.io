@@ -1,0 +1,82 @@
+body {
+    font-family: Helvetica, sans-serif;
+    line-height: 1.4em;
+}
+header, main {
+    max-width: 1024px;
+    margin: 0 auto;
+}
+header {
+    border-bottom: 4px solid #4f4e4e;
+    margin-bottom: 2em;
+}
+.tagline {
+    font-size: 1.4em;
+    color: #4f4e4e;
+    text-shadow: 1px 1px 3px rgba(150, 150, 150, 0.5);
+}
+.datasette-logo {
+    width: 100%;
+    max-width: 400px;
+}
+a:link,
+a:visited,
+a:hover,
+a:focus,
+a:active {
+    color: blue;
+    text-decoration: none;
+}
+
+header nav ul {
+    margin: 1em 0 0 0;
+    padding: 0;
+}
+header nav li {
+    float: left;
+    list-style-type: none;
+    margin: 0;
+    padding: 0 2em 0 0;
+}
+nav {
+    overflow: hidden;
+    margin-bottom: 2em;
+}
+.about {
+    width: 50%;
+}
+.datasette-screenshot {
+    float: right;
+    width: 45%;
+    margin-left: 5%;
+    box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.35);
+}
+.use-cases {
+    clear: both;
+}
+.card svg {
+    max-width: 50px;
+    color: #0e0c82;
+}
+.card {
+    width: 33.3%;
+    box-sizing: border-box;
+    padding-right: 1em;
+    margin-top: 2em;
+    float: left;
+    text-align: center;
+}
+.card h2 {
+    font-size: 1.1em;
+}
+.card p {
+    text-align: left;
+    font-size: 0.8em;
+}
+
+@media (max-width: 640px) {
+    .card {
+        float: none;
+        width: 100%;
+    }
+}
