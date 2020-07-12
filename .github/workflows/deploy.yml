@@ -39,4 +39,5 @@ jobs:
         datasette publish cloudrun news.db \
           --service datasette-io \
           --template-dir=templates \
+          --static=static:static \
           --install=datasette-render-markdown
