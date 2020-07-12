@@ -1,6 +1,4 @@
-build-metadata.json
-datasets.json
-
+.DS_Store
 scratchpad
 
 .vscode

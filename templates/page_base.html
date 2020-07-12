@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+  <title>{% block title %}{% endblock %}</title>
+  <link rel="stylesheet" type="text/css" href="/static/site.css">
+</head>
+<body class="page {% block body_class %}{% endblock %}">
+  <header>
+    <nav>
+      <a href="/"><img class="datasette-logo-small" src="/static/datasette-logo.svg" alt="Datasette"></a>
+      <ul>
+        <li><a href="/for">Uses</a></li>
+        <li><a href="https://datasette.readthedocs.io/">Documentation</a></li>
+        <li><a href="https://github.com/simonw/datasette/wiki/Datasettes">Examples</a></li>
+        <li><a href="https://datasette.readthedocs.io/en/stable/ecosystem.html#datasette-plugins">Plugins</a></li>
+        <!-- <li><a href="/news">News</a></li> -->
+      </ul>
+    </nav>
+  </header>
+  <main>
+    <div class="content">
+      {% block content %}{% endblock %}
+    </div>
+  </main>
+</body>
+</html>

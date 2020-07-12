@@ -1,0 +1,25 @@
+{% extends "page_base.html" %}
+
+{% block title %}Use cases for Datasette{% endblock %}
+
+{% block content %}
+{{ render_markdown("""
+# Use cases for Datasette
+
+Datasette can be applied to all kinds of interesting problems.
+
+## [Exploratory data analysis](/for/exploratory-analysis)
+
+Import data from CSVs, JSON, database connections and more. Datasette will automatically show you patterns in your data and help you share your findings with your colleagues.
+
+## [Instant data publishing](/for/data-publishing)
+
+`datasette publish` lets you instantly publish your data to hosting providers like Google Cloud Run, Heroku or Vercel.
+
+## [Rapid prototyping](/for/rapid-prototyping)
+
+Spin up a JSON API for any data in minutes. Use it to prototype and prove your ideas without building a custom backend.
+
+""") }}
+
+{% endblock %}

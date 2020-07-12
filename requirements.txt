@@ -1,1 +1,2 @@
 datasette
+datasette-render-markdown
