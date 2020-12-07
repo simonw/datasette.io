@@ -12,8 +12,8 @@ header {
 }
 .tagline {
     font-size: 1.4em;
-    color: #4f4e4e;
-    text-shadow: 1px 1px 3px rgba(150, 150, 150, 0.5);
+    color: #0e0c82;
+    text-shadow: 1px 1px 3px rgba(14, 12, 130, 0.3);
 }
 .datasette-logo {
     width: 100%;
