@@ -140,14 +140,15 @@
     talks about the implementation of [datasette-auth-github](https://github.com/simonw/datasette-auth-github)
     in more detail.
 - date: 2019-07-07
-  body: >-
+  body: |-
     [Datasette 0.29](https://docs.datasette.io/en/stable/changelog.html#v0-29) - ASGI, new plugin hooks,
     facet by date and much, much more...
-       * [datasette-auth-github](https://github.com/simonw/datasette-auth-github) - a new plugin for Datasette
+
+    * [datasette-auth-github](https://github.com/simonw/datasette-auth-github) - a new plugin for Datasette
     0.29 that lets you require users to authenticate against GitHub before accessing your Datasette instance.
     You can whitelist specific users, or you can restrict access to members of specific GitHub organizations
     or teams.
-       * [datasette-cors](https://github.com/simonw/datasette-cors) - a plugin that lets you configure
+    * [datasette-cors](https://github.com/simonw/datasette-cors) - a plugin that lets you configure
     CORS access from a list of domains (or a set of domain wildcards) so you can make JavaScript calls
     to a Datasette instance from a specific set of other hosts.
 - date: 2019-06-23
@@ -159,21 +160,21 @@
     has been [published in partnership with Glitch](https://glitch.com/culture/discover-insights-explore-developer-survey-results-2019/),
     powered by Datasette.
 - date: 2019-05-19
-  body: "[Datasette 0.28](https://docs.datasette.io/en/stable/changelog.html#v0-28) - a salmagundi of\
-    \ new features!\n   * No longer immutable! Datasette now supports [databases that change](https://docs.datasette.io/en/stable/changelog.html#supporting-databases-that-change).\n\
-    \   * [Faceting improvements](https://docs.datasette.io/en/stable/changelog.html#faceting-improvements-and-faceting-plugins)\
-    \ including facet-by-JSON-array and the ability to define custom faceting using plugins.\n   * [datasette\
-    \ publish cloudrun](https://docs.datasette.io/en/stable/changelog.html#datasette-publish-cloudrun)\
-    \ lets you publish databases to Google's new Cloud Run hosting service.\n   * New [register_output_renderer](https://docs.datasette.io/en/stable/changelog.html#register-output-renderer-plugins)\
-    \ plugin hook for adding custom output extensions to Datasette in addition to the default `.json`\
-    \ and `.csv`.\n   * Dozens of other smaller features and tweaks - see [the release notes](https://docs.datasette.io/en/stable/changelog.html#v0-28)\
-    \ for full details.\n   * Read more about this release here: [Datasette 0.28\u2014and why master should\
-    \ always be releasable](https://simonwillison.net/2019/May/19/datasette-0-28/)"
+  body: |-
+    [Datasette 0.28](https://docs.datasette.io/en/stable/changelog.html#v0-28) - a salmagundi of new features!
+
+    * No longer immutable! Datasette now supports [databases that change](https://docs.datasette.io/en/stable/changelog.html#supporting-databases-that-change).
+    * [Faceting improvements](https://docs.datasette.io/en/stable/changelog.html#faceting-improvements-and-faceting-plugins)
+    including facet-by-JSON-array and the ability to define custom faceting using plugins.
+    * [datasette publish cloudrun](https://docs.datasette.io/en/stable/changelog.html#datasette-publish-cloudrun)
+    lets you publish databases to Google's new Cloud Run hosting service.
+    * New [register_output_renderer](https://docs.datasette.io/en/stable/changelog.html#register-output-renderer-plugins)
+    plugin hook for adding custom output extensions to Datasette in addition to the default `.json` and `.csv`.
+    * Dozens of other smaller features and tweaks - see [the release notes](https://docs.datasette.io/en/stable/changelog.html#v0-28) for full details.
+    * Read more about this release here: [Datasette 0.28 - and why master should always be releasable](https://simonwillison.net/2019/May/19/datasette-0-28/)
 - date: 2019-02-24
   body: >-
-    [
-
-    sqlite-utils: a Python library and CLI tool for building SQLite databases](https://simonwillison.net/2019/Feb/25/sqlite-utils/)
+    [sqlite-utils: a Python library and CLI tool for building SQLite databases](https://simonwillison.net/2019/Feb/25/sqlite-utils/)
     - a partner tool for easily creating SQLite databases for use with Datasette.
 - date: 2019-01-31
   body: >-
