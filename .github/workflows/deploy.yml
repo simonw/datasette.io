@@ -23,9 +23,9 @@ jobs:
     - name: Install Python dependencies
       run: |
         pip install -r requirements.txt
-    - name: Create empty database (for the moment)
+    - name: Populate news database
       run: |
-        sqlite-utils news.db vacuum
+        yaml-to-sqlite news-db.db news news.yaml
     - name: Set up Cloud Run
       uses: google-github-actions/setup-gcloud@master
       with:
@@ -36,8 +36,10 @@ jobs:
       run: |-
         gcloud config set run/region us-central1
         gcloud config set project datasette-222320
-        datasette publish cloudrun news.db \
+        datasette publish cloudrun news-db.db \
           --service datasette-io \
           --template-dir=templates \
+          --plugins-dir=plugins \
           --static=static:static \
-          --install=datasette-render-markdown
+          --install=datasette-render-markdown \
+          --install=datasette-template-sql

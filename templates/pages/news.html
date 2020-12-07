@@ -1,0 +1,12 @@
+{% extends "page_base.html" %}
+
+{% block title %}Datasette News{% endblock %}
+
+{% block content %}
+<h1>Datasette News</h1>
+{% for row in sql("select date, body from news order by date desc", database="news-db") %}
+    <h3>{{ prettydate(row["date"]) }} <a href="/news/{{ row["date"] }}">#</a></h3>
+    {{ render_markdown(row["body"]) }}
+{% endfor %}
+
+{% endblock %}

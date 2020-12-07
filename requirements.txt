@@ -1,3 +1,5 @@
 datasette
+datasette-template-sql
 datasette-render-markdown
 sqlite-utils
+yaml-to-sqlite
