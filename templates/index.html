@@ -59,7 +59,7 @@
     </div>
     <div style="clear: both; padding-top: 2em">
       <h2>Latest news</h2>
-      {% for row in sql("select date, body from news order by date desc limit 5", database="news-db") %}
+      {% for row in sql("select date, body from news order by date desc limit 5", database="content") %}
         <h3>{{ prettydate(row["date"]) }} <a href="/news/{{ row["date"] }}" style="font-size: 0.8em; opacity: 0.4">#</a></h3>
         {{ render_markdown(row["body"]) }}
       {% endfor %}

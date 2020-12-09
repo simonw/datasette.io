@@ -4,7 +4,7 @@
 
 {% block content %}
 <h1>Datasette News</h1>
-{% for row in sql("select date, body from news order by date desc", database="news-db") %}
+{% for row in sql("select date, body from news order by date desc", database="content") %}
     <h3>{{ prettydate(row["date"]) }} <a href="/news/{{ row["date"] }}" style="font-size: 0.8em; opacity: 0.4">#</a></h3>
     {{ render_markdown(row["body"]) }}
 {% endfor %}

@@ -5,7 +5,7 @@
 {% block content %}
 <h1><a href="/news">News</a>: {{ prettydate(yyyy + "-" + mm + "-" + dd) }}</h1>
 
-{% for row in sql("select date, body from news where date = ? order by date desc", [yyyy + "-" + mm + "-" + dd], database="news-db") %}
+{% for row in sql("select date, body from news where date = ? order by date desc", [yyyy + "-" + mm + "-" + dd], database="content") %}
     {{ render_markdown(row["body"]) }}
 {% endfor %}
 

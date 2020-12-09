@@ -1,6 +1,8 @@
+click
 datasette
 datasette-template-sql
 datasette-render-markdown
 datasette-block-robots
 sqlite-utils
 yaml-to-sqlite
+python-graphql-client
