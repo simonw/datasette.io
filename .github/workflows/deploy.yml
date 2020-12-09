@@ -47,4 +47,5 @@ jobs:
           --plugins-dir=plugins \
           --static=static:static \
           --install=datasette-render-markdown \
-          --install=datasette-template-sql
+          --install=datasette-template-sql \
+          --install=python-dateutil
