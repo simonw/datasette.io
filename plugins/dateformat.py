@@ -1,4 +1,5 @@
 from datasette import hookimpl
+from dateutil import parser
 import datetime
 
 
@@ -8,7 +9,7 @@ def suffix(d):
 
 def prettydate(date):
     if isinstance(date, str):
-        date = datetime.date.fromisoformat(date)
+        date = parser.parse(date)
     return "{day}{suffix} {month} {year}".format(
         day=date.day,
         month=date.strftime("%B"),

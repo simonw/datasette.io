@@ -1,0 +1,66 @@
+{% extends "page_base.html" %}
+
+{% block title %}Datasette Plugins{% endblock %}
+
+{% block content %}
+<style type="text/css">
+
+.plugin-search input {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 9px 4px;
+    margin-right: 1em;
+}
+.plugin-search input[type="submit"] {
+    color: #fff;
+    background-color: #8484f4;
+    border-color: #0e0c82;
+    -webkit-appearance: button;
+    font-weight: 400;
+    cursor: pointer;
+    text-align: center;
+    vertical-align: middle;
+    border-width: 1px;
+    border-style: solid;
+    padding: .4em 0.8em;
+    font-size: 0.9rem;
+    line-height: 1;
+    border-radius: .25rem;
+}
+.plugin {
+    border: 1px solid #ccc;
+    margin-bottom: 1em;
+    border-radius: 10px;
+    background-color: white;
+    padding: 1em;
+}
+.plugin h3 {
+    margin-top: 0;
+}
+</style>
+<h1>Datasette Plugins</h1>
+
+<form action="/plugins" class="plugin-search">
+    <p><input type="search" name="q" value="{{ args.q }}" style="min-width: 50%"><input type="submit" value="Search"></p>
+</form>
+
+{% if args.q %}
+    {% set query = "select * from plugins where name like '%' || :q || '%' or description like '%' || :q || '%'" %}
+{% else %}
+    {% set query = "select * from plugins order by stargazerCount desc" %}
+{% endif %}
+
+{% for row in sql(query, {"q": args["q"] or ""}, database="content") %}
+<div class="plugin">
+    <h3><a href="https://github.com/{{ row["nameWithOwner"] }}">{{ row["name"] }}</a></h3>
+    <p>{{ row["description"] }}</p>
+    {% if row["usesCustomOpenGraphImage"] %}
+        <img style="max-width: 100%" src="{{ row["openGraphImageUrl"] }}" alt="Screenshot of {{ row["nameWithOwner"] }}">
+    {% endif %}
+    <p>Latest: <a href="https://github.com/{{ row["nameWithOwner"] }}/releases/tag/{{ row["tagName"] }}">{{ row["tagName"] }}</a> on {{ prettydate(row["latestReleaseAt"]) }}</p>
+</div>
+{% else %}
+    <p>No matches found</p>
+{% endfor %}
+
+{% endblock %}

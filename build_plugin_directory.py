@@ -88,14 +88,45 @@ def cli(db_filename, github_token):
     nodes = fetch_plugins(github_token)
     for node in nodes:
         plugin, releases = transform_node(node)
-        db["plugins"].insert(
+        db["plugin_repos"].insert(
             plugin,
             pk="id",
             column_order=("id", "name", "description", "homepageUrl", "topics"),
         )
         for release in releases:
-            release["plugin"] = plugin["id"]
-            db["releases"].insert(release, pk="id", foreign_keys=("plugin",))
+            release["plugin_repo"] = plugin["id"]
+            db["releases"].insert(release, pk="id", foreign_keys=("plugin_repos",))
+
+    db.create_view(
+        "plugins",
+        """
+select
+  plugin_repos.name,
+  plugin_repos.description,
+  releases.tagName,
+  max(releases.createdAt) as latestReleaseAt,
+  homepageUrl,
+  topics,
+  nameWithOwner,
+  openGraphImageUrl,
+  usesCustomOpenGraphImage,
+  stargazerCount,
+  forkCount,
+  plugin_repos.updatedAt,
+  plugin_repos.createdAt,
+  plugin_repos.pushedAt,
+  openIssueCount,
+  closedIssueCount,
+  releaseCount
+from
+  plugin_repos
+  join releases on plugin_repos.id = releases.plugin_repo
+group by
+  plugin_repos.id
+order by
+  latestReleaseAt desc
+""".strip(),
+    )
 
 
 if __name__ == "__main__":
