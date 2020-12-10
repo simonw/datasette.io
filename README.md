@@ -1,3 +1,5 @@
 # datasette.io
 
-https://datasette.io/ - currently https://preview.datasette.io/
+The official project website for [Datasette](https://github.com/simonw/datasette).
+
+https://datasette.io/
