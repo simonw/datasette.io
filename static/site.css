@@ -78,6 +78,9 @@ body.page header {
     nav .show-on-narrow {
         display: inline;
     }
+    header nav li {
+        padding-right: 1em;
+    }
     body.page nav ul {
         display: block;
     }
