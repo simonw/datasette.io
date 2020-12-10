@@ -33,7 +33,7 @@ jobs:
         curl -O https://preview.datasette.io/content.db
     - name: Fetch plugins data
       run: |
-        python build_plugin_directory.py content.db
+        python build_plugin_directory.py content.db --fetch-missing-releases
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Populate news database
