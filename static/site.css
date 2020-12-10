@@ -42,6 +42,47 @@ nav {
     overflow: hidden;
     margin-bottom: 2em;
 }
+nav .show-on-narrow {
+    display: none;
+}
+
+
+body.page main .content {
+    max-width: 800px;
+}
+.datasette-logo-small {
+    height: 1.5em;
+    display: inline-block;
+    padding-right: 2em;
+    vertical-align: middle;
+}
+body.page nav ul,
+body.page nav li {
+    float: none;
+    display: inline;
+    position: relative;
+    top: 1px;
+}
+body.page nav {
+    margin-bottom: 1em;
+}
+body.page header {
+    padding-top: 0.5em;
+}
+
+@media (max-width: 480px) {
+    nav .hide-on-narrow {
+        display: none;
+    }
+    nav .show-on-narrow {
+        display: inline;
+    }
+    body.page nav ul {
+        display: block;
+    }
+}
+
+
 .about {
     width: 50%;
 }
@@ -98,30 +139,6 @@ nav {
     }
 }
 
-
-body.page main .content {
-    max-width: 800px;
-}
-.datasette-logo-small {
-    height: 1.5em;
-    display: inline-block;
-    padding-right: 2em;
-    vertical-align: middle;
-}
-body.page nav ul,
-body.page nav li {
-    float: none;
-    display: inline;
-    line-height: 2em;
-    position: relative;
-    top: 1px;
-}
-body.page nav {
-    margin-bottom: 1em;
-}
-body.page header {
-    padding-top: 0.5em;
-}
 
 .two-col-wrapper {
     display: flex;
