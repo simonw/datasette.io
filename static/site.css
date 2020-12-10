@@ -96,6 +96,19 @@ body.page header {
     margin-left: 5%;
     box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.35);
 }
+
+@media (max-width: 480px) {
+    .datasette-screenshot {
+        float: none;
+        width: 95%;
+        display: block;
+        margin: 1em auto;
+    }
+    .about {
+        width: 100%;
+    }
+}
+
 .use-cases {
     clear: both;
 }
