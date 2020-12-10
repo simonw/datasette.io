@@ -107,6 +107,9 @@ body.page header {
     .about {
         width: 100%;
     }
+    body .two-col-wrapper {
+        display: block;
+    }
 }
 
 .use-cases {
