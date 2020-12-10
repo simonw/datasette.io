@@ -24,14 +24,18 @@ jobs:
     - name: Install Python dependencies
       run: |
         pip install -r requirements.txt
-    - name: Populate news database
+    - name: Download previous database
       run: |
-        yaml-to-sqlite content.db news news.yaml
+        curl -O https://preview.datasette.io/content.db
     - name: Fetch plugins data
       run: |
         python build_plugin_directory.py content.db
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Populate news database
+      run: |
+        sqlite-utils drop-table content.db news
+        yaml-to-sqlite content.db news news.yaml
     - name: Import stats.json
       run: |
         python build_stats.py content.db stats.json

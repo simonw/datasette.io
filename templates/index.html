@@ -54,31 +54,64 @@
       <h2><a href="/for/rapid-prototyping">Rapid prototyping</a></h2>
       <p>Spin up a JSON API for any data in minutes. Use it to prototype and prove your ideas without building a custom backend.</p>
     </div>
-    <div style="clear: both; padding-top: 2em">
-      <h2>Latest news <a style="text-decoration: none; padding: 0 0.3em" href="/content/feed.atom" title="Atom feed"><svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 256 256">
-        <defs>
-        <linearGradient id="a" x1=".1" x2=".9" y1=".1" y2=".9">
-            <stop offset="0" stop-color="#E3702D" />
-            <stop offset=".1" stop-color="#EA7D31" />
-            <stop offset=".4" stop-color="#F69537" />
-            <stop offset=".5" stop-color="#FB9E3A" />
-            <stop offset=".7" stop-color="#EA7C31" />
-            <stop offset=".9" stop-color="#DE642B" />
-            <stop offset="1" stop-color="#D95B29" />
-        </linearGradient>
-    </defs>
-    <rect width="256" height="256" fill="#CC5D15" rx="55" ry="55" />
-    <rect width="246" height="246" x="5" y="5" fill="#F49C52" rx="50" ry="50" />
-    <rect width="236" height="236" x="10" y="10" fill="url(#a)" rx="47" ry="47" />
-    <circle cx="68" cy="189" r="24" fill="#FFF" />
-    <path fill="#FFF" d="M160 213h-34a82 82 0 0 0-82-82V97a116 116 0 0 1 116 116z" />
-    <path fill="#FFF" d="M184 213A140 140 0 0 0 44 73V38a175 175 0 0 1 175 175z" />
-        </svg></a></h2>
-      {% for row in sql("select date, body from news order by date desc limit 5", database="content") %}
-        <h3>{{ prettydate(row["date"]) }} <a href="/news/{{ row["date"] }}" style="font-size: 0.8em; opacity: 0.4">#</a></h3>
-        {{ render_markdown(row["body"]) }}
-      {% endfor %}
-      <p><a href="/news">News archive</a></p>
+    <div style="clear: both; padding-top: 2em;" class="two-col-wrapper">
+      <div class="two-col-column">
+        <h2>Latest news <a style="text-decoration: none; padding: 0 0.3em" href="/content/feed.atom" title="Atom feed"><svg xmlns="http://www.w3.org/2000/svg" width="16px" height="16px" viewBox="0 0 256 256">
+          <defs>
+          <linearGradient id="a" x1=".1" x2=".9" y1=".1" y2=".9">
+              <stop offset="0" stop-color="#E3702D" />
+              <stop offset=".1" stop-color="#EA7D31" />
+              <stop offset=".4" stop-color="#F69537" />
+              <stop offset=".5" stop-color="#FB9E3A" />
+              <stop offset=".7" stop-color="#EA7C31" />
+              <stop offset=".9" stop-color="#DE642B" />
+              <stop offset="1" stop-color="#D95B29" />
+          </linearGradient>
+      </defs>
+      <rect width="256" height="256" fill="#CC5D15" rx="55" ry="55" />
+      <rect width="246" height="246" x="5" y="5" fill="#F49C52" rx="50" ry="50" />
+      <rect width="236" height="236" x="10" y="10" fill="url(#a)" rx="47" ry="47" />
+      <circle cx="68" cy="189" r="24" fill="#FFF" />
+      <path fill="#FFF" d="M160 213h-34a82 82 0 0 0-82-82V97a116 116 0 0 1 116 116z" />
+      <path fill="#FFF" d="M184 213A140 140 0 0 0 44 73V38a175 175 0 0 1 175 175z" />
+          </svg></a></h2>
+        {% for row in sql("select date, body from news order by date desc limit 15", database="content") %}
+          <h3>{{ prettydate(row["date"]) }} <a href="/news/{{ row["date"] }}" style="font-size: 0.8em; opacity: 0.4">#</a></h3>
+          {{ render_markdown(row["body"]) }}
+        {% endfor %}
+        <p><a href="/news">All news</a></p>
+      </div>
+      <div class="two-col-column">
+        <h2>Latest releases</h2>
+        {% set ns = namespace(current_date="") %}
+        {% for row in sql("""
+        select
+          repos.rowid as rowid,
+          repos.html_url as repo,
+          repos.name as name,
+          repos.full_name as full_name,
+          releases.html_url as release_url,
+          releases.tag_name as tag_name,
+          substr(releases.published_at, 0, 11) as date,
+          releases.body as body_markdown,
+          releases.published_at,
+          coalesce(repos.topics, '[]') as topics
+        from
+          releases
+          join repos on repos.id = releases.repo
+        order by
+          releases.published_at desc
+        limit 10
+        """ , database="content") %}
+          {% if prettydate(row["published_at"]) != (ns.current_date and prettydate(ns.current_date)) %}
+            <h3>{{ prettydate(row["published_at"]) }}</h3>
+            {% set ns.current_date = prettydate(row["published_at"]) %}
+          {% endif %}
+          <h4><a href="{{ row["release_url"] }}">{{ row["name"] }} {{ row["tag_name"]}}</a></h4>
+          {{ render_markdown(row["body_markdown"]) }}
+        {% endfor %}
+        <p><a href="/content/recent_releases">All releases</a></p>
+      </div>
     </div>
   </main>
 </body>

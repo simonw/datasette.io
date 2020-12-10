@@ -8,5 +8,6 @@ datasette-vega
 datasette-atom
 sqlite-utils
 yaml-to-sqlite
+github-to-sqlite
 python-graphql-client
 httpx

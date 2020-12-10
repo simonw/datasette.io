@@ -118,3 +118,13 @@ body.page nav {
 body.page header {
     padding-top: 0.5em;
 }
+
+.two-col-wrapper {
+    display: flex;
+}
+.two-col-column {
+    flex: 1;
+}
+.two-col-column:first-of-type {
+    padding-right: 1em;
+}

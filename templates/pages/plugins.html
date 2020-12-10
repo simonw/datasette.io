@@ -50,17 +50,17 @@
 {% if args.q %}
     {% set query = "select * from plugins where name like '%' || :q || '%' or description like '%' || :q || '%'" %}
 {% else %}
-    {% set query = "select * from plugins order by stargazerCount desc" %}
+    {% set query = "select * from plugins order by latest_release_at desc" %}
 {% endif %}
 
 {% for row in sql(query, {"q": args["q"] or ""}, database="content") %}
 <div class="plugin">
-    <h3><a href="https://github.com/{{ row["nameWithOwner"] }}">{{ row["name"] }}</a></h3>
+    <h3><a href="https://github.com/{{ row["full_name"] }}">{{ row["name"] }}</a></h3>
     <p>{{ row["description"] }}</p>
     {% if row["usesCustomOpenGraphImage"] %}
-        <img style="max-width: 100%" src="{{ row["openGraphImageUrl"] }}" alt="Screenshot of {{ row["nameWithOwner"] }}">
+        <img style="max-width: 100%" src="{{ row["openGraphImageUrl"] }}" alt="Screenshot of {{ row["full_name"] }}">
     {% endif %}
-    <p>Latest: <a href="https://github.com/{{ row["nameWithOwner"] }}/releases/tag/{{ row["tagName"] }}">{{ row["tagName"] }}</a> on {{ prettydate(row["latestReleaseAt"]) }}</p>
+    <p>Latest: <a href="https://github.com/{{ row["full_name"] }}/releases/tag/{{ row["tagName"] }}">{{ row["tag_name"] }}</a> on {{ prettydate(row["latest_release_at"]) }}</p>
 </div>
 {% else %}
     <p>No matches found</p>

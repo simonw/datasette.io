@@ -1,4 +1,5 @@
 import click
+from github_to_sqlite.cli import releases as github_to_sqlite_releases
 from python_graphql_client import GraphqlClient
 import sqlite_utils
 
@@ -10,17 +11,9 @@ query {
     nodes {
       ... on Repository {
         id
-        name
         nameWithOwner
-        homepageUrl
-        description
         openGraphImageUrl
         usesCustomOpenGraphImage
-        stargazerCount
-        forkCount
-        updatedAt
-        createdAt
-        pushedAt
         repositoryTopics(first:100) {
           totalCount
           nodes {
@@ -38,14 +31,7 @@ query {
         releases(last: 1) {
           totalCount
           nodes {
-            id
-            name
             tagName
-            description
-            descriptionHTML
-            shortDescriptionHTML
-            createdAt
-            publishedAt
           }
         }
       }
@@ -83,49 +69,58 @@ def fetch_plugins(oauth_token):
     type=click.Path(file_okay=True, dir_okay=False),
 )
 @click.option("--github-token", envvar="GITHUB_TOKEN", required=True)
-def cli(db_filename, github_token):
+@click.option("--fetch-missing-releases", is_flag=True)
+def cli(db_filename, github_token, fetch_missing_releases):
     db = sqlite_utils.Database(db_filename)
+    repos_to_fetch_releases_for = set()
     nodes = fetch_plugins(github_token)
     for node in nodes:
         plugin, releases = transform_node(node)
         db["plugin_repos"].insert(
             plugin,
             pk="id",
-            column_order=("id", "name", "description", "homepageUrl", "topics"),
+            column_order=("id", "nameWithOwner"),
+            replace=True,
         )
-        for release in releases:
-            release["plugin_repo"] = plugin["id"]
-            db["releases"].insert(release, pk="id", foreign_keys=("plugin_repos",))
+        full_name = plugin["nameWithOwner"]
+        if fetch_missing_releases:
+            for release in releases:
+                tag_name = release["tagName"]
+                # Does this release exist for this repo?
+                if not list(
+                    db["releases"].rows_where(
+                        "repo = (select id from repos where full_name = ?) and tag_name = ?",
+                        [full_name, tag_name],
+                    )
+                ):
+                    repos_to_fetch_releases_for.add(full_name)
+
+    if repos_to_fetch_releases_for:
+        github_to_sqlite_releases.callback(
+            db_filename, list(repos_to_fetch_releases_for), auth="auth.json"
+        )
 
     db.create_view(
         "plugins",
         """
 select
-  plugin_repos.name,
-  plugin_repos.description,
-  releases.tagName,
-  max(releases.createdAt) as latestReleaseAt,
-  homepageUrl,
-  topics,
-  nameWithOwner,
-  openGraphImageUrl,
-  usesCustomOpenGraphImage,
-  stargazerCount,
-  forkCount,
-  plugin_repos.updatedAt,
-  plugin_repos.createdAt,
-  plugin_repos.pushedAt,
-  openIssueCount,
-  closedIssueCount,
-  releaseCount
+  repos.name as name,
+  repos.full_name as full_name,
+  repos.description as description,
+  releases.tag_name,
+  max(releases.created_at) as latest_release_at,
+  plugin_repos.openGraphImageUrl,
+  plugin_repos.usesCustomOpenGraphImage
 from
   plugin_repos
-  join releases on plugin_repos.id = releases.plugin_repo
+  join repos on plugin_repos.id = repos.node_id
+  join releases on repos.id = releases.repo
 group by
-  plugin_repos.id
+  repos.id
 order by
-  latestReleaseAt desc
+  latest_release_at desc
 """.strip(),
+        replace=True,
     )
 
 
