@@ -1,0 +1,63 @@
+{% extends "page_base.html" %}
+
+{% block title %}Datasette Examples{% endblock %}
+
+{% block content %}
+<h1>Datasette Examples</h1>
+
+{{ render_markdown("""
+
+## Covid-19 cases and deaths
+
+https://covid-19.datasettes.com/ uses data from Johns Hopkins CSSE, the New York Times and the LA Times to show Covid-19 cases and deaths around the USA and the world. It updates several times a day as new data becomes available.
+
+## SBA Paycheck Protection Program Loan Data
+
+https://sba-loans-covid-19.datasettes.com/ shows recipients of Covid-19 Paycheck Protection Program loans, using data released by the Small Business Administration.
+
+## Global Power Plants Database
+
+https://global-power-plants.datasettes.com
+
+Data from http://www.wri.org/publication/global-power-plant-database
+
+Deployed automatically when the underlying data changes by https://github.com/simonw/global-power-plants-datasette
+
+## UK Register of Members Interests
+
+https://register-of-members-interests.datasettes.com/ - background here: https://simonwillison.net/2018/Apr/25/register-members-interests/ source code here: https://github.com/simonw/register-of-members-interests
+
+## FiveThirtyEight
+
+https://fivethirtyeight.datasettes.com/ - data derived from https://github.com/fivethirtyeight/data
+
+## San Francisco Open Data
+
+https://san-francisco.datasettes.com/ - datasets derived from https://data.sfgov.org/browse
+
+https://simonwillison.net/2017/Nov/25/new-in-datasette/ has various tutorials relating to this data.
+
+## Himalayan Database
+
+This is not yet hosted publicly, but Raffaele Messuti‏ provides step-by-step instructions in [From Visual FoxPro GUI to JSON API with Datasette](https://gist.github.com/atomotic/61542deb5d1e77a5ff842658b75982ef) for converting http://himalayandatabase.com/ to SQLite for exploration with Datasette.
+
+## Lahman’s Baseball Database
+
+https://baseballdb.lawlesst.net/ - published by Ted Lawless: http://lawlesst.github.io/notebook/baseball-datasette.html
+
+## ParlGov
+
+https://parlgov.datasettes.com/ - worldwide political data from http://www.parlgov.org/
+
+## Polar Bears
+
+https://polar-bears.now.sh/ - USGS Alaska Science Center data from https://alaska.usgs.gov/products/data.php?dataid=130 - here’s how it was built: https://gist.github.com/simonw/9f8bf23b37a42d7628c4dcc4bba10253
+
+## Australian Open Data
+
+https://australian-dunnies.now.sh/ - public toilets in Australia, from https://data.gov.au/dataset/national-public-toilet-map
+
+""") }}
+
+
+{% endblock %}
