@@ -107,6 +107,7 @@ select
   repos.name as name,
   repos.full_name as full_name,
   repos.description as description,
+  repos.stargazers_count,
   releases.tag_name,
   max(releases.created_at) as latest_release_at,
   plugin_repos.openGraphImageUrl,

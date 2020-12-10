@@ -50,7 +50,7 @@
 {% if args.q %}
     {% set query = "select * from plugins where name like '%' || :q || '%' or description like '%' || :q || '%'" %}
 {% else %}
-    {% set query = "select * from plugins order by latest_release_at desc" %}
+    {% set query = "select * from plugins order by stargazers_count desc" %}
 {% endif %}
 
 {% for row in sql(query, {"q": args["q"] or ""}, database="content") %}
