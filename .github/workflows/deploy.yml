@@ -1,8 +1,11 @@
 name: Deploy
 
 on:
-  workflow_dispatch:
   push:
+  workflow_dispatch:
+    inputs:
+      from_scratch:
+        description: Enter 'skip' to create a new database from scratch
 
 jobs:
   scheduled:
@@ -25,6 +28,7 @@ jobs:
       run: |
         pip install -r requirements.txt
     - name: Download previous database
+      if: github.event.inputs.from_scratch != 'skip'
       run: |
         curl -O https://preview.datasette.io/content.db
     - name: Fetch plugins data
