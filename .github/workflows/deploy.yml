@@ -39,6 +39,11 @@ jobs:
     - name: Import stats.json
       run: |
         python build_stats.py content.db stats.json
+    - name: Soundness check
+      run: |
+        datasette . --get "/"
+        datasette . --get "/plugins"
+        datasette . --get "/news"
     - name: Set up Cloud Run
       uses: google-github-actions/setup-gcloud@master
       with:
