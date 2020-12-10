@@ -74,6 +74,19 @@ nav {
     font-size: 0.8em;
 }
 
+.substack {
+    float: right;
+    border:1px solid #EEE;
+    background:white;
+    margin-right: -224px;
+}
+@media (max-width: 1024px) {
+    .substack {
+        margin-right: 0;
+        float: none;
+    }
+}
+
 @media (max-width: 640px) {
     .card {
         float: none;

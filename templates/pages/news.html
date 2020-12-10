@@ -22,6 +22,13 @@
 <path fill="#FFF" d="M160 213h-34a82 82 0 0 0-82-82V97a116 116 0 0 1 116 116z" />
 <path fill="#FFF" d="M184 213A140 140 0 0 0 44 73V38a175 175 0 0 1 175 175z" />
     </svg></a></h1>
+
+<iframe
+  src="https://datasette.substack.com/embed"
+  width="480" height="320"
+  class="substack"
+  frameborder="0" scrolling="no"></iframe>
+
 {% for row in sql("select date, body from news order by date desc", database="content") %}
     <h3>{{ prettydate(row["date"]) }} <a href="/news/{{ row["date"] }}" style="font-size: 0.8em; opacity: 0.4">#</a></h3>
     {{ render_markdown(row["body"]) }}
