@@ -7,3 +7,4 @@ datasette-block-robots
 sqlite-utils
 yaml-to-sqlite
 python-graphql-client
+httpx
