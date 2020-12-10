@@ -31,6 +31,9 @@ jobs:
         python build_plugin_directory.py content.db
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    - name: Import stats.json
+      run: |
+        python build_stats.py content.db stats.json
     - name: Set up Cloud Run
       uses: google-github-actions/setup-gcloud@master
       with:
@@ -48,4 +51,5 @@ jobs:
           --static=static:static \
           --install=datasette-render-markdown \
           --install=datasette-template-sql \
-          --install=python-dateutil
+          --install=python-dateutil \
+          --install=datasette-vega

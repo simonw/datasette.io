@@ -4,6 +4,7 @@ datasette
 datasette-template-sql
 datasette-render-markdown
 datasette-block-robots
+datasette-vega
 sqlite-utils
 yaml-to-sqlite
 python-graphql-client
