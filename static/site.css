@@ -38,6 +38,9 @@ header nav li {
     margin: 0;
     padding: 0 2em 0 0;
 }
+header nav li:last-child {
+    padding-right: 0;
+}
 nav {
     overflow: hidden;
     margin-bottom: 2em;
@@ -45,8 +48,6 @@ nav {
 nav .show-on-narrow {
     display: none;
 }
-
-
 body.page main .content {
     max-width: 800px;
 }
