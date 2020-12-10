@@ -38,7 +38,7 @@ jobs:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Populate news database
       run: |
-        sqlite-utils drop-table content.db news
+        sqlite-utils content.db 'drop table if exists news'
         yaml-to-sqlite content.db news news.yaml
     - name: Import stats.json
       run: |
