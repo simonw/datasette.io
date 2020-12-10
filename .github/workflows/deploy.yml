@@ -30,7 +30,7 @@ jobs:
     - name: Download previous database
       if: github.event.inputs.from_scratch != 'skip'
       run: |
-        curl -O https://preview.datasette.io/content.db
+        curl -O https://datasette.io/content.db
     - name: Fetch plugins data
       run: |
         python build_plugin_directory.py content.db --fetch-missing-releases

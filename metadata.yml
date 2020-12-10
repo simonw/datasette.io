@@ -11,7 +11,7 @@ databases:
             'tag:datasette.io,' || date as atom_id,
             'Datasette News: ' || date as atom_title,
             date || 'T00:00:00-08:00' as atom_updated,
-            'https://preview.datasette.io/news/' || date as atom_link,
+            'https://datasette.io/news/' || date as atom_link,
             render_markdown(group_concat(body, '
 
           ')) as atom_content_html,

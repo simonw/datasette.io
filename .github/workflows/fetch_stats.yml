@@ -27,7 +27,7 @@ jobs:
         pip install -r requirements.txt
     - name: Fetch latest stats
       run: |
-        eval "python fetch_stats.py stats.json --verbose --sleep 2 datasette sqlite-utils $(curl -s 'https://preview.datasette.io/content.json?sql=select+group_concat(name%2C+%27+%27)+from+plugin_repos&_shape=arrayfirst' | jq '.[0]' -r)"
+        eval "python fetch_stats.py stats.json --verbose --sleep 2 datasette sqlite-utils $(curl -s 'https://datasette.io/content.json?sql=select+group_concat(name%2C+%27+%27)+from+plugin_repos&_shape=arrayfirst' | jq '.[0]' -r)"
     - name: Commit and push if it changed
       run: |-
         git config user.name "Automated"
