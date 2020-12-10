@@ -74,16 +74,20 @@ nav {
     font-size: 0.8em;
 }
 
-.substack {
+.substack iframe {
     float: right;
-    border:1px solid #EEE;
+    border: 1px solid #EEE;
     background:white;
     margin-right: -224px;
 }
 @media (max-width: 1024px) {
     .substack {
-        margin-right: 0;
+        text-align: center;
+    }
+    .substack iframe {
         float: none;
+        max-width: 100%;
+        margin-right: 0;
     }
 }
 
