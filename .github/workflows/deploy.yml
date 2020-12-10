@@ -48,6 +48,7 @@ jobs:
         datasette publish cloudrun content.db \
           --service datasette-io \
           --template-dir=templates \
+          --metadata=metadata.yml \
           --plugins-dir=plugins \
           --static=static:static \
           --install=datasette-render-markdown \
