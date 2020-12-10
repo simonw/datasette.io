@@ -40,8 +40,11 @@
 </style>
 <h1>Datasette Plugins</h1>
 
+<p>Plugins extend Datasette with new functionality - visualization options, authentication schemes, data manipulating tools, additional output formats and more.</p>
+<p>Learn <a href="https://docs.datasette.io/en/stable/plugins.html">more about plugins</a>, or find out <a href="https://docs.datasette.io/en/stable/writing_plugins.html">how to write your own</a>.</p>
+
 <form action="/plugins" class="plugin-search">
-    <p><input type="search" name="q" value="{{ args.q }}" style="min-width: 50%"><input type="submit" value="Search"></p>
+    <p><input type="search" name="q" value="{{ args.q }}" placeholder="Search plugins, e.g. auth or map" style="min-width: 50%"><input type="submit" value="Search"></p>
 </form>
 
 {% if args.q %}
