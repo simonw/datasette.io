@@ -87,7 +87,7 @@ def cli(db_filename, github_token, fetch_missing_releases):
             for release in releases:
                 tag_name = release["tagName"]
                 # Does this release exist for this repo?
-                if not list(
+                if not db["repos"].exists() or not list(
                     db["releases"].rows_where(
                         "repo = (select id from repos where full_name = ?) and tag_name = ?",
                         [full_name, tag_name],
