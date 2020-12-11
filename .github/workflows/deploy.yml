@@ -69,4 +69,5 @@ jobs:
           --install=datasette-template-sql \
           --install=python-dateutil \
           --install=datasette-vega \
-          --install=datasette-atom
+          --install=datasette-atom \
+          --install=datasette-graphql
