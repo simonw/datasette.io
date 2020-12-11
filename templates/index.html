@@ -75,8 +75,12 @@
       <path fill="#FFF" d="M160 213h-34a82 82 0 0 0-82-82V97a116 116 0 0 1 116 116z" />
       <path fill="#FFF" d="M184 213A140 140 0 0 0 44 73V38a175 175 0 0 1 175 175z" />
           </svg></a></h2>
+        {% set ns = namespace(current_date="") %}
         {% for row in sql("select date, body from news order by date desc limit 15", database="content") %}
-          <h3>{{ prettydate(row["date"]) }} <a href="/news/{{ row["date"] }}" style="font-size: 0.8em; opacity: 0.4">#</a></h3>
+          {% if prettydate(row["date"]) != (ns.current_date and prettydate(ns.current_date)) %}
+            <h3>{{ prettydate(row["date"]) }} <a href="/news/{{ row["date"] }}" style="font-size: 0.8em; opacity: 0.4">#</a></h3>
+            {% set ns.current_date = prettydate(row["date"]) %}
+          {% endif %}
           {{ render_markdown(row["body"]) }}
         {% endfor %}
         <p><a href="/news">All news</a></p>

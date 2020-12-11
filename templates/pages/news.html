@@ -29,9 +29,12 @@
   width="480" height="320"
   frameborder="0" scrolling="no"></iframe>
 </div>
-
+{% set ns = namespace(current_date="") %}
 {% for row in sql("select date, body from news order by date desc", database="content") %}
-    <h3>{{ prettydate(row["date"]) }} <a href="/news/{{ row["date"] }}" style="font-size: 0.8em; opacity: 0.4">#</a></h3>
+    {% if prettydate(row["date"]) != (ns.current_date and prettydate(ns.current_date)) %}
+        <h3>{{ prettydate(row["date"]) }} <a href="/news/{{ row["date"] }}" style="font-size: 0.8em; opacity: 0.4">#</a></h3>
+        {% set ns.current_date = prettydate(row["date"]) %}
+    {% endif %}
     {{ render_markdown(row["body"]) }}
 {% endfor %}
 
