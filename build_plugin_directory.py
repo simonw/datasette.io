@@ -72,7 +72,7 @@ def fetch_plugins(oauth_token):
 @click.option("--fetch-missing-releases", is_flag=True)
 def cli(db_filename, github_token, fetch_missing_releases):
     db = sqlite_utils.Database(db_filename)
-    repos_to_fetch_releases_for = set()
+    repos_to_fetch_releases_for = {"datasette", "sqlite-utils"}
     nodes = fetch_plugins(github_token)
     for node in nodes:
         plugin, releases = transform_node(node)
