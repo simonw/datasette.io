@@ -1,5 +1,8 @@
 - date: 2020-12-10
   body: >-
+    [Datasette 0.53](https://docs.datasette.io/en/stable/changelog.html#v0-52) - `datasette serve --create` option, `?column__arraynotcontains=` table filter, `?_header=off` CSV option and updated links to reflect the new project website.
+- date: 2020-12-10
+  body: >-
     [New Datasette project website](https://datasette.io/) - three years after the first release Datasette finally has its own website! The site includes project [news](https://datasette.io/news), a [plugin directory](https://datasette.io/plugins), [use-cases](https://datasette.io/for) and [examples](https://datasette.io/examples). The site is implemented using Datasette custom templates, and the source code is available [on GitHub](https://github.com/simonw/datasette.io).
 - date: 2020-11-28
   body: >-
