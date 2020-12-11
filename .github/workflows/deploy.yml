@@ -42,6 +42,7 @@ jobs:
         yaml-to-sqlite content.db news news.yaml
     - name: Import stats.json
       run: |
+        curl -O https://raw.githubusercontent.com/simonw/package-stats/main/stats.json
         python build_stats.py content.db stats.json
     - name: Soundness check
       run: |
