@@ -60,7 +60,7 @@
     {% if row["usesCustomOpenGraphImage"] %}
         <img style="max-width: 100%" src="{{ row["openGraphImageUrl"] }}" alt="Screenshot of {{ row["full_name"] }}">
     {% endif %}
-    <p>Latest: <a href="https://github.com/{{ row["full_name"] }}/releases/tag/{{ row["tagName"] }}">{{ row["tag_name"] }}</a> on {{ prettydate(row["latest_release_at"]) }}</p>
+    <p>Latest: <a href="https://github.com/{{ row["full_name"] }}/releases/tag/{{ row["tag_name"] }}">{{ row["tag_name"] }}</a> on {{ prettydate(row["latest_release_at"]) }}</p>
 </div>
 {% else %}
     <p>No matches found</p>
