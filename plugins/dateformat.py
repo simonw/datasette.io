@@ -9,7 +9,10 @@ def suffix(d):
 
 def prettydate(date):
     if isinstance(date, str):
-        date = parser.parse(date)
+        try:
+            date = parser.parse(date)
+        except parser.ParserError:
+            return date
     return "{day}{suffix} {month} {year}".format(
         day=date.day,
         month=date.strftime("%B"),
