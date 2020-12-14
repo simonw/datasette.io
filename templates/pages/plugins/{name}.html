@@ -20,7 +20,12 @@ pre {
 .plugin article h1:first-child {
     margin-top: 0;
 }
+.plugin-downloads-and-stars span {
+    position: relative;
+    top: 0.2em;
+}
 </style>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
 <link rel="stylesheet" type="text/css" href="/static/github-light.css">
 {% endblock %}
 
@@ -58,7 +63,10 @@ where
     </a>
 </h1>
 
-<p>{% if plugin.downloads_this_week %}{{ "{:,}".format(plugin.downloads_this_week) }} downloads this week &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {% endif %}⭐ {{ plugin.stargazers_count }}</p>
+<p class="plugin-downloads-and-stars">
+    {% if plugin.downloads_this_week %}{{ "{:,}".format(plugin.downloads_this_week) }} downloads this week &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {% endif %}
+    <a class="github-button" href="https://github.com/simonw/datasette-vega" data-icon="octicon-star" data-show-count="true" aria-label="Star simonw/datasette-vega on GitHub">Star</a>
+</p>
 
 {% if plugin["usesCustomOpenGraphImage"] %}
     <img style="max-width: 100%" src="{{ plugin["openGraphImageUrl"] }}" alt="Screenshot of {{ plugin["full_name"] }}">
