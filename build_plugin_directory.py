@@ -1,5 +1,8 @@
 import click
-from github_to_sqlite.cli import releases as github_to_sqlite_releases
+from github_to_sqlite.cli import (
+    releases as github_to_sqlite_releases,
+    repos as github_to_sqlite_repos,
+)
 from python_graphql_client import GraphqlClient
 import sqlite_utils
 
@@ -14,6 +17,11 @@ query {
         nameWithOwner
         openGraphImageUrl
         usesCustomOpenGraphImage
+        defaultBranchRef {
+          target {
+            oid
+          }
+        }
         repositoryTopics(first:100) {
           totalCount
           nodes {
@@ -48,6 +56,8 @@ def transform_node(node):
         node[key] = node[key]["totalCount"]
     repository_topics = node.pop("repositoryTopics")
     node["topics"] = [n["topic"]["name"] for n in repository_topics["nodes"]]
+    default_branch_ref = node.pop("defaultBranchRef")
+    node["latest_commit"] = default_branch_ref["target"]["oid"]
     return node, releases["nodes"]
 
 
@@ -73,6 +83,15 @@ def fetch_plugins(oauth_token):
 def cli(db_filename, github_token, fetch_missing_releases):
     db = sqlite_utils.Database(db_filename)
     repos_to_fetch_releases_for = {"simonw/datasette", "simonw/sqlite-utils"}
+    if "latest_commit" not in db["plugin_repos"].columns_dict:
+        previous_hashes = {
+            row["nameWithOwner"]: None for row in db["plugin_repos"].rows
+        }
+    else:
+        previous_hashes = {
+            row["nameWithOwner"]: row["latest_commit"]
+            for row in db["plugin_repos"].rows
+        }
     nodes = fetch_plugins(github_token)
     for node in nodes:
         plugin, releases = transform_node(node)
@@ -81,6 +100,7 @@ def cli(db_filename, github_token, fetch_missing_releases):
             pk="id",
             column_order=("id", "nameWithOwner"),
             replace=True,
+            alter=True,
         )
         full_name = plugin["nameWithOwner"]
         if fetch_missing_releases:
@@ -98,6 +118,23 @@ def cli(db_filename, github_token, fetch_missing_releases):
     if repos_to_fetch_releases_for:
         github_to_sqlite_releases.callback(
             db_filename, list(repos_to_fetch_releases_for), auth="auth.json"
+        )
+
+    # Fetch README for any repos that have changed since last time
+    repos_to_fetch_readme_for = []
+    for row in db["plugin_repos"].rows:
+        if row["latest_commit"] != previous_hashes[row["nameWithOwner"]]:
+            repos_to_fetch_readme_for.append(row["nameWithOwner"])
+    if repos_to_fetch_readme_for:
+        print("Fetching README for {}".format(repos_to_fetch_readme_for))
+        github_to_sqlite_repos.callback(
+            db_filename,
+            usernames=[],
+            auth="auth.json",
+            repo=repos_to_fetch_readme_for,
+            load=None,
+            readme=True,
+            readme_html=True,
         )
 
     db.create_view(

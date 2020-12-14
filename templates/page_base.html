@@ -6,6 +6,7 @@
   <title>{% block title %}{% endblock %}</title>
   <link rel="stylesheet" type="text/css" href="/static/site.css">
 {% include "_google_analytics.html" %}
+{% block extra_head %}{% endblock %}
 </head>
 <body class="page {% block body_class %}{% endblock %}">
   <header>

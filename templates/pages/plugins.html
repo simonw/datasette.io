@@ -60,7 +60,7 @@
 
 {% for row in sql(query, {"q": args["q"] or ""}, database="content") %}
 <div class="plugin">
-    <h3><a href="https://github.com/{{ row["full_name"] }}">{{ row["name"] }}</a></h3>
+    <h3><a href="/plugins/{{ row["name"] }}">{{ row["name"] }}</a></h3>
     <p>{{ row["description"] }}</p>
     <p>{% if row.downloads_this_week %}{{ "{:,}".format(row.downloads_this_week) }} downloads this week &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {% endif %}⭐ {{ row.stargazers_count }}</p>
     {% if row["usesCustomOpenGraphImage"] %}
