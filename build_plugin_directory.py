@@ -111,11 +111,13 @@ select
   releases.tag_name,
   max(releases.created_at) as latest_release_at,
   plugin_repos.openGraphImageUrl,
-  plugin_repos.usesCustomOpenGraphImage
+  plugin_repos.usesCustomOpenGraphImage,
+  sum(stats.downloads) as downloads_this_week
 from
   plugin_repos
   join repos on plugin_repos.id = repos.node_id
   join releases on repos.id = releases.repo
+  left join stats on repos.name = stats.package and stats.date > date('now', '-7 days')
 group by
   repos.id
 order by

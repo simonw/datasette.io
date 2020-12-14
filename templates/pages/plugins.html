@@ -50,13 +50,19 @@
 {% if args.q %}
     {% set query = "select * from plugins where name like '%' || :q || '%' or description like '%' || :q || '%'" %}
 {% else %}
-    {% set query = "select * from plugins order by stargazers_count desc" %}
+    <p>Sort by 
+        {% if args.sort %}<a href="/plugins">stars</a>{% else %}<strong>stars</strong>{%  endif %} &middot;
+        {% if args.sort != "downloads-this-week" %}<a href="?sort=downloads-this-week">downloads this week</a>{% else %}<strong>downloads this week</strong>{%  endif %} &middot;
+        {% if args.sort != "released" %}<a href="?sort=released">last released</a>{% else %}<strong>released</strong>{%  endif %}
+    </p>
+    {% set query = "select * from plugins order by {} desc".format({"downloads-this-week": "downloads_this_week", "released": "latest_release_at"}.get(args.sort, "stargazers_count")) %}
 {% endif %}
 
 {% for row in sql(query, {"q": args["q"] or ""}, database="content") %}
 <div class="plugin">
     <h3><a href="https://github.com/{{ row["full_name"] }}">{{ row["name"] }}</a></h3>
     <p>{{ row["description"] }}</p>
+    <p>{% if row.downloads_this_week %}{{ "{:,}".format(row.downloads_this_week) }} downloads this week &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {% endif %}⭐ {{ row.stargazers_count }}</p>
     {% if row["usesCustomOpenGraphImage"] %}
         <img style="max-width: 100%" src="{{ row["openGraphImageUrl"] }}" alt="Screenshot of {{ row["full_name"] }}">
     {% endif %}
