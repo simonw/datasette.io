@@ -1,0 +1,90 @@
+docs-index.db:
+    sections:
+        sql: |-
+            select
+              id as key,
+              title as title,
+              content as search_1,
+              null as timestamp,
+              1 as is_public
+            from
+              sections
+        display_sql: |-
+            select
+              page,
+              ref,
+              snippet(
+                sections_fts,
+                -1,
+                'b4de2a49c8',
+                '8c94a2ed4b',
+                '...',
+                60
+              ) as snippet
+            from
+              sections
+              join sections_fts on sections.rowid = sections_fts.rowid
+            where
+              sections_fts match escape_fts(:q)
+              and id = :key
+        display: |-
+            <h3>Docs: <a href="https://docs.datasette.io/en/latest/{{ display.page }}.html#{{ display.ref }}">{{ title }}</a></h3>
+            <p>{{ display.snippet.replace('b4de2a49c8', '<strong style="background-color: yellow">').replace('8c94a2ed4b', '</strong>')|safe }}</p>
+content.db:
+    plugins:
+        sql: |-
+            select
+                plugins.name as key,
+                plugins.name as title,
+                plugins.latest_release_at as timestamp,
+                plugins.description as search_1,
+                1 as is_public
+            from plugins
+        display: |-
+            <h3>Plugin: <a href="/plugins/{{ title }}">{{ title }}</a></h3>
+            <p>{{ search_1 }}</p>
+    releases:
+        sql: |-
+            select
+              releases.id as key,
+              repos.name || ' ' || releases.tag_name as title,
+              releases.published_at as timestamp,
+              releases.body as search_1,
+              1 as is_public
+            from
+              releases
+              join repos on releases.repo = repos.id
+        display_sql: |-
+            select
+              render_markdown(releases.body) as rendered_markdown,
+              html_url
+            from releases where id = :key
+        display: |-
+            <h3>Release: <a href="{{ display.html_url }}">{{ title }}</a></h3>
+            <p>{{ display.rendered_markdown|safe }}</p>
+            <p><small>Released {{ timestamp }}</small></p>
+    news:
+        sql: |-
+            select
+              date as key,
+              'Datasette News: ' || date as title,
+              date || 'T00:00:00-08:00' as timestamp,
+              group_concat(body, '
+
+            ') as search_1,
+              1 as is_public
+            from
+              news
+            group by
+              date
+            order by
+              date desc
+        display_sql: |-
+            select
+              render_markdown(group_concat(body, '
+
+            ')) as rendered_markdown
+            from news where date = :key
+        display: |-
+            <h3><a href="/news/{{ key }}">{{ title }}</a></h3>
+            <p>{{ display.rendered_markdown|safe }}</p>

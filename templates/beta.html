@@ -1,0 +1,113 @@
+{% extends "page_base.html" %}
+
+{% block title %}Datasette search{% if q %}: {{ q }}{% endif %}{% endblock %}
+
+{% block content %}
+<style>
+.result {
+    padding: 1em 0;
+    border-bottom: 1px solid #666;
+}
+.result img {
+    max-width: 100%;
+}
+.facet h2 {
+    font-size: 1em;
+}
+.facet .x:link,
+.facet .x:visited,
+.facet .x:hover,
+.facet .x:focus,
+.facet .x:active {
+    text-decoration: none;
+}
+.facet .label {
+    word-wrap: break-word;
+}
+aside {
+    float: right;
+    width: 30%;
+}
+section.results {
+    margin-right: 30%;
+    padding-right: 2em;
+}
+pre, blockquote {
+    white-space: pre-wrap;
+}
+
+.beta-search input {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 9px 4px;
+    margin-right: 1em;
+}
+.beta-search input[type="submit"] {
+    color: #fff;
+    background-color: #8484f4;
+    border-color: #0e0c82;
+    -webkit-appearance: button;
+    font-weight: 400;
+    cursor: pointer;
+    text-align: center;
+    vertical-align: middle;
+    border-width: 1px;
+    border-style: solid;
+    padding: .4em 0.8em;
+    font-size: 0.9rem;
+    line-height: 1;
+    border-radius: .25rem;
+}
+</style>
+<h1>Search{% if q %}: {{ q }}{% endif %}</h1>
+
+<form action="/-/beta" method="get" class="beta-search"><div>
+    <input type="search" name="q" value="{{ q }}" id="q" style="min-width: 50%">
+    {% if sorted_by != "newest" %}
+        <input type="hidden" name="sort" value="{{ sorted_by }}">
+    {% endif %}
+    <input type="submit" value="Search">
+    {% for hidden in hiddens %}
+        <input type="hidden" name="{{ hidden.name }}" value="{{ hidden.value }}">
+    {% endfor %}
+</div></form>
+
+<p>Got {{ intcomma(count) }} result{% if count != 1 %}s{% endif %}, sorted by
+    <strong>{{ sorted_by }}</strong> /
+    {% for other_sort_order in other_sort_orders %}
+        <a href="{{ other_sort_order.url }}">{{ other_sort_order.label }}</a>{% if not loop.last %} / {% endif %}
+    {% endfor %}
+</p>
+
+<aside>
+{% if facets %}
+    {% for facet in facets %}
+        {% if facet.results %}
+            <div class="facet">
+                <h2>{{ facet.name }}</h2>
+                <ul>
+                {% for item in facet.results %}
+                    <li{% if item.selected %} class="selected"{% endif %}>
+                        {% if item.selected %}
+                            <span class="label">{{ item.label }}</span> <a href="{{ item.toggle_url }}" class="x">✖</a>
+                        {% else %}
+                        <a href="{{ item.toggle_url }}" class="label">{{ item.label }}</a>
+                        {% endif %}
+                        - <span class="count">{{ intcomma(item.count) }}</span>
+                    </li>
+                {% endfor %}
+                </ul>
+            </div>
+        {% endif %}
+    {% endfor %}
+{% endif %}
+</aside>
+
+<section class="results">
+{% for result in results %}
+    <div class="result" data-table-key="{{ result.type }}:{{ result.key }}">
+        {{ result.output|safe }}
+    </div>
+{% endfor %}
+</section>
+{% endblock %}

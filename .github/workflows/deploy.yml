@@ -43,15 +43,20 @@ jobs:
       run: |
         sqlite-utils content.db 'drop table if exists news'
         yaml-to-sqlite content.db news news.yaml
+    - name: Fetch documentation database for search index
+      run: curl -o docs-index.db https://latest-docs.datasette.io/docs.db
     - name: Import stats.json
       run: |
         curl -O https://raw.githubusercontent.com/simonw/package-stats/main/stats.json
         python build_stats.py content.db stats.json
+    - name: Build search index
+      run: dogsheep-beta index dogsheep-index.db dogsheep-beta.yml
     - name: Soundness check
       run: |
         datasette . --get "/"
         datasette . --get "/plugins"
         datasette . --get "/news"
+        datasette . --get "/-/beta"
     - name: Set up Cloud Run
       uses: google-github-actions/setup-gcloud@master
       with:
@@ -62,7 +67,7 @@ jobs:
       run: |-
         gcloud config set run/region us-central1
         gcloud config set project datasette-222320
-        datasette publish cloudrun content.db \
+        datasette publish cloudrun content.db docs-index.db dogsheep-index.db \
           --service datasette-io \
           --template-dir=templates \
           --metadata=metadata.yml \
@@ -73,4 +78,5 @@ jobs:
           --install=python-dateutil \
           --install=datasette-vega \
           --install=datasette-atom \
-          --install=datasette-graphql
+          --install=datasette-graphql \
+          --install 'dogsheep-beta>=0.10'

@@ -25,3 +25,8 @@ databases:
             date desc
           limit
             20
+plugins:
+  dogsheep-beta:
+    database: dogsheep-index
+    config_file: dogsheep-beta.yml
+    template_debug: true
