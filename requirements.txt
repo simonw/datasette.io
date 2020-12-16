@@ -8,6 +8,6 @@ datasette-atom
 datasette-graphql
 sqlite-utils
 yaml-to-sqlite
-github-to-sqlite
+github-to-sqlite>=2.8.2
 python-graphql-client
 httpx

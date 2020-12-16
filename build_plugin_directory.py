@@ -80,7 +80,8 @@ def fetch_plugins(oauth_token):
 )
 @click.option("--github-token", envvar="GITHUB_TOKEN", required=True)
 @click.option("--fetch-missing-releases", is_flag=True)
-def cli(db_filename, github_token, fetch_missing_releases):
+@click.option("--force-fetch-readmes", is_flag=True)
+def cli(db_filename, github_token, fetch_missing_releases, force_fetch_readmes):
     db = sqlite_utils.Database(db_filename)
     repos_to_fetch_releases_for = {"simonw/datasette", "simonw/sqlite-utils"}
     if "latest_commit" not in db["plugin_repos"].columns_dict:
@@ -123,7 +124,7 @@ def cli(db_filename, github_token, fetch_missing_releases):
     # Fetch README for any repos that have changed since last time
     repos_to_fetch_readme_for = []
     for row in db["plugin_repos"].rows:
-        if row["latest_commit"] != previous_hashes[row["nameWithOwner"]]:
+        if row["latest_commit"] != previous_hashes[row["nameWithOwner"]] or force_fetch_readmes:
             repos_to_fetch_readme_for.append(row["nameWithOwner"])
     if repos_to_fetch_readme_for:
         print("Fetching README for {}".format(repos_to_fetch_readme_for))
