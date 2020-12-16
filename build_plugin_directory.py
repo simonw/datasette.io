@@ -7,12 +7,7 @@ from python_graphql_client import GraphqlClient
 import sqlite_utils
 
 
-QUERY = """
-query {
-  search(query:"topic:datasette-io topic:datasette-plugin user:simonw" type:REPOSITORY, first:100) {
-    repositoryCount
-    nodes {
-      ... on Repository {
+REPO_FIELDS = """
         id
         nameWithOwner
         openGraphImageUrl
@@ -42,11 +37,46 @@ query {
             tagName
           }
         }
+"""
+
+
+def build_query(extra_repos=None):
+    extra_repos = extra_repos or []
+    extra_repo_fragments = []
+    for i, repo in enumerate(extra_repos):
+        owner, name = repo.split("/")
+        extra_repo_fragments.append(
+            """
+        repo_{i}: repository(name: "{name}", owner: "{owner}") {open_curly}
+          {REPO_FIELDS}
+        {close_curly}
+        """.format(
+                REPO_FIELDS=REPO_FIELDS,
+                i=i,
+                name=name,
+                owner=owner,
+                open_curly="{",
+                close_curly="}",
+            )
+        )
+
+    return """
+    query {
+      EXTRA_REPOS
+      search(query:"topic:datasette-io topic:datasette-plugin user:simonw" type:REPOSITORY, first:100) {
+        repositoryCount
+        nodes {
+          ... on Repository {
+            REPO_FIELDS
+          }
+        }
       }
     }
-  }
-}
-"""
+    """.replace(
+        "REPO_FIELDS", REPO_FIELDS
+    ).replace(
+        "EXTRA_REPOS", "\n".join(extra_repo_fragments)
+    )
 
 
 def transform_node(node):
@@ -64,12 +94,18 @@ def transform_node(node):
 client = GraphqlClient(endpoint="https://api.github.com/graphql")
 
 
-def fetch_plugins(oauth_token):
+def fetch_plugins(oauth_token, extra_repos):
+    query = build_query(extra_repos)
     data = client.execute(
-        query=QUERY,
+        query=query,
         headers={"Authorization": "Bearer {}".format(oauth_token)},
     )
+    assert "errors" not in data, data["errors"]
     nodes = data["data"]["search"]["nodes"]
+    # Add any repo_i keys too
+    for key in data["data"]:
+        if key.startswith("repo_"):
+            nodes.append(data["data"][key])
     return nodes
 
 
@@ -81,7 +117,10 @@ def fetch_plugins(oauth_token):
 @click.option("--github-token", envvar="GITHUB_TOKEN", required=True)
 @click.option("--fetch-missing-releases", is_flag=True)
 @click.option("--force-fetch-readmes", is_flag=True)
-def cli(db_filename, github_token, fetch_missing_releases, force_fetch_readmes):
+@click.option("-r", "--extra-repo", "extra_repos", multiple=True)
+def cli(
+    db_filename, github_token, fetch_missing_releases, force_fetch_readmes, extra_repos
+):
     db = sqlite_utils.Database(db_filename)
     repos_to_fetch_releases_for = {"simonw/datasette", "simonw/sqlite-utils"}
     if "latest_commit" not in db["plugin_repos"].columns_dict:
@@ -93,7 +132,7 @@ def cli(db_filename, github_token, fetch_missing_releases, force_fetch_readmes):
             row["nameWithOwner"]: row["latest_commit"]
             for row in db["plugin_repos"].rows
         }
-    nodes = fetch_plugins(github_token)
+    nodes = fetch_plugins(github_token, extra_repos=extra_repos)
     for node in nodes:
         plugin, releases = transform_node(node)
         db["plugin_repos"].insert(
@@ -124,7 +163,10 @@ def cli(db_filename, github_token, fetch_missing_releases, force_fetch_readmes):
     # Fetch README for any repos that have changed since last time
     repos_to_fetch_readme_for = []
     for row in db["plugin_repos"].rows:
-        if row["latest_commit"] != previous_hashes[row["nameWithOwner"]] or force_fetch_readmes:
+        if (
+            row["latest_commit"] != previous_hashes.get(row["nameWithOwner"])
+            or force_fetch_readmes
+        ):
             repos_to_fetch_readme_for.append(row["nameWithOwner"])
     if repos_to_fetch_readme_for:
         print("Fetching README for {}".format(repos_to_fetch_readme_for))

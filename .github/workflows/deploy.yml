@@ -35,7 +35,7 @@ jobs:
         curl -O https://datasette.io/content.db
     - name: Fetch plugins data
       run: |
-        eval "python build_plugin_directory.py content.db --fetch-missing-releases $build_plugin_directory_extras"
+        eval "python build_plugin_directory.py content.db --fetch-missing-releases $build_plugin_directory_extras --extra-repo dogsheep/dogsheep-beta"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         build_plugin_directory_extras: ${{ github.event.inputs.build_plugin_directory_extras }}
