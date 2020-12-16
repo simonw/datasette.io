@@ -50,7 +50,7 @@ jobs:
         curl -O https://raw.githubusercontent.com/simonw/package-stats/main/stats.json
         python build_stats.py content.db stats.json
     - name: Build search index
-      run: dogsheep-beta index dogsheep-index.db dogsheep-beta.yml
+      run: dogsheep-beta index dogsheep-index.db templates/dogsheep-beta.yml
     - name: Soundness check
       run: |
         datasette . --get "/"

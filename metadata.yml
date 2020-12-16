@@ -28,5 +28,5 @@ databases:
 plugins:
   dogsheep-beta:
     database: dogsheep-index
-    config_file: dogsheep-beta.yml
+    config_file: templates/dogsheep-beta.yml
     template_debug: true
