@@ -193,3 +193,29 @@ body.page header {
         animation: octocat-wave 560ms ease-in-out
     }
 }
+
+.beta-search {
+    margin-bottom: 1em;
+}
+.beta-search input {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 9px 4px;
+    margin-right: 1em;
+}
+.beta-search input[type="submit"] {
+    color: #fff;
+    background-color: #8484f4;
+    border-color: #0e0c82;
+    -webkit-appearance: button;
+    font-weight: 400;
+    cursor: pointer;
+    text-align: center;
+    vertical-align: middle;
+    border-width: 1px;
+    border-style: solid;
+    padding: .4em 0.8em;
+    font-size: 0.9rem;
+    line-height: 1;
+    border-radius: .25rem;
+}
