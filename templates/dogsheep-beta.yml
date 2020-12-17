@@ -22,6 +22,7 @@ blog.db:
         display: |-
             <h3>Blog: <a href="{{ display.url }}">{{ title }}</a></h3>
             <p>{{ display.snippet|safe }}</p>
+            <p><small>Published {{ timestamp }}</small></p>
 
 docs-index.db:
     sections:
@@ -69,7 +70,9 @@ content.db:
             select
               highlight(
                 plugins.description || ' ' || coalesce(repos.readme_html, ''), :q
-              ) as snippet
+              ) as snippet,
+              usesCustomOpenGraphImage,
+              openGraphImageUrl
             from
               plugins join repos on plugins.name = repos.name
             where
@@ -77,6 +80,9 @@ content.db:
         display: |-
             <h3>Plugin: <a href="/plugins/{{ title }}">{{ title }}</a></h3>
             <p>{{ display.snippet|safe }}</p>
+            {% if display.usesCustomOpenGraphImage %}
+              <p><img src="{{ display.openGraphImageUrl }}" alt="" style="max-width: 100%"></p>
+            {% endif %}
     releases:
         sql: |-
             select
