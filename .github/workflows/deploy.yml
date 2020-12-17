@@ -45,6 +45,8 @@ jobs:
         yaml-to-sqlite content.db news news.yaml
     - name: Fetch documentation database for search index
       run: curl -o docs-index.db https://latest-docs.datasette.io/docs.db
+    - name: Fetch my relevant blog content
+      run: python fetch_blog_content.py blog.db datasette dogsheep sqliteutils
     - name: Import stats.json
       run: |
         curl -O https://raw.githubusercontent.com/simonw/package-stats/main/stats.json

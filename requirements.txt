@@ -12,3 +12,4 @@ yaml-to-sqlite
 github-to-sqlite>=2.8.2
 python-graphql-client
 httpx
+feedparser
