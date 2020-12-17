@@ -1,3 +1,28 @@
+blog.db:
+    entries:
+        sql: |-
+            select
+              id as key,
+              title,
+              body as search_1,
+              published as timestamp,
+              1 as is_public
+            from
+              entries
+        display_sql: |-
+            select
+              url,
+              highlight(
+                body, :q
+              ) as snippet
+            from
+              entries
+            where
+              entries.id = :key
+        display: |-
+            <h3>Blog: <a href="{{ display.url }}">{{ title }}</a></h3>
+            <p>{{ display.snippet|safe }}</p>
+
 docs-index.db:
     sections:
         sql: |-
@@ -37,12 +62,21 @@ content.db:
                 plugins.name as key,
                 plugins.name as title,
                 plugins.latest_release_at as timestamp,
-                plugins.description as search_1,
+                plugins.description || ' ' || coalesce(repos.readme, '') as search_1,
                 1 as is_public
-            from plugins
+            from plugins join repos on plugins.name = repos.name
+        display_sql: |-
+            select
+              highlight(
+                plugins.description || ' ' || coalesce(repos.readme_html, ''), :q
+              ) as snippet
+            from
+              plugins join repos on plugins.name = repos.name
+            where
+              plugins.name = :key
         display: |-
             <h3>Plugin: <a href="/plugins/{{ title }}">{{ title }}</a></h3>
-            <p>{{ search_1 }}</p>
+            <p>{{ display.snippet|safe }}</p>
     releases:
         sql: |-
             select
@@ -56,12 +90,12 @@ content.db:
               join repos on releases.repo = repos.id
         display_sql: |-
             select
-              render_markdown(releases.body) as rendered_markdown,
+              highlight(render_markdown(releases.body), :q) as snippet,
               html_url
             from releases where id = :key
         display: |-
             <h3>Release: <a href="{{ display.html_url }}">{{ title }}</a></h3>
-            <p>{{ display.rendered_markdown|safe }}</p>
+            <p>{{ display.snippet|safe }}</p>
             <p><small>Released {{ timestamp }}</small></p>
     news:
         sql: |-
