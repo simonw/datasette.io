@@ -6,8 +6,8 @@ on:
     inputs:
       from_scratch:
         description: Enter 'skip' to create a new database from scratch
-      build_plugin_directory_extras:
-        description: Extra command-line options to pass to build_plugin_directory
+      build_directory_extras:
+        description: Extra command-line options to pass to build_directory
 
 jobs:
   scheduled:
@@ -40,10 +40,10 @@ jobs:
       continue-on-error: true
     - name: Fetch plugins data
       run: |
-        eval "python build_plugin_directory.py content.db --fetch-missing-releases $build_plugin_directory_extras --owner simonw --owner dogsheep"
+        eval "python build_directory.py content.db --fetch-missing-releases $build_directory_extras --owner simonw --owner dogsheep"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        build_plugin_directory_extras: ${{ github.event.inputs.build_plugin_directory_extras }}
+        build_directory_extras: ${{ github.event.inputs.build_directory_extras }}
     - name: Populate news database
       run: |
         sqlite-utils content.db 'drop table if exists news'
