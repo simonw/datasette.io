@@ -157,7 +157,7 @@ def cli(
     nodes = fetch_plugins(github_token, extra_repos=extra_repos)
     for node in nodes:
         if owners and not any(
-            node["nameWithOwne"].startswith("{}/".format(owner)) for owner in owners
+            node["nameWithOwner"].startswith("{}/".format(owner)) for owner in owners
         ):
             # Skip this one
             continue
