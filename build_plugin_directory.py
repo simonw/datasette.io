@@ -63,7 +63,15 @@ def build_query(extra_repos=None):
     return """
     query {
       EXTRA_REPOS
-      search(query:"topic:datasette-io topic:datasette-plugin user:simonw" type:REPOSITORY, first:100) {
+      plugins: search(query:"topic:datasette-io topic:datasette-plugin" type:REPOSITORY, first:100) {
+        repositoryCount
+        nodes {
+          ... on Repository {
+            REPO_FIELDS
+          }
+        }
+      }
+      tools: search(query:"topic:datasette-io topic:datasette-tool" type:REPOSITORY, first:100) {
         repositoryCount
         nodes {
           ... on Repository {
@@ -101,7 +109,7 @@ def fetch_plugins(oauth_token, extra_repos):
         headers={"Authorization": "Bearer {}".format(oauth_token)},
     )
     assert "errors" not in data, data["errors"]
-    nodes = data["data"]["search"]["nodes"]
+    nodes = data["data"]["plugins"]["nodes"] + data["data"]["tools"]["nodes"]
     # Add any repo_i keys too
     for key in data["data"]:
         if key.startswith("repo_"):
@@ -118,24 +126,43 @@ def fetch_plugins(oauth_token, extra_repos):
 @click.option("--fetch-missing-releases", is_flag=True)
 @click.option("--force-fetch-readmes", is_flag=True)
 @click.option("-r", "--extra-repo", "extra_repos", multiple=True)
+@click.option(
+    "--owner",
+    "owners",
+    multiple=True,
+    help="Only repos by these owners will be imported",
+)
 def cli(
-    db_filename, github_token, fetch_missing_releases, force_fetch_readmes, extra_repos
+    db_filename,
+    github_token,
+    fetch_missing_releases,
+    force_fetch_readmes,
+    extra_repos,
+    owners,
 ):
     db = sqlite_utils.Database(db_filename)
+    if "plugin_repos" in db.table_names():
+        # Rename to datasette_repos
+        db.execute("alter table plugin_repos rename to datasette_repos")
     repos_to_fetch_releases_for = {"simonw/datasette", "simonw/sqlite-utils"}
-    if "latest_commit" not in db["plugin_repos"].columns_dict:
+    if "latest_commit" not in db["datasette_repos"].columns_dict:
         previous_hashes = {
-            row["nameWithOwner"]: None for row in db["plugin_repos"].rows
+            row["nameWithOwner"]: None for row in db["datasette_repos"].rows
         }
     else:
         previous_hashes = {
             row["nameWithOwner"]: row["latest_commit"]
-            for row in db["plugin_repos"].rows
+            for row in db["datasette_repos"].rows
         }
     nodes = fetch_plugins(github_token, extra_repos=extra_repos)
     for node in nodes:
+        if owners and not any(
+            node["nameWithOwne"].startswith("{}/".format(owner)) for owner in owners
+        ):
+            # Skip this one
+            continue
         plugin, releases = transform_node(node)
-        db["plugin_repos"].insert(
+        db["datasette_repos"].insert(
             plugin,
             pk="id",
             column_order=("id", "nameWithOwner"),
@@ -162,7 +189,7 @@ def cli(
 
     # Fetch README for any repos that have changed since last time
     repos_to_fetch_readme_for = []
-    for row in db["plugin_repos"].rows:
+    for row in db["datasette_repos"].rows:
         if (
             row["latest_commit"] != previous_hashes.get(row["nameWithOwner"])
             or force_fetch_readmes
@@ -180,8 +207,9 @@ def cli(
             readme_html=True,
         )
 
-    db.create_view(
-        "plugins",
+    for view_name, topic in (("plugins", "datasette-plugin"), ("tools", "datasette-tool")):
+        db.create_view(
+            view_name,
         """
 select
   repos.name as name,
@@ -190,8 +218,8 @@ select
   repos.stargazers_count,
   releases.tag_name,
   max(releases.created_at) as latest_release_at,
-  plugin_repos.openGraphImageUrl,
-  plugin_repos.usesCustomOpenGraphImage,
+  datasette_repos.openGraphImageUrl,
+  datasette_repos.usesCustomOpenGraphImage,
   (
     select
       sum(downloads)
@@ -202,14 +230,24 @@ select
       and stats.date > date('now', '-7 days')
   ) as downloads_this_week
 from
-  plugin_repos
-  join repos on plugin_repos.id = repos.node_id
+  datasette_repos
+  join repos on datasette_repos.id = repos.node_id
   join releases on repos.id = releases.repo
+where
+  datasette_repos.rowid in (
+    select
+      datasette_repos.rowid
+    from
+      datasette_repos,
+      json_each(datasette_repos.topics) j
+    where
+      j.value = '{}'
+  )
 group by
   repos.id
 order by
   latest_release_at desc
-""".strip(),
+""".format(topic).strip(),
         replace=True,
     )
 

@@ -40,7 +40,7 @@ jobs:
       continue-on-error: true
     - name: Fetch plugins data
       run: |
-        eval "python build_plugin_directory.py content.db --fetch-missing-releases $build_plugin_directory_extras --extra-repo dogsheep/dogsheep-beta"
+        eval "python build_plugin_directory.py content.db --fetch-missing-releases $build_plugin_directory_extras --owner simonw --owner dogsheep"
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         build_plugin_directory_extras: ${{ github.event.inputs.build_plugin_directory_extras }}

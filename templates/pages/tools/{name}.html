@@ -1,0 +1,85 @@
+{% extends "page_base.html" %}
+
+{% block title %}{{ name }} - a tool for Datasette{% endblock %}
+
+{% block extra_head %}
+<style>
+pre {
+    white-space: pre-wrap;
+}
+.plugin {
+    border: 1px solid #ccc;
+    margin-bottom: 1em;
+    border-radius: 10px;
+    background-color: white;
+    padding: 1em;
+}
+.plugin article h1:first-child {
+    margin-top: 0;
+}
+.plugin-downloads-and-stars span {
+    position: relative;
+    top: 0.2em;
+}
+svg.octicon-link {
+    margin-right: 0.3em;
+    opacity: 0.8;
+    height: 15px;
+    width: 15px;
+}
+</style>
+<script async defer src="https://buttons.github.io/buttons.js"></script>
+<link rel="stylesheet" type="text/css" href="/static/github-light.css">
+{% endblock %}
+
+{% block content %}
+
+<p class="breadcrumbs"><a href="/tools">Tools</a> &gt; {{ name }}</p> 
+
+{% set tools = sql("""
+select
+    tools.*,
+    repos.readme_html as readme_html
+from
+    repos
+join
+    tools on repos.full_name = tools.full_name
+where
+    repos.name = :name
+""", {"name": name}, database="content") %}
+{% if not tools %}
+    {{ raise_404("Tool not found") }}
+{% endif %}
+{% set tool = tools[0] %}
+
+<h1>{{ tool["name"] }}
+    <a href="https://github.com/{{ tool["full_name"] }}">
+        <svg xmlns="http://www.w3.org/2000/svg"
+            aria-label="GitHub" role="img"
+            style="width: 0.8em; margin-left: 0.5em;"
+            viewBox="0 0 512 512"><rect
+            width="512" height="512"
+            rx="15%"
+            fill="#1B1817"/>
+        <path fill="#fff" d="M335 499c14 0 12 17 12 17H165s-2-17 12-17c13 0 16-6 16-12l-1-50c-71 16-86-28-86-28-12-30-28-37-28-37-24-16 1-16 1-16 26 2 40 26 40 26 22 39 59 28 74 22 2-17 9-28 16-35-57-6-116-28-116-126 0-28 10-51 26-69-3-6-11-32 3-67 0 0 21-7 70 26 42-12 86-12 128 0 49-33 70-26 70-26 14 35 6 61 3 67 16 18 26 41 26 69 0 98-60 120-117 126 10 8 18 24 18 48l-1 70c0 6 3 12 16 12z"/>
+        </svg>
+    </a>
+</h1>
+
+<p class="plugin-downloads-and-stars">
+    {% if tool.downloads_this_week %}{{ "{:,}".format(tool.downloads_this_week) }} downloads this week &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {% endif %}
+    <a class="github-button" href="https://github.com/simonw/datasette-vega" data-icon="octicon-star" data-show-count="true" aria-label="Star simonw/datasette-vega on GitHub">Star</a>
+</p>
+
+{% if tool["usesCustomOpenGraphImage"] %}
+    <img style="max-width: 100%" src="{{ tool["openGraphImageUrl"] }}" alt="Screenshot of {{ tool["full_name"] }}">
+{% endif %}
+
+{% if tool.readme_html %}
+    <h2>README</h2>
+    <div class="plugin">
+    {{ tool.readme_html|safe }}
+    </div>
+{% endif %}
+
+{% endblock %}
