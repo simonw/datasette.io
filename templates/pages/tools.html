@@ -1,6 +1,6 @@
 {% extends "page_base.html" %}
 
-{% block title %}Datasette Plugins{% endblock %}
+{% block title %}Datasette Tools{% endblock %}
 
 {% block content %}
 <style type="text/css">
@@ -40,7 +40,7 @@
 </style>
 <h1>Datasette Tools</h1>
 
-<p>Tools for using with Datasette.</p>
+<p>Datasette is built on top of <a href="https://www.sqlite.org/">SQLite</a>. The Datasette ecosystem includes a growing collection of tools for creating and manipulating SQLite databases, and importing data into them from a variety of different sources.</p>
 
 <form action="/tools" class="plugin-search">
     <p><input type="search" name="q" value="{{ args.q }}" placeholder="Search {{ sql("select count(*) from tools", database="content")[0][0] }} tools, e.g. yaml" style="min-width: 50%"><input type="submit" value="Search"></p>
