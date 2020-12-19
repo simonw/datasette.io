@@ -86,4 +86,4 @@ jobs:
           --install=datasette-vega \
           --install=datasette-atom \
           --install=datasette-graphql \
-          --install 'dogsheep-beta>=0.10'
+          --install 'dogsheep-beta>=0.10.1'
