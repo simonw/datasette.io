@@ -10,6 +10,7 @@ import sqlite_utils
 REPO_FIELDS = """
         id
         nameWithOwner
+        createdAt
         openGraphImageUrl
         usesCustomOpenGraphImage
         defaultBranchRef {
@@ -207,10 +208,13 @@ def cli(
             readme_html=True,
         )
 
-    for view_name, topic in (("plugins", "datasette-plugin"), ("tools", "datasette-tool")):
+    for view_name, topic in (
+        ("plugins", "datasette-plugin"),
+        ("tools", "datasette-tool"),
+    ):
         db.create_view(
             view_name,
-        """
+            """
 select
   repos.name as name,
   repos.full_name as full_name,
@@ -218,6 +222,7 @@ select
   repos.stargazers_count,
   releases.tag_name,
   max(releases.created_at) as latest_release_at,
+  repos.created_at as created_at,
   datasette_repos.openGraphImageUrl,
   datasette_repos.usesCustomOpenGraphImage,
   (
@@ -247,9 +252,11 @@ group by
   repos.id
 order by
   latest_release_at desc
-""".format(topic).strip(),
-        replace=True,
-    )
+""".format(
+                topic
+            ).strip(),
+            replace=True,
+        )
 
 
 if __name__ == "__main__":

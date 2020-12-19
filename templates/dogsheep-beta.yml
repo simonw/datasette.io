@@ -62,7 +62,7 @@ content.db:
             select
                 tools.name as key,
                 tools.name as title,
-                tools.latest_release_at as timestamp,
+                tools.created_at as timestamp,
                 tools.description || ' ' || coalesce(repos.readme, '') as search_1,
                 1 as is_public
             from tools join repos on tools.name = repos.name
@@ -83,12 +83,13 @@ content.db:
             {% if display.usesCustomOpenGraphImage %}
               <p><img src="{{ display.openGraphImageUrl }}" alt="" style="max-width: 100%"></p>
             {% endif %}
+            <p><small>Created {{ timestamp }}</small></p>
     plugins:
         sql: |-
             select
                 plugins.name as key,
                 plugins.name as title,
-                plugins.latest_release_at as timestamp,
+                plugins.created_at as timestamp,
                 plugins.description || ' ' || coalesce(repos.readme, '') as search_1,
                 1 as is_public
             from plugins join repos on plugins.name = repos.name
@@ -109,6 +110,7 @@ content.db:
             {% if display.usesCustomOpenGraphImage %}
               <p><img src="{{ display.openGraphImageUrl }}" alt="" style="max-width: 100%"></p>
             {% endif %}
+            <p><small>Created {{ timestamp }}</small></p>
     releases:
         sql: |-
             select
