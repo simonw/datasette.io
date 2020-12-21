@@ -1,74 +1,10 @@
-{% extends "page_base.html" %}
+{% extends "_directory.html" %}
+{% set table = "tools" %}
 
 {% block title %}Datasette Tools{% endblock %}
 
-{% block content %}
-<style type="text/css">
-
-.plugin-search input {
-    border: 1px solid #ccc;
-    border-radius: 3px;
-    padding: 9px 4px;
-    margin-right: 1em;
-}
-.plugin-search input[type="submit"] {
-    color: #fff;
-    background-color: #8484f4;
-    border-color: #0e0c82;
-    -webkit-appearance: button;
-    font-weight: 400;
-    cursor: pointer;
-    text-align: center;
-    vertical-align: middle;
-    border-width: 1px;
-    border-style: solid;
-    padding: .4em 0.8em;
-    font-size: 0.9rem;
-    line-height: 1;
-    border-radius: .25rem;
-}
-.plugin {
-    border: 1px solid #ccc;
-    margin-bottom: 1em;
-    border-radius: 10px;
-    background-color: white;
-    padding: 1em;
-}
-.plugin h3 {
-    margin-top: 0;
-}
-</style>
+{% block top_matter %}
 <h1>Datasette Tools</h1>
 
 <p>Datasette is built on top of <a href="https://www.sqlite.org/">SQLite</a>. The Datasette ecosystem includes a growing collection of tools for creating and manipulating SQLite databases, and importing data into them from a variety of different sources.</p>
-
-<form action="/tools" class="plugin-search">
-    <p><input type="search" name="q" value="{{ args.q }}" placeholder="Search {{ sql("select count(*) from tools", database="content")[0][0] }} tools, e.g. yaml" style="min-width: 50%"><input type="submit" value="Search"></p>
-</form>
-
-{% if args.q %}
-    {% set query = "select * from tools where name like '%' || :q || '%' or description like '%' || :q || '%'" %}
-{% else %}
-    <p>Sort by 
-        {% if args.sort %}<a href="/tools">stars</a>{% else %}<strong>stars</strong>{%  endif %} &middot;
-        {% if args.sort != "downloads-this-week" %}<a href="?sort=downloads-this-week">downloads this week</a>{% else %}<strong>downloads this week</strong>{%  endif %} &middot;
-        {% if args.sort != "released" %}<a href="?sort=released">last released</a>{% else %}<strong>released</strong>{%  endif %}
-    </p>
-    {% set query = "select * from tools order by {} desc".format({"downloads-this-week": "downloads_this_week", "released": "latest_release_at"}.get(args.sort, "stargazers_count")) %}
-{% endif %}
-
-{% for row in sql(query, {"q": args["q"] or ""}, database="content") %}
-<div class="plugin">
-    <h3><a href="/tools/{{ row["name"] }}">{{ row["name"] }}</a></h3>
-    <p>{{ row["description"] }}</p>
-    <p>{% if row.downloads_this_week %}{{ "{:,}".format(row.downloads_this_week) }} downloads this week &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {% endif %}⭐ {{ row.stargazers_count }}</p>
-    {% if row["usesCustomOpenGraphImage"] %}
-        <img style="max-width: 100%" src="{{ row["openGraphImageUrl"] }}" alt="Screenshot of {{ row["full_name"] }}">
-    {% endif %}
-    <p>Latest: <a href="https://github.com/{{ row["full_name"] }}/releases/tag/{{ row["tag_name"] }}">{{ row["tag_name"] }}</a> on {{ prettydate(row["latest_release_at"]) }}</p>
-</div>
-{% else %}
-    <p>No matches found</p>
-{% endfor %}
-
 {% endblock %}

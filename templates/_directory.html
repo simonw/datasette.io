@@ -1,0 +1,72 @@
+{% extends "page_base.html" %}
+
+{% block extra_head %}
+<style type="text/css">
+.directory-search input {
+    border: 1px solid #ccc;
+    border-radius: 3px;
+    padding: 9px 4px;
+    margin-right: 1em;
+}
+.directory-search input[type="submit"] {
+    color: #fff;
+    background-color: #8484f4;
+    border-color: #0e0c82;
+    -webkit-appearance: button;
+    font-weight: 400;
+    cursor: pointer;
+    text-align: center;
+    vertical-align: middle;
+    border-width: 1px;
+    border-style: solid;
+    padding: .4em 0.8em;
+    font-size: 0.9rem;
+    line-height: 1;
+    border-radius: .25rem;
+}
+.directory {
+    border: 1px solid #ccc;
+    margin-bottom: 1em;
+    border-radius: 10px;
+    background-color: white;
+    padding: 1em;
+}
+.directory h3 {
+    margin-top: 0;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+{% block top_matter %}{% endblock %}
+
+<form action="{{ path }}" class="directory-search">
+    <p><input type="search" name="q" value="{{ args.q }}" placeholder="Search {{ sql("select count(*) from " + table, database="content")[0][0] }} {{ table }}s, e.g. yaml" style="min-width: 50%"><input type="submit" value="Search"></p>
+</form>
+
+{% if args.q %}
+    {% set query = "select * from " + table + " where name like '%' || :q || '%' or description like '%' || :q || '%'" %}
+{% else %}
+    <p>Sort by
+        {% if args.sort %}<a href="{{ path }}">stars</a>{% else %}<strong>stars</strong>{%  endif %} &middot;
+        {% if args.sort != "downloads-this-week" %}<a href="?sort=downloads-this-week">downloads this week</a>{% else %}<strong>downloads this week</strong>{%  endif %} &middot;
+        {% if args.sort != "released" %}<a href="?sort=released">last released</a>{% else %}<strong>released</strong>{%  endif %}
+    </p>
+    {% set query = "select * from " + table + " order by {} desc".format({"downloads-this-week": "downloads_this_week", "released": "latest_release_at"}.get(args.sort, "stargazers_count")) %}
+{% endif %}
+
+{% for row in sql(query, {"q": args["q"] or ""}, database="content") %}
+<div class="directory">
+    <h3><a href="/{% if row["is_plugin"] %}plugins{% else %}tools{% endif %}/{{ row["name"] }}">{{ row["name"] }}</a></h3>
+    <p>{{ row["description"] }}</p>
+    <p>{% if row.downloads_this_week %}{{ "{:,}".format(row.downloads_this_week) }} downloads this week &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {% endif %}⭐ {{ row.stargazers_count }}</p>
+    {% if row["usesCustomOpenGraphImage"] %}
+        <img style="max-width: 100%" src="{{ row["openGraphImageUrl"] }}" alt="Screenshot of {{ row["full_name"] }}">
+    {% endif %}
+    <p>Latest: <a href="https://github.com/{{ row["full_name"] }}/releases/tag/{{ row["tag_name"] }}">{{ row["tag_name"] }}</a> on {{ prettydate(row["latest_release_at"]) }}</p>
+</div>
+{% else %}
+    <p>No matches found</p>
+{% endfor %}
+
+{% endblock %}

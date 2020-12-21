@@ -233,7 +233,23 @@ select
     where
       stats.package = repos.name
       and stats.date > date('now', '-7 days')
-  ) as downloads_this_week
+  ) as downloads_this_week,
+  (
+    select
+      count(*)
+    from
+      json_each(datasette_repos.topics)
+    where
+      value = 'datasette-plugin'
+  ) as is_plugin,
+  (
+    select
+      count(*)
+    from
+      json_each(datasette_repos.topics)
+    where
+      value = 'datasette-tool'
+  ) as is_tool
 from
   datasette_repos
   join repos on datasette_repos.id = repos.node_id

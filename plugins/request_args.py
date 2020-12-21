@@ -3,4 +3,4 @@ from datasette import hookimpl
 
 @hookimpl
 def extra_template_vars(request):
-    return {"args": request.args}
+    return {"args": request.args, "path": request.path}
