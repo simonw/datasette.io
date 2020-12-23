@@ -1,6 +1,6 @@
 - date: 2020-12-19
   body: >-
-    New on this site: a [Datasette Tools](https://datasette.io/tools) directory and a [search engine](https://datasette.io/-/beta) that covers documentation, tools, plugins, releases and more. The search engine uses [Dogsheep Beta](https://github.com/simonw/dogsheep-beta) - I wrote about how that works in [Building a search engine for datasette.io](https://simonwillison.net/2020/Dec/19/dogsheep-beta/).
+    New on this site: a [Datasette Tools](https://datasette.io/tools) directory and a [search engine](https://datasette.io/-/beta) that covers documentation, tools, plugins, releases and more. The search engine uses [Dogsheep Beta](https://github.com/dogsheep/dogsheep-beta) - I wrote about how that works in [Building a search engine for datasette.io](https://simonwillison.net/2020/Dec/19/dogsheep-beta/).
 - date: 2020-12-13
   body: >-
     I wrote more about how this site works in [Weeknotes: datasette.io, an official project website for Datasette](https://simonwillison.net/2020/Dec/13/datasette-io/).
