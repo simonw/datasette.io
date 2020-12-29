@@ -15,10 +15,9 @@ You can try this out now by [searching FARA records](https://fara.datasettes.com
 
 ## Implementing search
 
-The [sqlite-utils command-line tool](https://sqlite-utils.readthedocs.io/en/stable/cli.html#configuring-full-text-search) can be used to enable full-text search on a specific set of columns for a table:
+The [sqlite-utils command-line tool](https://sqlite-utils.datasette.io/en/stable/cli.html#configuring-full-text-search) can be used to enable full-text search on a specific set of columns for a table:
 
     % sqlite-utils enable-fts mydb.db documents title summary
-
 
 You can configure search directly within the Datasette interface by installing the [datasette-configure-fts](https://github.com/simonw/datasette-configure-fts) plugin.
 
