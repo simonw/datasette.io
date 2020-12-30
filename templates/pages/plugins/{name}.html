@@ -1,8 +1,37 @@
 {% extends "page_base.html" %}
 
+{% set plugins = sql("""
+select
+    plugins.*,
+    repos.readme_html as readme_html
+from
+    repos
+join
+    plugins on repos.full_name = plugins.full_name
+where
+    repos.name = :name
+""", {"name": name}, database="content") %}
+{% if not plugins %}
+    {{ raise_404("Plugin not found") }}
+{% endif %}
+{% set plugin = plugins[0] %}
+
 {% block title %}{{ name }} - a plugin for Datasette{% endblock %}
 
 {% block extra_head %}
+{% if plugin.usesCustomOpenGraphImage %}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:creator" content="@datasetteproj">
+<meta name="twitter:title" content="{{ plugin.name }} - a plugin for Datasette">
+<meta name="twitter:description" content="{{ plugin.description }}">
+<meta name="twitter:image" content="{{ plugin.openGraphImageUrl }}">
+<meta name="twitter:image:alt" content="Screenshot of {{ plugin.name }}">
+<meta property="og:type" content="article">
+<meta property="og:title" content="{{ plugin.name }} - a plugin for Datasette">
+<meta property="og:description" content="{{ plugin.description }}">
+<meta property="og:image" content="{{ plugin.openGraphImageUrl }}">
+<meta property="og:image:alt" content="Screenshot of {{ plugin.name }}">
+{% endif %}
 <style>
 pre {
     white-space: pre-wrap;
@@ -35,22 +64,6 @@ svg.octicon-link {
 {% block content %}
 
 <p class="breadcrumbs"><a href="/plugins">Plugins</a> &gt; {{ name }}</p> 
-
-{% set plugins = sql("""
-select
-    plugins.*,
-    repos.readme_html as readme_html
-from
-    repos
-join
-    plugins on repos.full_name = plugins.full_name
-where
-    repos.name = :name
-""", {"name": name}, database="content") %}
-{% if not plugins %}
-    {{ raise_404("Plugin not found") }}
-{% endif %}
-{% set plugin = plugins[0] %}
 
 <h1>{{ plugin["name"] }}
     <a href="https://github.com/{{ plugin["full_name"] }}">

@@ -1,8 +1,37 @@
 {% extends "page_base.html" %}
 
-{% block title %}{{ name }} - a tool for Datasette{% endblock %}
+{% set tools = sql("""
+select
+    tools.*,
+    repos.readme_html as readme_html
+from
+    repos
+join
+    tools on repos.full_name = tools.full_name
+where
+    repos.name = :name
+""", {"name": name}, database="content") %}
+{% if not tools %}
+    {{ raise_404("Tool not found") }}
+{% endif %}
+{% set tool = tools[0] %}
+
+{% block title %}{{ tool.name }} - a tool for Datasette{% endblock %}
 
 {% block extra_head %}
+{% if tool.usesCustomOpenGraphImage %}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:creator" content="@datasetteproj">
+<meta name="twitter:title" content="{{ tool.name }} - a tool for Datasette">
+<meta name="twitter:description" content="{{ tool.description }}">
+<meta name="twitter:image" content="{{ tool.openGraphImageUrl }}">
+<meta name="twitter:image:alt" content="Screenshot of {{ tool.name }}">
+<meta property="og:type" content="article">
+<meta property="og:title" content="{{ tool.name }} - a tool for Datasette">
+<meta property="og:description" content="{{ tool.description }}">
+<meta property="og:image" content="{{ tool.openGraphImageUrl }}">
+<meta property="og:image:alt" content="Screenshot of {{ tool.name }}">
+{% endif %}
 <style>
 pre {
     white-space: pre-wrap;
@@ -35,22 +64,6 @@ svg.octicon-link {
 {% block content %}
 
 <p class="breadcrumbs"><a href="/tools">Tools</a> &gt; {{ name }}</p> 
-
-{% set tools = sql("""
-select
-    tools.*,
-    repos.readme_html as readme_html
-from
-    repos
-join
-    tools on repos.full_name = tools.full_name
-where
-    repos.name = :name
-""", {"name": name}, database="content") %}
-{% if not tools %}
-    {{ raise_404("Tool not found") }}
-{% endif %}
-{% set tool = tools[0] %}
 
 <h1>{{ tool["name"] }}
     <a href="https://github.com/{{ tool["full_name"] }}">
