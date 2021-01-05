@@ -81,7 +81,7 @@ svg.octicon-link {
 
 <p class="plugin-downloads-and-stars">
     {% if plugin.downloads_this_week %}{{ "{:,}".format(plugin.downloads_this_week) }} downloads this week &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {% endif %}
-    <a class="github-button" href="https://github.com/simonw/datasette-vega" data-icon="octicon-star" data-show-count="true" aria-label="Star simonw/datasette-vega on GitHub">Star</a>
+    <a class="github-button" href="https://github.com/{{ plugin["full_name"] }}" data-icon="octicon-star" data-show-count="true" aria-label="Star {{ plugin["full_name"] }} on GitHub">Star</a>
 </p>
 
 {% if plugin["usesCustomOpenGraphImage"] %}
