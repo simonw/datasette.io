@@ -62,6 +62,9 @@ jobs:
       run: |
         datasette . --get "/"
         datasette . --get "/plugins"
+        datasette . --get "/plugins/datasette-cluster-map"
+        datasette . --get "/tools"
+        datasette . --get "/tools/shapefile-to-sqlite"
         datasette . --get "/news"
         datasette . --get "/-/beta"
     - name: Set up Cloud Run
