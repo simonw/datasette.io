@@ -1,3 +1,6 @@
+- date: 2021-01-07
+  body: >-
+    [APIs from CSS without JavaScript: the datasette-css-properties plugin](https://simonwillison.net/2021/Jan/7/css-apis-no-javascript/) introduces [datasette-css-properties](https://datasette.io/plugins/datasette-css-properties), a highly experimental plugin that can output table rows and SQL query results as CSS stylesheets defining custom properties that can then be used to customize a static HTML page.
 - date: 2020-12-19
   body: >-
     New on this site: a [Datasette Tools](https://datasette.io/tools) directory and a [search engine](https://datasette.io/-/beta) that covers documentation, tools, plugins, releases and more. The search engine uses [Dogsheep Beta](https://github.com/dogsheep/dogsheep-beta) - I wrote about how that works in [Building a search engine for datasette.io](https://simonwillison.net/2020/Dec/19/dogsheep-beta/).
