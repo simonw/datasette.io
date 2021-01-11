@@ -8,6 +8,8 @@ on:
         description: Enter 'skip' to create a new database from scratch
       build_directory_extras:
         description: Extra command-line options to pass to build_directory
+  schedule:
+    - cron:  '26 4 * * *'
 
 jobs:
   scheduled:
