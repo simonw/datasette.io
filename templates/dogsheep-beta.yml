@@ -57,6 +57,26 @@ docs-index.db:
             <h3>Docs: <a href="https://docs.datasette.io/en/latest/{{ display.page }}.html#{{ display.ref }}">{{ title }}</a></h3>
             <p>{{ display.snippet.replace('b4de2a49c8', '<strong style="background-color: yellow">').replace('8c94a2ed4b', '</strong>')|safe }}</p>
 content.db:
+    uses:
+        sql: |-
+            select
+              _path as key,
+              title as title,
+              text as search_1,
+              null as timestamp,
+              1 as is_public
+            from
+              uses
+        display_sql: |-
+            select
+              highlight(uses.text, :q) as snippet
+            from
+              uses
+            where
+              uses._path = :key
+        display: |-
+            <h3><a href="/{{ key.replace(".md", "") }}">{{ title }}</a></h3>
+            <p>{{ display.snippet|safe }}</p>
     tools:
         sql: |-
             select
