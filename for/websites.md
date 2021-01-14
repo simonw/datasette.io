@@ -1,16 +1,8 @@
-{% extends "page_base.html" %}
-
-{% block title %}Datasette for websites{% endblock %}
-
-{% block content %}
-
-<style>
-main img {
-    max-width: 80%
-}
-</style>
-{{ render_markdown("""
-# Datasette for websites
+---
+title: Datasette for websites
+summary: "Datasette can be used to power dynamic-static websites: sites that run on serverless hosting while providing dynamic data-backed functionality."
+order: 6
+---
 
 Datasette templates can be used to build custom websites with Datasette under the hood. Examples include the site you are browsing right now.
 
@@ -25,9 +17,3 @@ The official Datasette website runs on top of Datasette. Browse [github.com/simo
 ## [til.simonwillison.net](https://til.simonwillison.net/)
 
 Another example of a Datasette-powered website that is deployed by GitHub Actions. Read [Using a self-rewriting README powered by GitHub Actions to track TILs](https://simonwillison.net/2020/Apr/20/self-rewriting-readme/) for details.
-
-""", extra_tags=["img"], extra_attrs={"img": ["alt", "src"]}) }}
-
-{% include "_uses.html" %}
-
-{% endblock %}

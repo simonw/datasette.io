@@ -1,10 +1,8 @@
-{% extends "page_base.html" %}
-
-{% block title %}Serverless read-only databases with Datasette{% endblock %}
-
-{% block content %}
-{{ render_markdown("""
-# Serverless read-only databases with Datasette
+---
+title: Serverless read-only databases with Datasette
+summary: Serverless hosting usually depends on external hosted databases, but Datasette lets you implement the Baked Data pattern to bundle your data with your application code and deploy it to serverless providers.
+order: 7
+---
 
 Serverless providers such as [Google Cloud Run](https://cloud.google.com/run) and [Vercel](https://vercel.com/) provide robust, scalable, inexpensive hosting for stateless web applications.
 
@@ -15,9 +13,3 @@ Datasette can be used to implement the <strong>Baked Data</strong> pattern, wher
 This site is an example of Baked Data in action: datasette.io is deployed to Google Cloud Run by build scripts running [on GitHub Actions](https://github.com/simonw/datasette.io/blob/main/.github/workflows/deploy.yml).
 
 Many of the [Datasette examples](/examples) listed on this site are also deployed in this manner.
-
-""") }}
-
-{% include "_uses.html" %}
-
-{% endblock %}

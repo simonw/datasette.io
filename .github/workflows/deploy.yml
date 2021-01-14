@@ -50,6 +50,9 @@ jobs:
       run: |
         sqlite-utils content.db 'drop table if exists news'
         yaml-to-sqlite content.db news news.yaml
+    - name: Populate uses table for the /for section
+      run: |
+        markdown-to-sqlite for/*.md content.db uses
     - name: Fetch documentation database for search index
       run: curl -o docs-index.db https://latest-docs.datasette.io/docs.db
     - name: Fetch my relevant blog content
@@ -63,6 +66,8 @@ jobs:
     - name: Soundness check
       run: |
         datasette . --get "/"
+        datasette . --get "/for"
+        datasette . --get "/for/exploratory-analysis"
         datasette . --get "/plugins"
         datasette . --get "/plugins/datasette-cluster-map"
         datasette . --get "/tools"

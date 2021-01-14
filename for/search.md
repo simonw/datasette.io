@@ -1,11 +1,8 @@
-{% extends "page_base.html" %}
-
-{% block title %}Datasette for search{% endblock %}
-
-{% block content %}
-
-{{ render_markdown("""
-# Datasette for search
+---
+title: Datasette for search
+summary: Datasette uses SQLite's built-in full-text search feature to provide faceted search over any correctly configured collection of records.
+order: 5
+---
 
 Datasette is built on top of [SQLite](https://sqlite.org/), which includes a robust, full-featured [full-text search](https://www.sqlite.org/fts5.html) implementation.
 
@@ -22,9 +19,3 @@ The [sqlite-utils command-line tool](https://sqlite-utils.datasette.io/en/stable
 You can configure search directly within the Datasette interface by installing the [datasette-configure-fts](https://github.com/simonw/datasette-configure-fts) plugin.
 
 [Fast Autocomplete Search for Your Website](https://24ways.org/2018/fast-autocomplete-search-for-your-website/) is a tutorial that shows how to write a scraper that populates a full-text search index in Datasette, then build a JavaScript autocomplete search interface using the Datasette JSON API.
-
-""") }}
-
-{% include "_uses.html" %}
-
-{% endblock %}

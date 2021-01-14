@@ -1,16 +1,8 @@
-{% extends "page_base.html" %}
-
-{% block title %}Datasette for exploratory analysis{% endblock %}
-
-{% block content %}
-
-<style>
-main img {
-    max-width: 80%
-}
-</style>
-{{ render_markdown("""
-# Datasette for exploratory analysis
+---
+title: Datasette for exploratory analysis
+summary: Import data from CSVs, JSON, database connections and more. Datasette will automatically show you patterns in your data and help you share your findings with your colleagues.
+order: 1
+---
 
 Your first step with any new data set should be to start exploring it. Datasette provides multiple tools for doing this.
 
@@ -31,9 +23,3 @@ Datasette automatically identifies columns with less than twenty unique values a
 Plugins such as [datasette-vega](https://github.com/simonw/datasette-vega) and [datasette-cluster-map](https://github.com/simonw/datasette-cluster-map) provide tools for interactively visualizing data directly within the Datasette interface.
 
 ![Screenshot of datasette-cluster-map](/static/screenshots/datasette-cluster-map.png)
-
-""", extra_tags=["img"], extra_attrs={"img": ["alt", "src"]}) }}
-
-{% include "_uses.html" %}
-
-{% endblock %}

@@ -1,17 +1,8 @@
-{% extends "page_base.html" %}
-
-{% block title %}Datasette for rapid prototyping{% endblock %}
-
-{% block content %}
-
-<style>
-main img {
-    max-width: 80%
-}
-</style>
-{{ render_markdown("""
-# Datasette for rapid prototyping
-
+---
+title: Datasette for rapid prototyping
+summary: Spin up a JSON (or GraphQL) API for any data in minutes. Use it to prototype and prove your ideas without building a custom backend.
+order: 3
+---
 Want to build a prototype? Datasette lets you turn any source of data into a powerful JSON or [GraphQL](https://github.com/simonw/datasette-graphql) API, ideal for use as the backend for an interactive prototype.
 
 Use Datasette with **[Observable notebooks](https://observablehq.com/)** to quickly try out new visualizations and explore the Datasette API using JavaScript.
@@ -19,9 +10,3 @@ Use Datasette with **[Observable notebooks](https://observablehq.com/)** to quic
 Datasette works as a great data for **[Jupyter notebooks](https://jupyter.org/)** too.
 
 [Fast Autocomplete Search for Your Website](https://24ways.org/2018/fast-autocomplete-search-for-your-website/) shows how to build a full autocomplete search engine for your website, powered by Datasette and a few dozen lines of custom JavaScript.
-
-""", extra_tags=["img"], extra_attrs={"img": ["alt", "src"]}) }}
-
-{% include "_uses.html" %}
-
-{% endblock %}

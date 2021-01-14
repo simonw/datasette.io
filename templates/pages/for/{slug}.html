@@ -1,0 +1,38 @@
+{% extends "page_base.html" %}
+
+{% set pages = sql("""
+select
+    title, html
+from
+    [for]
+where
+    [for]._path = :path
+""", {"path": "for/{}.md".format(slug)}, database="content") %}
+{% if not pages %}
+    {{ raise_404("Page not found") }}
+{% endif %}
+{% set page = pages[0] %}
+
+{% block extra_head %}
+<style>
+main img {
+    max-width: 80%
+}
+</style>
+{% endblock %}
+
+{% block title %}{{ page.title }}{% endblock %}
+
+{% block content %}
+<h1>{{ page.title }}</h1>
+
+{{ page.html|safe }}
+
+<h3>More uses for Datasette</h3>
+<ul>
+{% for row in sql("select _path, title from uses order by [order]", database="content") %}
+    <li><a href="/{{ row._path.replace(".md", "") }}">{{ row.title }}</a></li>
+{% endfor %}
+</ul>
+
+{% endblock %}
