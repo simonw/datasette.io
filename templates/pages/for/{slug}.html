@@ -4,9 +4,9 @@
 select
     title, html
 from
-    [for]
+    uses
 where
-    [for]._path = :path
+    uses._path = :path
 """, {"path": "for/{}.md".format(slug)}, database="content") %}
 {% if not pages %}
     {{ raise_404("Page not found") }}
