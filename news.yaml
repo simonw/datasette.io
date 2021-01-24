@@ -1,3 +1,6 @@
+- date: 2021-01-24
+  body: >-
+    [Drawing shapes on a map to query a SpatiaLite database](https://simonwillison.net/2021/Jan/24/drawing-shapes-spatialite/) introduces the new [datasette-leaflet-freedraw](https://datasette.io/plugins/datasette-leaflet-freedraw) plugin, which adds support for drawing shapes on a map to specify a GeoJSON MultiPolygon that can be used to query SpatiaLite databases.
 - date: 2021-01-07
   body: >-
     [APIs from CSS without JavaScript: the datasette-css-properties plugin](https://simonwillison.net/2021/Jan/7/css-apis-no-javascript/) introduces [datasette-css-properties](https://datasette.io/plugins/datasette-css-properties), a highly experimental plugin that can output table rows and SQL query results as CSS stylesheets defining custom properties that can then be used to customize a static HTML page.
