@@ -1,3 +1,6 @@
+- date: 2021-01-25
+  body: >-
+    [Datasette 0.54](https://docs.datasette.io/en/stable/changelog.html#v0-54) is out today. Highlights include the new `_internal` in-memory database exposing details of connected tables, plus support for JavaScript modules in plugins and add-on scripts. More commentary on this release is available in the [annotated release notes](https://simonwillison.net/2021/Jan/25/datasette/).
 - date: 2021-01-24
   body: >-
     [Drawing shapes on a map to query a SpatiaLite database](https://simonwillison.net/2021/Jan/24/drawing-shapes-spatialite/) introduces the new [datasette-leaflet-freedraw](https://datasette.io/plugins/datasette-leaflet-freedraw) plugin, which adds support for drawing shapes on a map to specify a GeoJSON MultiPolygon that can be used to query SpatiaLite databases.
