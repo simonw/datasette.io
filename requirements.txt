@@ -14,3 +14,14 @@ github-to-sqlite>=2.8.2
 python-graphql-client
 httpx
 feedparser
+# These are used in deploy, listing them here so they
+# show up in the GitHub dependency graph:
+datasette-json-html
+datasette-render-markdown
+datasette-template-sql
+python-dateutil
+datasette-vega
+datasette-atom
+datasette-graphql
+datasette-json-html
+dogsheep-beta
