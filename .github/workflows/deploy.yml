@@ -98,4 +98,5 @@ jobs:
           --install=datasette-atom \
           --install=datasette-graphql \
           --install=datasette-json-html \
+          --install=datasette-debug-asgi \
           --install 'dogsheep-beta>=0.10.1'
