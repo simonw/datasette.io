@@ -1,3 +1,6 @@
+- date: 2021-02-03
+  body: >-
+    [Serving map tiles from SQLite with MBTiles and datasette-tiles](https://simonwillison.net/2021/Feb/4/datasette-tiles/). [datasette-tiles](https://datasette.io/plugins/datasette-tiles) is a new plugin that adds a tile server to Datasette, serving map tiles from databases that conform to [the MBTiles specification](https://github.com/mapbox/mbtiles-spec). [download-tiles](https://datasette.io/tools/download-tiles) is a tool for building these databases, and [datasette-basemap](https://datasette.io/plugins/datasette-basemap) is a plugin that bundles a 22MB SQLite database with OpenStreetMap tiles covering zoom levels 0-6 for the entire world.
 - date: 2021-01-25
   body: >-
     [Datasette 0.54](https://docs.datasette.io/en/stable/changelog.html#v0-54) is out today. Highlights include the new `_internal` in-memory database exposing details of connected tables, plus support for JavaScript modules in plugins and add-on scripts. More commentary on this release is available in the [annotated release notes](https://simonwillison.net/2021/Jan/25/datasette/).
