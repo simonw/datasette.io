@@ -91,15 +91,19 @@ body.page header {
 .about {
     width: 50%;
 }
-.datasette-screenshot {
+.datasette-video {
     float: right;
     width: 45%;
     margin-left: 5%;
     box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.35);
 }
+.datasette-video p {
+    margin: 0.3em;
+    text-align: center;
+}
 
 @media (max-width: 480px) {
-    .datasette-screenshot {
+    .datasette-video {
         float: none;
         width: 95%;
         display: block;
