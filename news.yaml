@@ -1,3 +1,6 @@
+- date: 2021-02-07
+  body: >-
+    This new [Video introduction to Datasette and sqlite-utils](https://simonwillison.net/2021/Feb/7/video/) provides a full introduction to both Datasette and [sqlite-utils](https://sqlite-utils.datasette.io/) in 17 minutes, including a live demo of creating a database from a CSV file and publishing it to Google Cloud Run.
 - date: 2021-02-03
   body: >-
     [Serving map tiles from SQLite with MBTiles and datasette-tiles](https://simonwillison.net/2021/Feb/4/datasette-tiles/). [datasette-tiles](https://datasette.io/plugins/datasette-tiles) is a new plugin that adds a tile server to Datasette, serving map tiles from databases that conform to [the MBTiles specification](https://github.com/mapbox/mbtiles-spec). [download-tiles](https://datasette.io/tools/download-tiles) is a tool for building these databases, and [datasette-basemap](https://datasette.io/plugins/datasette-basemap) is a plugin that bundles a 22MB SQLite database with OpenStreetMap tiles covering zoom levels 0-6 for the entire world.
