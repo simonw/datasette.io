@@ -96,9 +96,10 @@ body.page header {
     width: 45%;
     margin-left: 5%;
     box-shadow: 1px 1px 5px 0px rgba(0,0,0,0.35);
+    padding-bottom: 0.3em;
 }
 .datasette-video p {
-    margin: 0.3em;
+    margin: 0.3em 0.3em 0.3em 0;
     text-align: center;
 }
 
