@@ -41,7 +41,7 @@
 {% block top_matter %}{% endblock %}
 
 <form action="{{ path }}" class="directory-search">
-    <p><input type="search" name="q" value="{{ args.q }}" placeholder="Search {{ sql("select count(*) from " + table, database="content")[0][0] }} {{ table }}s, e.g. yaml" style="min-width: 50%"><input type="submit" value="Search"></p>
+    <p><input type="search" name="q" value="{{ args.q }}" placeholder="Search {{ sql("select count(*) from " + table, database="content")[0][0] }} {{ table }}, e.g. yaml" style="min-width: 50%"><input type="submit" value="Search"></p>
 </form>
 
 {% if args.q %}
