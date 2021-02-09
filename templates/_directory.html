@@ -48,11 +48,11 @@
     {% set query = "select * from " + table + " where name like '%' || :q || '%' or description like '%' || :q || '%'" %}
 {% else %}
     <p>Sort by
-        {% if args.sort %}<a href="{{ path }}">stars</a>{% else %}<strong>stars</strong>{%  endif %} &middot;
+        {% if args.sort %}<a href="{{ path }}">most recent release</a>{% else %}<strong>most recent release</strong>{%  endif %} &middot;
         {% if args.sort != "downloads-this-week" %}<a href="?sort=downloads-this-week">downloads this week</a>{% else %}<strong>downloads this week</strong>{%  endif %} &middot;
-        {% if args.sort != "released" %}<a href="?sort=released">last released</a>{% else %}<strong>released</strong>{%  endif %}
+        {% if args.sort != "stars" %}<a href="?sort=stars">stars</a>{% else %}<strong>stars</strong>{%  endif %}
     </p>
-    {% set query = "select * from " + table + " order by {} desc".format({"downloads-this-week": "downloads_this_week", "released": "latest_release_at"}.get(args.sort, "stargazers_count")) %}
+    {% set query = "select * from " + table + " order by {} desc".format({"downloads-this-week": "downloads_this_week", "stars": "stargazers_count"}.get(args.sort, "latest_release_at")) %}
 {% endif %}
 
 {% for row in sql(query, {"q": args["q"] or ""}, database="content") %}
