@@ -1,5 +1,5 @@
 - date: 2021-02-18
-  body: >-
+  body: |-
     [Datasette 0.55](https://docs.datasette.io/en/stable/changelog.html#v0-55) adds support for cross-database SQL queries. You can now run `datasette --crossdb one.db two.db` and then run queries that join data from tables in both of those database files - see [cross-database queries](https://docs.datasette.io/en/stable/sql_queries.html#cross-database-queries) in the documentation for more details.
     
     [sqlite-utils 3.6](https://sqlite-utils.datasette.io/en/stable/changelog.html#v3-6) adds similar features: a `db.attach(alias, filepath)` Python API method and `--attach alias filepath.db` command-line option, both for attaching additional databases in order to execute cross-database queries.
