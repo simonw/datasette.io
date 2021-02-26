@@ -45,8 +45,8 @@
 </form>
 
 {% if args.q %}
-    {% set query = "select * from " + table + " where name like '%' || :q || '%' or description like '%' || :q || '%'" %}
-    {% set other_query_count = sql("select count(*) from " + other_table + " where name like '%' || :q || '%' or description like '%' || :q || '%'", {"q": args.q}, database="content")[0][0] %}
+    {% set query = build_directory_sql(args.q, table) %}
+    {% set other_query_count = sql(build_directory_sql_count(args.q, other_table), database="content")[0][0] %}
 {% else %}
     <p>Sort by
         {% if args.sort %}<a href="{{ path }}">most recent release</a>{% else %}<strong>most recent release</strong>{%  endif %} &middot;
