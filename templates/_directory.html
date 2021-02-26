@@ -46,6 +46,7 @@
 
 {% if args.q %}
     {% set query = "select * from " + table + " where name like '%' || :q || '%' or description like '%' || :q || '%'" %}
+    {% set other_query_count = sql("select count(*) from " + other_table + " where name like '%' || :q || '%' or description like '%' || :q || '%'", {"q": args.q}, database="content")[0][0] %}
 {% else %}
     <p>Sort by
         {% if args.sort %}<a href="{{ path }}">most recent release</a>{% else %}<strong>most recent release</strong>{%  endif %} &middot;
@@ -54,6 +55,8 @@
     </p>
     {% set query = "select * from " + table + " order by {} desc".format({"downloads-this-week": "downloads_this_week", "stars": "stargazers_count"}.get(args.sort, "latest_release_at")) %}
 {% endif %}
+
+{% if other_query_count %}<p style="font-size: 0.8em">See also <a href="/{{ other_table }}?q={{ args.q|urlencode }}">{{ other_query_count }} result{% if other_query_count != 1 %}s{% endif %}</a> in {{ other_table }}</p>{% endif %}
 
 {% for row in sql(query, {"q": args["q"] or ""}, database="content") %}
 <div class="directory">
