@@ -1,3 +1,6 @@
+- date: 2021-05-10
+  body: |-
+    [Django SQL Dashboard](https://simonwillison.net/2021/May/10/django-sql-dashboard/) is a new tool that brings a useful authenticated subset of Datasette to Django projects that are built on top of PostgreSQL.
 - date: 2021-03-28
   body: |-
     [Datasette 0.56](https://docs.datasette.io/en/stable/changelog.html#v0-56) has bug fixes and documentation improvements, plus some new documented internal APIs for plugin authors and SpatiaLite 5 bundled with the official [Datasette Docker container](https://docs.datasette.io/en/stable/installation.html#using-docker).
