@@ -1,3 +1,6 @@
+- date: 2021-06-05
+  body: |-
+    [Datasette 0.57](https://docs.datasette.io/en/stable/changelog.html#v0-57) is out with an important [security patch](https://github.com/simonw/datasette/security/advisories/GHSA-xw7c-jx9m-xh5g) plus a number of new features and bug fixes. Datasette 0.56.1, also out today, provides the security patch for users who are not yet ready to upgrade to the latest version.
 - date: 2021-05-10
   body: |-
     [Django SQL Dashboard](https://simonwillison.net/2021/May/10/django-sql-dashboard/) is a new tool that brings a useful authenticated subset of Datasette to Django projects that are built on top of PostgreSQL.
