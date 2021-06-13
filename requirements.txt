@@ -24,5 +24,4 @@ datasette-vega
 datasette-atom
 datasette-graphql
 datasette-json-html
-dogsheep-beta
 datasette-debug-asgi
