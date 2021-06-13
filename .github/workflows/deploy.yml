@@ -59,8 +59,8 @@ jobs:
       run: python fetch_blog_content.py blog.db datasette dogsheep sqliteutils
     - name: Import stats.json
       run: |
-        curl -O https://raw.githubusercontent.com/simonw/package-stats/main/stats.json
-        python build_stats.py content.db stats.json
+        curl https://raw.githubusercontent.com/simonw/package-stats/main/stats.json \
+          | python build_stats.py content.db -
     - name: Build search index
       run: dogsheep-beta index dogsheep-index.db templates/dogsheep-beta.yml
     - name: Soundness check

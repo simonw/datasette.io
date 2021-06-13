@@ -9,12 +9,12 @@ import sqlite_utils
     type=click.Path(file_okay=True, dir_okay=False),
 )
 @click.argument(
-    "stats_filename",
-    type=click.Path(file_okay=True, dir_okay=False, exists=True),
+    "stats_file",
+    type=click.File(),
 )
-def cli(db_filename, stats_filename):
+def cli(db_filename, stats_file):
     db = sqlite_utils.Database(db_filename)
-    stats = json.load(open(stats_filename))
+    stats = json.load(stats_file)
     for package, days in stats.items():
         for date, downloads in days.items():
             db["stats"].insert(
