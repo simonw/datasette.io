@@ -141,6 +141,10 @@ body.page header {
     font-size: 0.8em;
 }
 
+h1 span.by {
+    color: #bbb;
+}
+
 .substack iframe {
     float: right;
     border: 1px solid #EEE;

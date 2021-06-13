@@ -9,7 +9,9 @@ yaml-to-sqlite content.db news news.yaml
 markdown-to-sqlite content.db uses for/*.md
 
 # Build plugin and tools directories
-python build_directory.py content.db --fetch-missing-releases --owner simonw --owner dogsheep
+yaml-to-sqlite content.db plugin_repos plugin_repos.yml --single-column repo
+yaml-to-sqlite content.db tool_repos tool_repos.yml --single-column repo
+python build_directory.py content.db --fetch-missing-releases
 
 # Fetch my relevant blog content
 python fetch_blog_content.py blog.db datasette dogsheep sqliteutils

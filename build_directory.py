@@ -41,12 +41,11 @@ REPO_FIELDS = """
 """
 
 
-def build_query(extra_repos=None):
-    extra_repos = extra_repos or []
-    extra_repo_fragments = []
-    for i, repo in enumerate(extra_repos):
+def build_query(repos):
+    repo_fragments = []
+    for i, repo in enumerate(repos):
         owner, name = repo.split("/")
-        extra_repo_fragments.append(
+        repo_fragments.append(
             """
         repo_{i}: repository(name: "{name}", owner: "{owner}") {open_curly}
           {REPO_FIELDS}
@@ -62,29 +61,9 @@ def build_query(extra_repos=None):
         )
 
     return """
-    query {
-      EXTRA_REPOS
-      plugins: search(query:"topic:datasette-io topic:datasette-plugin" type:REPOSITORY, first:100) {
-        repositoryCount
-        nodes {
-          ... on Repository {
-            REPO_FIELDS
-          }
-        }
-      }
-      tools: search(query:"topic:datasette-io topic:datasette-tool" type:REPOSITORY, first:100) {
-        repositoryCount
-        nodes {
-          ... on Repository {
-            REPO_FIELDS
-          }
-        }
-      }
-    }
+    query { REPOS }
     """.replace(
-        "REPO_FIELDS", REPO_FIELDS
-    ).replace(
-        "EXTRA_REPOS", "\n".join(extra_repo_fragments)
+        "REPOS", "\n".join(repo_fragments)
     )
 
 
@@ -103,15 +82,14 @@ def transform_node(node):
 client = GraphqlClient(endpoint="https://api.github.com/graphql")
 
 
-def fetch_plugins(oauth_token, extra_repos):
-    query = build_query(extra_repos)
+def fetch_plugins(oauth_token, repos):
+    query = build_query(repos)
     data = client.execute(
         query=query,
         headers={"Authorization": "Bearer {}".format(oauth_token)},
     )
     assert "errors" not in data, data["errors"]
-    nodes = data["data"]["plugins"]["nodes"] + data["data"]["tools"]["nodes"]
-    # Add any repo_i keys too
+    nodes = []
     for key in data["data"]:
         if key.startswith("repo_"):
             nodes.append(data["data"][key])
@@ -126,26 +104,14 @@ def fetch_plugins(oauth_token, extra_repos):
 @click.option("--github-token", envvar="GITHUB_TOKEN", required=True)
 @click.option("--fetch-missing-releases", is_flag=True)
 @click.option("--force-fetch-readmes", is_flag=True)
-@click.option("-r", "--extra-repo", "extra_repos", multiple=True)
-@click.option(
-    "--owner",
-    "owners",
-    multiple=True,
-    help="Only repos by these owners will be imported",
-)
 def cli(
     db_filename,
     github_token,
     fetch_missing_releases,
     force_fetch_readmes,
-    extra_repos,
-    owners,
 ):
     db = sqlite_utils.Database(db_filename)
-    if "plugin_repos" in db.table_names():
-        # Rename to datasette_repos
-        db.execute("alter table plugin_repos rename to datasette_repos")
-    repos_to_fetch_releases_for = {"simonw/datasette", "simonw/sqlite-utils"}
+    repos_to_fetch_releases_for = {"simonw/datasette"}
     if "latest_commit" not in db["datasette_repos"].columns_dict:
         previous_hashes = {
             row["nameWithOwner"]: None for row in db["datasette_repos"].rows
@@ -155,13 +121,14 @@ def cli(
             row["nameWithOwner"]: row["latest_commit"]
             for row in db["datasette_repos"].rows
         }
-    nodes = fetch_plugins(github_token, extra_repos=extra_repos)
+    repos = [
+        r[0]
+        for r in db.execute(
+            "select repo from tool_repos union select repo from plugin_repos"
+        ).fetchall()
+    ]
+    nodes = fetch_plugins(github_token, repos)
     for node in nodes:
-        if owners and not any(
-            node["nameWithOwner"].startswith("{}/".format(owner)) for owner in owners
-        ):
-            # Skip this one
-            continue
         plugin, releases = transform_node(node)
         db["datasette_repos"].insert(
             plugin,
@@ -208,16 +175,14 @@ def cli(
             readme_html=True,
         )
 
-    for view_name, topic in (
-        ("plugins", "datasette-plugin"),
-        ("tools", "datasette-tool"),
-    ):
+    for view_name, repo_table in (("plugins", "plugin_repos"), ("tools", "tool_repos")):
         db.create_view(
             view_name,
             """
 select
   repos.name as name,
   repos.full_name as full_name,
+  users.login as owner,
   repos.description as description,
   repos.stargazers_count,
   releases.tag_name,
@@ -238,38 +203,36 @@ select
     select
       count(*)
     from
-      json_each(datasette_repos.topics)
+      plugin_repos
     where
-      value = 'datasette-plugin'
+      repo = repos.full_name
   ) as is_plugin,
   (
     select
       count(*)
     from
-      json_each(datasette_repos.topics)
+      tool_repos
     where
-      value = 'datasette-tool'
+      repo = repos.full_name
   ) as is_tool
 from
   datasette_repos
   join repos on datasette_repos.id = repos.node_id
   join releases on repos.id = releases.repo
+  join users on users.id = repos.owner
 where
-  datasette_repos.rowid in (
+  datasette_repos.nameWithOwner in (
     select
-      datasette_repos.rowid
+      repo
     from
-      datasette_repos,
-      json_each(datasette_repos.topics) j
-    where
-      j.value = '{}'
+      {repo_table}
   )
 group by
   repos.id
 order by
   latest_release_at desc
 """.format(
-                topic
+                repo_table=repo_table
             ).strip(),
             replace=True,
         )

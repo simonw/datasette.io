@@ -7,7 +7,7 @@ import urllib
 
 def all_entries(url):
     while url:
-        response = httpx.get(url)
+        response = httpx.get(url, timeout=30)
         entries = feedparser.parse(response.text)["entries"]
         yield from (
             {
