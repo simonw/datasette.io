@@ -1,8 +1,5 @@
 #!/bin/bash
-set -euf -o pipefail
-
-# Build plugin and tools directories
-python build_directory.py content.db --fetch-missing-releases --owner simonw --owner dogsheep
+set -eu -o pipefail
 
 # Populate news database
 sqlite-utils content.db 'drop table if exists news'
@@ -10,6 +7,9 @@ yaml-to-sqlite content.db news news.yaml
 
 # Populate uses table for the /for section
 markdown-to-sqlite for/*.md content.db uses
+
+# Build plugin and tools directories
+python build_directory.py content.db --fetch-missing-releases --owner simonw --owner dogsheep
 
 # Fetch my relevant blog content
 python fetch_blog_content.py blog.db datasette dogsheep sqliteutils
