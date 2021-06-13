@@ -9,7 +9,7 @@ dogsheep-beta>=0.10
 datasette-graphql
 sqlite-utils
 yaml-to-sqlite
-markdown-to-sqlite
+markdown-to-sqlite>=1.0
 github-to-sqlite>=2.8.2
 python-graphql-client
 httpx

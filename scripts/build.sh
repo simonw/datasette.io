@@ -6,7 +6,7 @@ sqlite-utils content.db 'drop table if exists news'
 yaml-to-sqlite content.db news news.yaml
 
 # Populate uses table for the /for section
-markdown-to-sqlite for/*.md content.db uses
+markdown-to-sqlite content.db uses for/*.md
 
 # Build plugin and tools directories
 python build_directory.py content.db --fetch-missing-releases --owner simonw --owner dogsheep
