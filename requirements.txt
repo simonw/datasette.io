@@ -5,7 +5,7 @@ datasette-template-sql
 datasette-render-markdown
 datasette-vega
 datasette-atom
-dogsheep-beta>=0.10
+dogsheep-beta>=0.10.2
 datasette-graphql
 sqlite-utils>=3.9.1
 yaml-to-sqlite>=1.0
