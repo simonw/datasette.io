@@ -6,8 +6,6 @@ on:
     inputs:
       from_scratch:
         description: Enter 'skip' to create a new database from scratch
-      build_directory_extras:
-        description: Extra command-line options to pass to build_directory
   schedule:
     - cron:  '26 4 * * *'
 
@@ -40,40 +38,14 @@ jobs:
       run: |
         curl --fail -o blog.db https://datasette.io/blog.db
       continue-on-error: true
-    - name: Fetch plugins data
-      run: |
-        eval "python build_directory.py content.db --fetch-missing-releases $build_directory_extras --owner simonw --owner dogsheep"
+    - name: Build databases
+      run: scripts/build.sh
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        build_directory_extras: ${{ github.event.inputs.build_directory_extras }}
-    - name: Populate news database
-      run: |
-        sqlite-utils content.db 'drop table if exists news'
-        yaml-to-sqlite content.db news news.yaml
-    - name: Populate uses table for the /for section
-      run: |
-        markdown-to-sqlite for/*.md content.db uses
     - name: Fetch documentation database for search index
       run: curl -o docs-index.db https://latest-docs.datasette.io/docs.db
-    - name: Fetch my relevant blog content
-      run: python fetch_blog_content.py blog.db datasette dogsheep sqliteutils
-    - name: Import stats.json
-      run: |
-        curl https://raw.githubusercontent.com/simonw/package-stats/main/stats.json \
-          | python build_stats.py content.db -
-    - name: Build search index
-      run: dogsheep-beta index dogsheep-index.db templates/dogsheep-beta.yml
     - name: Soundness check
-      run: |
-        datasette . --get "/"
-        datasette . --get "/for"
-        datasette . --get "/for/exploratory-analysis"
-        datasette . --get "/plugins"
-        datasette . --get "/plugins/datasette-cluster-map"
-        datasette . --get "/tools"
-        datasette . --get "/tools/shapefile-to-sqlite"
-        datasette . --get "/news"
-        datasette . --get "/-/beta"
+      run: scripts/test.sh
     - name: Set up Cloud Run
       uses: google-github-actions/setup-gcloud@master
       with:
@@ -81,22 +53,4 @@ jobs:
         service_account_email: ${{ secrets.GCP_SA_EMAIL }}
         service_account_key: ${{ secrets.GCP_SA_KEY }}
     - name: Deploy to Cloud Run
-      run: |-
-        gcloud config set run/region us-central1
-        gcloud config set project datasette-222320
-        datasette publish cloudrun content.db docs-index.db dogsheep-index.db blog.db \
-          --service datasette-io \
-          --branch main \
-          --template-dir=templates \
-          --metadata=metadata.yml \
-          --plugins-dir=plugins \
-          --static=static:static \
-          --install=datasette-render-markdown \
-          --install=datasette-template-sql \
-          --install=python-dateutil \
-          --install=datasette-vega \
-          --install=datasette-atom \
-          --install=datasette-graphql \
-          --install=datasette-json-html \
-          --install=datasette-debug-asgi \
-          --install 'dogsheep-beta>=0.10.1'
+      run: scripts/deploy.sh

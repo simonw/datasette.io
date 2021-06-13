@@ -1,0 +1,25 @@
+#!/bin/bash
+set -euf -o pipefail
+
+# Build plugin and tools directories
+python build_directory.py content.db --fetch-missing-releases --owner simonw --owner dogsheep
+
+# Populate news database
+sqlite-utils content.db 'drop table if exists news'
+yaml-to-sqlite content.db news news.yaml
+
+# Populate uses table for the /for section
+markdown-to-sqlite for/*.md content.db uses
+
+# Fetch my relevant blog content
+python fetch_blog_content.py blog.db datasette dogsheep sqliteutils
+
+# Fetch documentation database for search index
+curl -o docs-index.db https://latest-docs.datasette.io/docs.db
+
+# Import stats.json
+curl https://raw.githubusercontent.com/simonw/package-stats/main/stats.json \
+  | python build_stats.py content.db -
+
+# Build search index
+dogsheep-beta index dogsheep-index.db templates/dogsheep-beta.yml
