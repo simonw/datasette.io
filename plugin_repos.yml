@@ -60,6 +60,7 @@
 - simonw/datasette-permissions-sql
 - simonw/datasette-import-table
 - simonw/datasette-placekey
+- simonw/datasette-init
 - dogsheep/dogsheep-beta
 - eyeseast/datasette-geojson
 - bretwalker/datasette-query-history
