@@ -120,7 +120,7 @@
             {% set ns.current_date = prettydate(row["published_at"]) %}
           {% endif %}
           <h4><a href="{{ row["release_url"] }}">{{ row["name"] }} {{ row["tag_name"]}}</a></h4>
-          {{ render_markdown(row["body_markdown"], extensions=["fenced_code"]) }}
+          {{ remove_links_inside_pre(render_markdown(row["body_markdown"], extensions=["fenced_code"])) }}
         {% endfor %}
         <p><a href="/content/recent_releases">All releases</a></p>
       </div>
