@@ -19,7 +19,11 @@ If you don't want to build the database files from scratch, run this:
     curl -O https://datasette.io/content.db
     curl -O https://datasette.io/blog.db
 
-To build the database files used by the site:
+To build the database files used by the site you will first need to set an environment variable containing a GitHub personal access token. You can create a token at https://github.com/settings/tokens - then set it as the `GITHUB_TOKEN` environment variable like so:
+
+    export GITHUB_TOKEN="token-here"
+
+Now you can build the databases like this:
 
     scripts/build.sh
 
