@@ -18,4 +18,6 @@ datasette publish cloudrun content.db docs-index.db dogsheep-index.db blog.db \
   --install=datasette-graphql \
   --install=datasette-json-html \
   --install=datasette-debug-asgi \
+  --install=html5lib \
+  --install=beautifulsoup4 \
   --install 'dogsheep-beta>=0.10.1'
