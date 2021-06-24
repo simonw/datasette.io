@@ -17,7 +17,7 @@ python build_directory.py content.db --fetch-missing-releases
 python fetch_blog_content.py blog.db datasette dogsheep sqliteutils
 
 # Fetch documentation database for search index
-curl -o docs-index.db https://latest-docs.datasette.io/docs.db
+curl -o docs-index.db https://stable-docs.datasette.io/docs.db
 
 # Import stats.json
 curl https://raw.githubusercontent.com/simonw/package-stats/main/stats.json \
