@@ -43,7 +43,7 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
     - name: Fetch documentation database for search index
-      run: curl -o docs-index.db https://latest-docs.datasette.io/docs.db
+      run: curl -o docs-index.db https://stable-docs.datasette.io/docs.db
     - name: Soundness check
       run: scripts/test.sh
     - name: Set up Cloud Run
