@@ -54,7 +54,7 @@ docs-index.db:
               sections_fts match escape_fts(:q)
               and id = :key
         display: |-
-            <h3>Docs: <a href="https://docs.datasette.io/en/latest/{{ display.page }}.html#{{ display.ref }}">{{ title }}</a></h3>
+            <h3>Docs: <a href="https://docs.datasette.io/en/stable/{{ display.page }}.html#{{ display.ref }}">{{ title }}</a></h3>
             <p>{{ display.snippet.replace('b4de2a49c8', '<strong style="background-color: yellow">').replace('8c94a2ed4b', '</strong>')|safe }}</p>
 content.db:
     uses:
