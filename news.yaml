@@ -1,3 +1,6 @@
+- date: 2021-07-15
+  body: |-
+    [Datasette 0.58](https://docs.datasette.io/en/stable/changelog.html#v0-58) has new plugin hooks, a huge performance improvement for faceting, support for Unix domain sockets and several other improvements. Read [the annotated release notes](https://simonwillison.net/2021/Jul/16/datasette-058/) for extra background and context on the release.
 - date: 2021-06-05
   body: |-
     [Datasette 0.57](https://docs.datasette.io/en/stable/changelog.html#v0-57) is out with an important [security patch](https://github.com/simonw/datasette/security/advisories/GHSA-xw7c-jx9m-xh5g) plus a number of new features and bug fixes. Datasette 0.56.1, also out today, provides the security patch for users who are not yet ready to upgrade to the latest version.
