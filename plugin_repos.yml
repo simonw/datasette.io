@@ -65,3 +65,4 @@
 - eyeseast/datasette-geojson
 - bretwalker/datasette-query-history
 - simonw/datasette-remote-metadata
+- simonw/datasette-pyinstrument
