@@ -66,3 +66,4 @@
 - bretwalker/datasette-query-history
 - simonw/datasette-remote-metadata
 - simonw/datasette-pyinstrument
+- simonw/datasette-query-links
