@@ -67,3 +67,4 @@
 - simonw/datasette-remote-metadata
 - simonw/datasette-pyinstrument
 - simonw/datasette-query-links
+- simonw/datasette-x-forwarded-host
