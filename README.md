@@ -14,10 +14,9 @@ More background: [datasette.io, an official project website for Datasette](https
 
 Check out this repository, create a virtual environment and run `pip install -r requirements.txt` for the dependencies.
 
-If you don't want to build the database files from scratch, run this:
+If you don't want to build the database files from scratch, run this to download them:
 
-    curl -O https://datasette.io/content.db
-    curl -O https://datasette.io/blog.db
+    ./refresh-from-production.sh
 
 To build the database files used by the site you will first need to set an environment variable containing a GitHub personal access token. You can create a token at https://github.com/settings/tokens - then set it as the `GITHUB_TOKEN` environment variable like so:
 
