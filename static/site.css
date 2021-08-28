@@ -33,6 +33,10 @@ a:active {
     text-decoration: none;
 }
 
+pre {
+    word-wrap: break-word;
+}
+
 header nav ul {
     margin: 1em 0 0 0;
     padding: 0;
