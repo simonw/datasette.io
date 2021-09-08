@@ -1,3 +1,6 @@
+- date: 2021-09-08
+  body: |-
+    [Datasette Desktop](https://datasette.io/desktop) is a new macOS desktop application version of Datasette, which supports opening SQLite files on your computer, importing CSV files and installing plugins. I wrote more about how it works in [Datasette Desktop—a macOS desktop application for Datasette](https://simonwillison.net/2021/Sep/8/datasette-desktop/).
 - date: 2021-07-28
   body: |-
     [The Baked Data architectural pattern](https://simonwillison.net/2021/Jul/28/baked-data/) describes a pattern commonly used with Datasette where the content for a site is bundled inside a SQLite database file and included alongside templates and application code in a deployment to a serverless hosting provider.
