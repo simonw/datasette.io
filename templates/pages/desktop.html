@@ -12,7 +12,7 @@
   display: inline-block;
   cursor: pointer;
   color: white;
-  font-size: 1.2em;
+  font-size: 1.1em;
   font-weight: bold;
   padding: 0.5em 1em;
   margin-right: 0.5em;
@@ -47,7 +47,7 @@ where release in (
   order by published_at desc limit 1
 )
 """, database="content") %}
-    <p><a class="download-button" href="{{ row.browser_download_url }}">Download and install {{ row.name }}</a> {{ format_bytes(row.size) }}</p>
+    <p><a class="download-button" href="{{ row.browser_download_url }}">Download and install Datasette</a> <span style="white-space: nowrap">{{ format_bytes(row.size) }}</span></p>
 {% endfor %}
 
 <p style="margin-top: 3em"><img alt="Screenshot of the Datasette Desktop app" style="max-width: 100%" src="/static/datasette-desktop.jpg"></p>
