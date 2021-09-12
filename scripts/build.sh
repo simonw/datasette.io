@@ -5,6 +5,10 @@ set -eu -o pipefail
 sqlite-utils content.db 'drop table if exists news'
 yaml-to-sqlite content.db news news.yaml
 
+# Populate example_csvs
+sqlite-utils content.db 'drop table if exists example_csvs'
+yaml-to-sqlite content.db example_csvs example_csvs.yml
+
 # Populate uses table for the /for section
 markdown-to-sqlite content.db uses for/*.md
 
