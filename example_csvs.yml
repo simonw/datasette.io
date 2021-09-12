@@ -1,5 +1,6 @@
 - url: https://data.cityofnewyork.us/api/views/vfnx-vebw/rows.csv?accessType=DOWNLOAD
   name: 2018 Central Park Squirrel Census
+  table_name: squirrel_census_2018
   source: NYC Open Data
   source_url: https://data.cityofnewyork.us/Environment/2018-Central-Park-Squirrel-Census-Squirrel-Data/vfnx-vebw
   about: Squirrel Census
