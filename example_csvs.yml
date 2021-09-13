@@ -7,3 +7,10 @@
   about_url: https://www.thesquirrelcensus.com/
   description: |-
     Data for each of 3,023 squirrel sightings in Central Park, including location coordinates, age, primary and secondary fur color, elevation, activities, communications, and interactions between squirrels and with humans.
+- url: 
+  name: Animal rescue incidents attended by the London Fire Brigade
+  table_name: london_fire_brigade_animal_rescues
+  source: London Datastore
+  source_url: https://data.london.gov.uk/dataset/animal-rescue-incidents-attended-by-lfb
+  description: |-
+    The London Fire Brigade attends a range of non-fire incidents, including assistance to animals that may be trapped or in distress. This data includes every such incident since January 2009, and is updated monthly.
