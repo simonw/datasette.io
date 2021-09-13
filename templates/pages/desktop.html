@@ -72,6 +72,8 @@ where releases.id in (
     </div>
 {% endfor %}
 
+<p>Suggestions and feedback welcome on <a href="https://github.com/simonw/datasette-app/discussions">GitHub Discussions</a>.</p>
+
 <p style="margin-top: 3em"><img alt="Screenshot of the Datasette Desktop app" style="max-width: 100%" src="/static/datasette-desktop.jpg"></p>
 
 {{ render_markdown("""
@@ -82,8 +84,6 @@ where releases.id in (
 - Import CSV files into tables in on-disk SQLite databases (including creating a new blank database first).
 - By default the application runs a local web server which only accepts connections from your machine... but you can change that in the `File -> Access Control` menu to allow connections from anyone on your network. This includes [Tailscale](https://tailscale.com/) networks too, allowing you to run the application on your home computer and then access it securely from other devices such as your mobile phone anywhere in the world.
 - You can install plugins! This is the most exciting aspect of this initial release: it's already in a state where users can customize it and developers can extend it, either with [Datasette's existing plugins](https://datasette.io/plugins) (69 and counting) or by [writing new ones](https://docs.datasette.io/en/stable/writing_plugins.html).
-
-Suggestions and feedback welcome! Join [this discussion on GitHub](https://github.com/simonw/datasette-app/discussions/67).
 """) }}
 
 {% endblock %}
