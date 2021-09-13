@@ -46,6 +46,8 @@
 Datasette Desktop for macOS provides an installable application for easily running Datasette on your own computer.
 
 Download the application, drag `Datasette.app` to your `Applications` folder and double-click the icon to get started!
+
+**Suggestions and feedback** welcome on [GitHub Discussions](https://github.com/simonw/datasette-app/discussions).
 """) }}
 
 {% for row in sql("""
@@ -68,8 +70,6 @@ order by published_at desc limit 2
       {{ render_markdown(row.release_notes) }}
     </div>
 {% endfor %}
-
-<p>Suggestions and feedback welcome on <a href="https://github.com/simonw/datasette-app/discussions">GitHub Discussions</a>.</p>
 
 <p style="margin-top: 3em"><img alt="Screenshot of the Datasette Desktop app" style="max-width: 100%" src="/static/datasette-desktop.jpg"></p>
 
