@@ -103,11 +103,13 @@ def fetch_plugins(oauth_token, repos):
 )
 @click.option("--github-token", envvar="GITHUB_TOKEN", required=True)
 @click.option("--fetch-missing-releases", is_flag=True)
+@click.option("--always-fetch-releases-for-repo", multiple=True)
 @click.option("--force-fetch-readmes", is_flag=True)
 def cli(
     db_filename,
     github_token,
     fetch_missing_releases,
+    always_fetch_releases_for_repo,
     force_fetch_readmes,
 ):
     db = sqlite_utils.Database(db_filename)
@@ -142,10 +144,14 @@ def cli(
             for release in releases:
                 tag_name = release["tagName"]
                 # Does this release exist for this repo?
-                if not db["repos"].exists() or not list(
-                    db["releases"].rows_where(
-                        "repo = (select id from repos where full_name = ?) and tag_name = ?",
-                        [full_name, tag_name],
+                if (
+                    (full_name in always_fetch_releases_for_repo)
+                    or not db["repos"].exists()
+                    or not list(
+                        db["releases"].rows_where(
+                            "repo = (select id from repos where full_name = ?) and tag_name = ?",
+                            [full_name, tag_name],
+                        )
                     )
                 ):
                     repos_to_fetch_releases_for.add(full_name)
