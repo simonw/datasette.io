@@ -70,3 +70,4 @@
 - simonw/datasette-x-forwarded-host
 - simonw/datasette-verify
 - simonw/datasette-template-request
+- rclement/datasette-dashboards
