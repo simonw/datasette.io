@@ -1,6 +1,6 @@
 - date: 2021-10-14
   body: |-
-    [Datasette 0.59](https://docs.datasette.io/en/stable/changelog.html#v0-58) adds column descriptions in metadata, a new `register_command` plugin hook, enhanced `--cors` support and a bunch of other fixes and documentation improvements.
+    [Datasette 0.59](https://docs.datasette.io/en/stable/changelog.html#v0-59) adds column descriptions in metadata, a new `register_command` plugin hook, enhanced `--cors` support and a bunch of other fixes and documentation improvements.
 - date: 2021-09-08
   body: |-
     [Datasette Desktop](https://datasette.io/desktop) is a new macOS desktop application version of Datasette, which supports opening SQLite files on your computer, importing CSV files and installing plugins. I wrote more about how it works in [Datasette Desktop—a macOS desktop application for Datasette](https://simonwillison.net/2021/Sep/8/datasette-desktop/).
