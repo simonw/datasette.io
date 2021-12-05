@@ -1,3 +1,6 @@
+- date: 2021-12-05
+  body: |-
+    [Observable](https://observablehq.com/) notebooks recently added a SQL cell type, allowing SQL queries to be executed as part of an interactive notebook workflow. Alex Garcia built a [Datasette Client](https://observablehq.com/@ambassadors/datasette-client) for these which allows you to excute queries against any Datasette instance and explore and visualize the results using JavaScript code running in a notebook.
 - date: 2021-10-14
   body: |-
     [Datasette 0.59](https://docs.datasette.io/en/stable/changelog.html#v0-59) adds column descriptions in metadata, a new `register_command` plugin hook, enhanced `--cors` support and a bunch of other fixes and documentation improvements. See also [the annotated release notes](https://simonwillison.net/2021/Oct/19/datasette-059/).
