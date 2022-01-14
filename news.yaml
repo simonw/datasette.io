@@ -1,3 +1,6 @@
+- date: 2022-01-13
+  body: |-
+    [Datasette 0.60](https://docs.datasette.io/en/stable/changelog.html#v0-60) adds a new `filters_from_request` plugin hook, new internal methods for writing to the database, better performance and various faceting improvements. See also [the annotated release notes](https://simonwillison.net/2022/Jan/14/datasette-060/).
 - date: 2021-12-05
   body: |-
     [Observable](https://observablehq.com/) notebooks recently added a SQL cell type, allowing SQL queries to be executed as part of an interactive notebook workflow. Alex Garcia built a [Datasette Client](https://observablehq.com/@ambassadors/datasette-client) for these which allows you to excute queries against any Datasette instance and explore and visualize the results using JavaScript code running in a notebook.
