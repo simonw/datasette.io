@@ -74,3 +74,4 @@
 - simonw/datasette-redirect-to-https
 - simonw/datasette-pretty-traces
 - simonw/datasette-tiddlywiki
+- simonw/datasette-redirect-forbidden
