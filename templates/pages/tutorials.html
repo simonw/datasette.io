@@ -1,0 +1,17 @@
+{% extends "page_base.html" %}
+
+{% block title %}Datasette Tutorials{% endblock %}
+
+{% block content %}
+{{ render_markdown("""
+# Datasette Tutorials
+
+These tutorials are intended to complement the official [Datasette documentation](https://docs.datasette.io/) by providing step-by-step guides to learning Datasette and the Datasette ecosystem tools.
+
+- **[Exploring a database with Datasette](/tutorials/explore)** shows how to use the Datasette web interface to explore a new database.
+<!-- - **[Learn SQL with Datasette](/tutorials/learn-sql)** introduces SQL, and shows how to use that query language to ask questions of your data. -->
+
+Suggestions for more tutorials are welcome! Please share those on the [Datasette Discussions](https://github.com/simonw/datasette/discussions) forum on GitHub.
+""") }}
+
+{% endblock %}
