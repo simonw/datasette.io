@@ -27,7 +27,7 @@ We'll be using an example database of Members of the United States Congress, 178
 
 Access the example in Datasette here: **https://congress-legislators.datasettes.com/legislators**
 
-![Screenshot of that page](/static/tutorials/explore/legislators-index.jpg)
+![Screenshot of database index page, showing a box to enter SQL queries and a list of their tables](/static/tutorials/explore/legislators-index.jpg)
 
 ## Understanding tables
 
@@ -74,17 +74,17 @@ I'll show some examples using the [executive_terms](https://congress-legislators
 
 Facets can be applied in two ways: you can select an option from the \"suggested facets\" list, or you can select the \"Facet by this\" option from the cog menu next to each column.
 
-![TODO](/static/tutorials/explore/select-facets.jpg)
+![Screenshot of a table showing the suggested facet links and indicating where in the column cog menu the Facet by this link can be found](/static/tutorials/explore/select-facets.jpg)
 
 Once selected, the facet interface is shown above the table, like in [this example](https://congress-legislators.datasettes.com/legislators/executive_terms?_facet=type&_facet=party#facet-party):
 
-![TODO](/static/tutorials/explore/facets.jpg)
+![Facets show as two lists above the table - one of parties and one of types, where the types are prez or viceprez](/static/tutorials/explore/facets.jpg)
 
 Each facet shows a list of the most common values for that column, with a total count number for each of those values.
 
 These numbers will update as you further filter the data: if you select \"Democratic\" you will see just the rows matching that party, and the \"type\" facet will update to show you that there have been 21 presidentals terms and 19 vice presidental terms for that party.
 
-![TODO](/static/tutorials/explore/facet-democratic.jpg)
+![These facets show just the options for type - prev and viceprez - with the party option narrowed down to only Democratic](/static/tutorials/explore/facet-democratic.jpg)
 
 ### Exercises
 
@@ -96,17 +96,17 @@ These numbers will update as you further filter the data: if you select \"Democr
 
 When you select a facet, you're applying a filter to the data. These are reflected in the boxes at the top of the page:
 
-![TODO](/static/tutorials/explore/filters.jpg)
+![The filters box above the facets shows inputs for party = Democratic and type = viceprez](/static/tutorials/explore/filters.jpg)
 
 You don't have to use faceting for these - you can edit them directly.
 
 To see Democratic Vice Presidents just for the 1800s, we can add a filter for rows where the 'start' column begins with '18':
 
-![TODO](/static/tutorials/explore/filter-starts-with.jpg)
+![Here an additional row has been added to the filters, specifying that start should start with 18](/static/tutorials/explore/filter-starts-with.jpg)
 
 Here's [the result](https://congress-legislators.datasettes.com/legislators/executive_terms?_sort=rowid&_facet=type&_facet=party&start__startswith=18&party__exact=Democratic&type__exact=vicepre) of that query.
 
-![TODO](/static/tutorials/explore/viceprez-result.jpg)
+![A table listing Democratic vice presidential terms served in the 1800s](/static/tutorials/explore/viceprez-result.jpg)
 
 ### Exercises
 
@@ -137,7 +137,7 @@ If you can see it in Datasette, you can export the raw data. This is a fundament
 
 Look for the `CSV` and `.json` links on any page to export the data in those formats.
 
-![TODO](/static/tutorials/explore/export-options.jpg)
+![The export options live both above and below the table - above is the links to CSV, JSON and copyable while below is an Advanced export box with more options.](/static/tutorials/explore/export-options.jpg)
 
 The \"Advanced export\" box provides additional options. Use \"download file\" to download the CSV file to your computer. 
 
@@ -156,7 +156,7 @@ Datasette can also be configured to allow users to download the entire database 
 
 You may have noticed this already on the [offices](https://congress-legislators.datasettes.com/legislators/offices) table, which shows an interactive map of all of the office locations:
 
-![TODO](/static/tutorials/explore/datasette-cluster-map.jpg)
+![A map of the United States and American Samoa, covered in markers and marker clusters representing congressional offices](/static/tutorials/explore/datasette-cluster-map.jpg)
 
 You can click on clusters of markers to zoom in, and click on individual markers to see the details of the row.
 
