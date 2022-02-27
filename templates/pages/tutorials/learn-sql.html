@@ -231,7 +231,8 @@ A SQL *join* can be used to combine the data from multiple tables. Here's a quer
       executives.name
     from
       executive_terms
-      join executives on executive_terms.executive_id = executives.id
+      join executives
+        on executive_terms.executive_id = executives.id
 
 [Try that here](https://congress-legislators.datasettes.com/legislators?sql=select%0D%0A++executive_terms.type%2C%0D%0A++executive_terms.start%2C%0D%0A++executive_terms.%5Bend%5D%2C%0D%0A++executive_terms.party%2C%0D%0A++executive_terms.how%2C%0D%0A++executives.name%0D%0Afrom%0D%0A++executive_terms%0D%0A++join+executives+on+executive_terms.executive_id+%3D+executives.id%0D%0A).
 
@@ -309,7 +310,8 @@ We'll start with a query to return the names of every vice president. This requi
       executives.name
     from
       executive_terms
-      join executives on executive_terms.executive_id = executives.id
+      join executives
+        on executive_terms.executive_id = executives.id
     where
       type = 'viceprez'
 
@@ -323,7 +325,8 @@ If we want to see everyone who has been a president and ALSO been a president, w
       distinct executives.name
     from
       executive_terms
-      join executives on executive_terms.executive_id = executives.id
+      join executives
+        on executive_terms.executive_id = executives.id
     where
       type = 'prez'
       and name in (
@@ -331,7 +334,8 @@ If we want to see everyone who has been a president and ALSO been a president, w
           executives.name
         from
           executive_terms
-          join executives on executive_terms.executive_id = executives.id
+          join executives
+            on executive_terms.executive_id = executives.id
         where
           type = 'viceprez'
       )
@@ -353,7 +357,8 @@ Here's an example that creates two CTEs, one called `presidents` and one called 
         executives.name
       from
         executive_terms
-        join executives on executive_terms.executive_id = executives.id
+        join executives
+          on executive_terms.executive_id = executives.id
       where
         type = 'prez'
     ),
@@ -362,7 +367,8 @@ Here's an example that creates two CTEs, one called `presidents` and one called 
         executives.name
       from
         executive_terms
-        join executives on executive_terms.executive_id = executives.id
+        join executives
+          on executive_terms.executive_id = executives.id
       where
         type = 'viceprez'
     )
@@ -394,7 +400,8 @@ Here's the SQL query we will be using:
       executive_terms.party
     from
       executive_terms
-      join executives on executive_terms.executive_id = executives.id
+      join executives
+        on executive_terms.executive_id = executives.id
     where
       start <= :date
       and end > :date
