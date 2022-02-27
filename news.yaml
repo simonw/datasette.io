@@ -1,3 +1,6 @@
+- date: 2022-02-27
+  body: |-
+    The first two of an ongoing series of official Datasette tutorials are now available: [Exploring a database with Datasette](/tutorials/explore) introduces the Datasette web interface and shows how it can be used to explore a new database, and [Learn SQL with Datasette](/tutorials/learn-sql) provides an introduction to SQL using Datasette as a learning environment.
 - date: 2022-01-13
   body: |-
     [Datasette 0.60](https://docs.datasette.io/en/stable/changelog.html#v0-60) adds a new `filters_from_request` plugin hook, new internal methods for writing to the database, better performance and various faceting improvements. See also [the annotated release notes](https://simonwillison.net/2022/Jan/14/datasette-060/).
