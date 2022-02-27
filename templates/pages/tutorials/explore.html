@@ -14,11 +14,6 @@
 <meta property="og:description" content="This tutorial will teach you how to use Datasette to explore a new database.">
 <meta property="og:image" content="https://datasette.io/static/tutorials/explore/legislators-index.jpg">
 <meta property="og:image:alt" content="Screenshot of an example database in Datasette">
-<style type="text/css">
-.content img {
-  max-width: 100%;
-}
-</style>
 {% endblock %}
 
 {% block content %}
@@ -77,7 +72,7 @@ In a database these are called \"foreign keys\" - they work by storing the ID of
 
 Foreign keys are key to understanding why relational databases are so much more powerful than separate, stand-alone data files stored in something like CSV.
 
-## Using facets
+## Using facets<a name=\"using-facets\"></a>
 
 Facets are one of the most powerful Datasette features. They can help you take a table with thousands of rows and start quickly identifying interesting trends and patterns within that data.
 
@@ -103,7 +98,7 @@ These numbers will update as you further filter the data: if you select \"Democr
 2. Use them to filter just to Republican Senators from North Carolina (NC)
 3. Figure out which state has had the highest number of senatorial terms held by a member of the Republican party. ([solution if you get stuck](https://congress-legislators.datasettes.com/legislators/legislator_terms?_facet=party&party=Republican&_facet=state&_facet=type&type=sen))
 
-## Using filters
+## Using filters<a name=\"using-filters\"></a>
 
 When you select a facet, you're applying a filter to the data. These are reflected in the boxes at the top of the page:
 
@@ -127,7 +122,7 @@ Using the [legislator_terms](https://congress-legislators.datasettes.com/legisla
 2. ... that started in a year starting with 18
 3. ... and then facet by party to see which parties had the most senatorial terms
 
-## Sharing links
+## Sharing links<a name=\"sharing-links\"></a>
 
 Every page within Datasette is designed to be shared. Copy and paste the page URL to share it with someone else.
 
@@ -177,6 +172,10 @@ This is another example of a Datasette plugin - in this case [datasette-cluster-
 
 For a larger example of a map visualization, take a look at [this map of 33,000+ global power plants](https://global-power-plants.datasettes.com/global-power-plants/global-power-plants) visualized using `datasette-cluster-map`.
 
-""") }}
+## Next steps
+
+Now that you know how to explore tables using Datasette, the next covers how to [use Datasette to learn SQL](/tutorials/learn-sql).
+
+""", extra_attrs={"a": ["name", "href"]}) }}
 
 {% endblock %}
