@@ -31,5 +31,8 @@ curl -o docs-index.db https://stable-docs.datasette.io/docs.db
 curl https://raw.githubusercontent.com/simonw/package-stats/main/stats.json \
   | python build_stats.py content.db -
 
+# Build tutorials table, for search
+python index_tutorials.py
+
 # Build search index
 dogsheep-beta index dogsheep-index.db templates/dogsheep-beta.yml

@@ -206,3 +206,24 @@ content.db:
         display: |-
             <h3><a href="/news/{{ key }}">{{ title }}</a></h3>
             <p>{{ display.rendered_markdown|safe }}</p>
+    tutorials:
+        sql: |-
+            select
+              path as key,
+              title,
+              body as search_1,
+              1 as is_public
+            from
+              tutorials
+        display_sql: |-
+            select
+              highlight(
+                body, :q
+              ) as snippet
+            from
+              tutorials
+            where
+              tutorials.path = :key
+        display: |-
+            <h3>Tutorial: <a href="{{ key }}">{{ title }}</a></h3>
+            <p>{{ display.snippet|safe }}</p>
