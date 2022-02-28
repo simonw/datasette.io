@@ -23,7 +23,37 @@ blog.db:
             <h3>Blog: <a href="{{ display.url }}">{{ title }}</a></h3>
             <p>{{ display.snippet|safe }}</p>
             <p><small>Published {{ timestamp }}</small></p>
-
+tils.db:
+    til:
+        sql: |-
+            select
+              path as key,
+              title,
+              body as search_1,
+              created_utc as timestamp,
+              1 as is_public
+            from
+              til
+            where
+              "title" like '%datasette%'
+              or topic in ('datasette', 'sqlite')
+            order by
+              created_utc desc
+        display_sql: |-
+            select
+              topic,
+              slug,
+              highlight(
+                body, :q
+              ) as snippet
+            from
+              til
+            where
+              til.path = :key
+        display: |-
+            <h3>TIL: <a href="https://til.simonwillison.net/{{ display.topic }}/{{ display.slug }}">{{ title }}</a></h3>
+            <p>{{ display.snippet|safe }}</p>
+            <p><small>Published {{ timestamp }}</small></p>
 docs-index.db:
     sections:
         sql: |-

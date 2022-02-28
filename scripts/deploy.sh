@@ -3,7 +3,8 @@ set -euf -o pipefail
 
 gcloud config set run/region us-central1
 gcloud config set project datasette-222320
-datasette publish cloudrun content.db docs-index.db dogsheep-index.db blog.db \
+datasette publish cloudrun \
+  content.db docs-index.db dogsheep-index.db blog.db tils.db \
   --service datasette-io \
   --branch main \
   --template-dir=templates \
