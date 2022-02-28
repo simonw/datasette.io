@@ -22,7 +22,7 @@ python build_directory.py content.db --fetch-missing-releases \
 python fetch_blog_content.py blog.db datasette dogsheep sqliteutils
 
 # Fetch TILs
-curl -o tils.db https://github.com/simonw/til-db/raw/main/tils.db
+curl -L -o tils.db https://github.com/simonw/til-db/raw/main/tils.db
 
 # Fetch documentation database for search index
 curl -o docs-index.db https://stable-docs.datasette.io/docs.db
