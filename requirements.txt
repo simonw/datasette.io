@@ -26,3 +26,4 @@ datasette-json-html
 datasette-debug-asgi
 html5lib
 beautifulsoup4
+pytest

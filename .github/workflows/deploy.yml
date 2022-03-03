@@ -29,6 +29,8 @@ jobs:
     - name: Install Python dependencies
       run: |
         pip install -r requirements.txt
+    - name: Run the pytest tests
+      run: pytest
     - name: Download previous content.db
       if: github.event.inputs.from_scratch != 'skip'
       run: |
