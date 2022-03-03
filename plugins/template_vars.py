@@ -1,7 +1,7 @@
 from bs4 import BeautifulSoup as Soup
 from datasette import hookimpl
 import sqlite3
-import jinja2
+from markupsafe import Markup
 
 escaper = sqlite3.connect(":memory:")
 
@@ -42,7 +42,7 @@ def adjust_header_hierarchy(html, max_heading_level):
         heading.name = "h{}".format(new_level)
     rendered = str(soup)
     # Strip the <body> / <head> / <html> wrappers
-    return jinja2.Markup(
+    return Markup(
         rendered.replace("<body>", "")
         .replace("</body>", "")
         .replace("<html>", "")
