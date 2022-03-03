@@ -75,3 +75,5 @@
 - simonw/datasette-pretty-traces
 - simonw/datasette-tiddlywiki
 - simonw/datasette-redirect-forbidden
+- eyeseast/datasette-geojson-map
+- eyeseast/sqlite-colorbrewer
