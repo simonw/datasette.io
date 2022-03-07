@@ -319,7 +319,7 @@ This query [returns 61 rows](https://congress-legislators.datasettes.com/legisla
 
 We could use `select distinct` to [remove those duplicates](https://congress-legislators.datasettes.com/legislators?sql=select%0D%0A++distinct+executives.name%0D%0Afrom%0D%0A++executive_terms%0D%0A++join+executives+on+executive_terms.executive_id+%3D+executives.id%0D%0Awhere%0D%0A++type+%3D+%27viceprez%27%0D%0A) if we wanted to.
 
-If we want to see everyone who has been a president and ALSO been a president, we can combine two queries together like this:
+If we want to see everyone who has been a president and ALSO been a vice-president, we can combine two queries together like this:
 
     select
       distinct executives.name
