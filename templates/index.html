@@ -6,6 +6,8 @@
   <title>Datasette: An open source multi-tool for exploring and publishing data</title>
   <link rel="stylesheet" type="text/css" href="/static/site.css">
 {% include "_analytics.html" %}
+  <link rel="stylesheet" href="/static/lite-yt-embed.css" />
+  <script src="/static/lite-yt-embed.js"></script>
 </head>
 <body>
   <header>
@@ -24,7 +26,7 @@
   </header>
   <main>
     <div class="datasette-video">
-      <iframe style="max-width: 100%" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen="allowfullscreen" frameborder="0" height="315" src="https://www.youtube.com/embed/7kDFBnXaw-c" width="560"> </iframe>
+      <lite-youtube videoid="7kDFBnXaw-c" playlabel="Play: Introduction to Datasette and sqlite-utils"></lite-youtube>
       <p><a href="https://simonwillison.net/2021/Feb/7/video/">Annotated version</a> of this introductory video</p>
     </div>
     <div class="about">
