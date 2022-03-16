@@ -77,3 +77,4 @@
 - simonw/datasette-redirect-forbidden
 - eyeseast/datasette-geojson-map
 - eyeseast/sqlite-colorbrewer
+- simonw/datasette-hashed-urls
