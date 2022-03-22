@@ -49,7 +49,7 @@ jobs:
     - name: Soundness check
       run: scripts/test.sh
     - name: Set up Cloud Run
-      uses: google-github-actions/setup-gcloud@master
+      uses: google-github-actions/setup-gcloud@v0
       with:
         version: '275.0.0'
         service_account_email: ${{ secrets.GCP_SA_EMAIL }}
