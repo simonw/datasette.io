@@ -1,3 +1,6 @@
+- date: 2022-03-23
+  body: |-
+    [Datasette 0.61](https://docs.datasette.io/en/stable/changelog.html#v0-61) introduces two potentially backwards-incompatible changes in preparation for the forthcoming 1.0 release: hashed URL mode has been moved to [a new plugin](https://datasette.io/plugins/datasette-hashed-urls), and the way URLs are generated to tables or databases containing special characters such as `.` or `/` has changed.
 - date: 2022-02-27
   body: |-
     The first two of an ongoing series of official Datasette tutorials are now available: [Exploring a database with Datasette](/tutorials/explore) introduces the Datasette web interface and shows how it can be used to explore a new database, and [Learn SQL with Datasette](/tutorials/learn-sql) provides an introduction to SQL using Datasette as a learning environment.
