@@ -79,3 +79,4 @@
 - eyeseast/sqlite-colorbrewer
 - simonw/datasette-hashed-urls
 - simonw/datasette-packages
+- simonw/datasette-auth0
