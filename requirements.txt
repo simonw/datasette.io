@@ -14,6 +14,8 @@ github-to-sqlite>=2.8.2
 python-graphql-client
 httpx
 feedparser
+pypi-to-sqlite
+pytest
 # These are used in deploy, listing them here so they
 # show up in the GitHub dependency graph:
 datasette-json-html
@@ -26,4 +28,3 @@ datasette-json-html
 datasette-debug-asgi
 html5lib
 beautifulsoup4
-pytest

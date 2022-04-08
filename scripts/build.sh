@@ -18,6 +18,19 @@ yaml-to-sqlite content.db tool_repos tool_repos.yml --single-column repo
 python build_directory.py content.db --fetch-missing-releases \
    --always-fetch-releases-for-repo simonw/datasette-app
 
+# And fetch data from PyPI via the pypi-datasette-packages cache
+if [ ! -d /tmp/pypi-datasette-packages ]
+then
+  git clone https://github.com/simonw/pypi-datasette-packages /tmp/pypi-datasette-packages
+else
+  (cd /tmp/pypi-datasette-packages && git pull)
+fi
+
+args=$(ls /tmp/pypi-datasette-packages/packages/*.json | awk '{print "-f "$0 " \\"}')
+# Load that into pypi_packages/pypi_versions/pypi_releases
+eval "pypi-to-sqlite content.db $args
+--prefix pypi_"
+
 # Fetch my relevant blog content
 python fetch_blog_content.py blog.db datasette dogsheep sqliteutils
 
