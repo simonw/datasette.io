@@ -100,37 +100,70 @@
         <h2>Latest releases</h2>
         {% set ns = namespace(current_date="", current_pypi_summary="") %}
         {% for row in sql("""
-        with release_note_releases as (select
-          repos.rowid as rowid,
-          repos.html_url as repo,
-          repos.name as name,
-          repos.full_name as full_name,
-          releases.html_url as release_url,
-          releases.tag_name as tag_name,
-          substr(releases.published_at, 0, 11) as date,
-          releases.body as body_markdown,
-          releases.published_at,
-          coalesce(repos.topics, '[]') as topics,
-          pypi_packages.summary as pypi_summary
-        from
-          releases
-          join repos on repos.id = releases.repo
-          left join pypi_packages on pypi_packages.name = repos.name
-        order by
-          releases.published_at desc
+        with release_note_releases as (
+          select
+            repos.name as name,
+            releases.html_url as release_url,
+            releases.tag_name as version,
+            substr(releases.published_at, 0, 11) as date,
+            releases.body as body_markdown,
+            releases.published_at as released_at,
+            pypi_packages.summary as pypi_summary
+          from
+            releases
+            join repos on repos.id = releases.repo
+            left join pypi_packages on pypi_packages.name = repos.name
+        ),
+        releases_with_no_notes as (
+          select
+            pypi_releases.package as name,
+            null as release_url,
+            pypi_versions.name as version,
+            substr(min(pypi_releases.upload_time), 0, 11) as date,
+            null as body_markdown,
+            min(pypi_releases.upload_time) as released_at,
+            pypi_packages.summary as pypi_summary
+          from
+            pypi_releases
+            join pypi_packages on pypi_releases.package = pypi_packages.name
+            join pypi_versions on pypi_releases.version = pypi_versions.id
+          where
+          pypi_releases.package not in (
+              select
+                name
+              from
+                release_note_releases
+            )
+          group by
+            pypi_releases.package,
+            pypi_releases.version
         )
-        select * from release_note_releases limit 10
+        select
+          *
+        from
+          release_note_releases
+        union
+        select
+          *
+        from
+          releases_with_no_notes
+        order by
+          released_at desc
+        limit
+          15
         """ , database="content") %}
-          {% if prettydate(row["published_at"]) != (ns.current_date and prettydate(ns.current_date)) %}
-            <h3>{{ prettydate(row["published_at"]) }}</h3>
-            {% set ns.current_date = prettydate(row["published_at"]) %}
+          {% if prettydate(row["released_at"]) != (ns.current_date and prettydate(ns.current_date)) %}
+            <h3>{{ prettydate(row["released_at"]) }}</h3>
+            {% set ns.current_date = prettydate(row["released_at"]) %}
           {% endif %}
-          <h4><a href="{{ row["release_url"] }}">{{ row["name"] }} {{ row["tag_name"]}}</a>
+          <h4><a href="{% if row["release_url"] %}{{ row["release_url"] }}{% else %}/plugins/{{ row["name"] }}{% endif %}">{{ row["name"] }} {{ row["version"]}}</a>
             {% if row["pypi_summary"] != ns.current_pypi_summary and row["pypi_summary"] %}
               <span style="font-weight: normal; color: #666; font-size: 0.9em;"> - {{ row["pypi_summary"] }}</span>
               {% set ns.current_pypi_summary = row["pypi_summary"] %}
             {% endif %}</h4>
-          {{ adjust_header_hierarchy(render_markdown(row["body_markdown"], extensions=["fenced_code"]), max_heading_level=5) }}
+            {% if row["body_markdown"] %}
+              {{ adjust_header_hierarchy(render_markdown(row["body_markdown"], extensions=["fenced_code"]), max_heading_level=5) }}
+            {% endif %}
         {% endfor %}
         <p><a href="/content/recent_releases">All releases</a></p>
       </div>
