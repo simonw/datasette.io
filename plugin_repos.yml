@@ -81,3 +81,4 @@
 - simonw/datasette-packages
 - simonw/datasette-auth0
 - simonw/datasette-hovercards
+- rclement/datasette-dashboards

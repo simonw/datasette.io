@@ -191,8 +191,8 @@ select
   users.login as owner,
   repos.description as description,
   repos.stargazers_count,
-  releases.tag_name,
-  max(releases.created_at) as latest_release_at,
+  pypi_versions.name,
+  max(pypi_releases.upload_time) as latest_release_at,
   repos.created_at as created_at,
   datasette_repos.openGraphImageUrl,
   datasette_repos.usesCustomOpenGraphImage,
@@ -224,7 +224,8 @@ select
 from
   datasette_repos
   join repos on datasette_repos.id = repos.node_id
-  join releases on repos.id = releases.repo
+  left join pypi_releases on pypi_releases.package = repos.name
+  left join pypi_versions on pypi_releases.version = pypi_versions.id
   join users on users.id = repos.owner
 where
   datasette_repos.nameWithOwner in (
@@ -236,7 +237,7 @@ where
 group by
   repos.id
 order by
-  latest_release_at desc
+  latest_release_at desc;
 """.format(
                 repo_table=repo_table
             ).strip(),
