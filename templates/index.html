@@ -98,9 +98,9 @@
       </div>
       <div class="two-col-column">
         <h2>Latest releases</h2>
-        {% set ns = namespace(current_date="") %}
+        {% set ns = namespace(current_date="", current_pypi_summary="") %}
         {% for row in sql("""
-        select
+        with release_note_releases as (select
           repos.rowid as rowid,
           repos.html_url as repo,
           repos.name as name,
@@ -110,19 +110,26 @@
           substr(releases.published_at, 0, 11) as date,
           releases.body as body_markdown,
           releases.published_at,
-          coalesce(repos.topics, '[]') as topics
+          coalesce(repos.topics, '[]') as topics,
+          pypi_packages.summary as pypi_summary
         from
           releases
           join repos on repos.id = releases.repo
+          left join pypi_packages on pypi_packages.name = repos.name
         order by
           releases.published_at desc
-        limit 10
+        )
+        select * from release_note_releases limit 10
         """ , database="content") %}
           {% if prettydate(row["published_at"]) != (ns.current_date and prettydate(ns.current_date)) %}
             <h3>{{ prettydate(row["published_at"]) }}</h3>
             {% set ns.current_date = prettydate(row["published_at"]) %}
           {% endif %}
-          <h4><a href="{{ row["release_url"] }}">{{ row["name"] }} {{ row["tag_name"]}}</a></h4>
+          <h4><a href="{{ row["release_url"] }}">{{ row["name"] }} {{ row["tag_name"]}}</a>
+            {% if row["pypi_summary"] != ns.current_pypi_summary and row["pypi_summary"] %}
+              <span style="font-weight: normal; color: #666; font-size: 0.9em;"> - {{ row["pypi_summary"] }}</span>
+              {% set ns.current_pypi_summary = row["pypi_summary"] %}
+            {% endif %}</h4>
           {{ adjust_header_hierarchy(render_markdown(row["body_markdown"], extensions=["fenced_code"]), max_heading_level=5) }}
         {% endfor %}
         <p><a href="/content/recent_releases">All releases</a></p>
