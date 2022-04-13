@@ -1,3 +1,6 @@
+- date: 2022-04-12
+  body: |-
+    [Datasette for geospatial analysis](https://datasette.io/for/geospatial) describes how Datasette can be used in conjunction with SpatiaLite to work with geospatial data, including details of several geospatial plugins and tools from the Datasette ecosystem.
 - date: 2022-03-23
   body: |-
     [Datasette 0.61](https://docs.datasette.io/en/stable/changelog.html#v0-61) introduces two potentially backwards-incompatible changes in preparation for the forthcoming 1.0 release: hashed URL mode has been moved to [a new plugin](https://datasette.io/plugins/datasette-hashed-urls), and the way URLs are generated to tables or databases containing special characters such as `.` or `/` has changed. [Datasette 0.61.1](https://docs.datasette.io/en/stable/changelog.html#v0-61-1) fixes a small bug in that release. See also [the annotated release notes](https://simonwillison.net/2022/Mar/24/datasette-061/) for these two versions.
