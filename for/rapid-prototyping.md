@@ -9,4 +9,4 @@ Use Datasette with **[Observable notebooks](https://observablehq.com/)** to quic
 
 Datasette works as a great data for **[Jupyter notebooks](https://jupyter.org/)** too.
 
-[Fast Autocomplete Search for Your Website](https://24ways.org/2018/fast-autocomplete-search-for-your-website/) shows how to build a full autocomplete search engine for your website, powered by Datasette and a few dozen lines of custom JavaScript.
+[Fast Autocomplete Search for Your Website](https://simonwillison.net/2018/Dec/19/fast-autocomplete-search/) shows how to build a full autocomplete search engine for your website, powered by Datasette and a few dozen lines of custom JavaScript.

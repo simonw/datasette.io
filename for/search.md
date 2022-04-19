@@ -18,4 +18,4 @@ The [sqlite-utils command-line tool](https://sqlite-utils.datasette.io/en/stable
 
 You can configure search directly within the Datasette interface by installing the [datasette-configure-fts](https://github.com/simonw/datasette-configure-fts) plugin.
 
-[Fast Autocomplete Search for Your Website](https://24ways.org/2018/fast-autocomplete-search-for-your-website/) is a tutorial that shows how to write a scraper that populates a full-text search index in Datasette, then build a JavaScript autocomplete search interface using the Datasette JSON API.
+[Fast Autocomplete Search for Your Website](https://simonwillison.net/2018/Dec/19/fast-autocomplete-search/) is a tutorial that shows how to write a scraper that populates a full-text search index in Datasette, then build a JavaScript autocomplete search interface using the Datasette JSON API.

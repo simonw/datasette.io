@@ -258,7 +258,7 @@
     publish now --alias` argument.
 - date: 2018-12-18
   body: >-
-    [Fast Autocomplete Search for Your Website](https://24ways.org/2018/fast-autocomplete-search-for-your-website/)
+    [Fast Autocomplete Search for Your Website](https://simonwillison.net/2018/Dec/19/fast-autocomplete-search/)
     - a new tutorial on using Datasette to build a JavaScript autocomplete search engine.
 - date: 2018-10-03
   body: >-
