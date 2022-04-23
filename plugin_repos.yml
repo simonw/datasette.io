@@ -82,3 +82,4 @@
 - simonw/datasette-auth0
 - simonw/datasette-hovercards
 - rclement/datasette-dashboards
+- hydrosquall/datasette-nteract-data-explorer
