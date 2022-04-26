@@ -82,3 +82,4 @@
 - simonw/datasette-auth0
 - simonw/datasette-hovercards
 - rclement/datasette-dashboards
+- simonw/datasette-total-page-time
