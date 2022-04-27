@@ -84,3 +84,4 @@
 - rclement/datasette-dashboards
 - hydrosquall/datasette-nteract-data-explorer
 - simonw/datasette-total-page-time
+- simonw/datasette-gzip
