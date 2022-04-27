@@ -1,7 +1,7 @@
 ---
 title: Serverless read-only databases with Datasette
 summary: Serverless hosting usually depends on external hosted databases, but Datasette lets you implement the Baked Data pattern to bundle your data with your application code and deploy it to serverless providers.
-order: 7
+order: 8
 ---
 
 Serverless providers such as [Google Cloud Run](https://cloud.google.com/run) and [Vercel](https://vercel.com/) provide robust, scalable, inexpensive hosting for stateless web applications.

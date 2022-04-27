@@ -1,7 +1,7 @@
 ---
 title: Datasette for search
 summary: Datasette uses SQLite's built-in full-text search feature to provide faceted search over any correctly configured collection of records.
-order: 5
+order: 6
 ---
 
 Datasette is built on top of [SQLite](https://sqlite.org/), which includes a robust, full-featured [full-text search](https://www.sqlite.org/fts5.html) implementation.
