@@ -1,7 +1,7 @@
 ---
 title: Datasette for websites
 summary: "Datasette can be used to power dynamic-static websites: sites that run on serverless hosting while providing dynamic data-backed functionality."
-order: 6
+order: 7
 ---
 
 Datasette templates can be used to build custom websites with Datasette under the hood. Examples include the site you are browsing right now.
