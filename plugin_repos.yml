@@ -85,3 +85,4 @@
 - hydrosquall/datasette-nteract-data-explorer
 - simonw/datasette-total-page-time
 - simonw/datasette-gzip
+- simonw/datasette-copy-to-memory
