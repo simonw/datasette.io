@@ -1,3 +1,6 @@
+- date: 2022-05-05
+  body: |-
+    [Datasette Lite](https://lite.datasette.io/) is a new way to run Datasette: entirely in your browser, thanks to the [Pyodide](https://pyodide.org/) project which provides a full Python environment compiled to WebAssembly. You can use it to explore any SQLite database file hosted on a CORS-enabled static hosting provider, which includes GitHub and GitHub Pages. Read more about this project in [Datasette Lite: a server-side Python web application running in a browser](https://simonwillison.net/2022/May/4/datasette-lite/).
 - date: 2022-04-12
   body: |-
     [Datasette for geospatial analysis](https://datasette.io/for/geospatial) describes how Datasette can be used in conjunction with SpatiaLite to work with geospatial data, including details of several geospatial plugins and tools from the Datasette ecosystem.
