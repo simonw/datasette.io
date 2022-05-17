@@ -86,3 +86,4 @@
 - simonw/datasette-total-page-time
 - simonw/datasette-gzip
 - simonw/datasette-copy-to-memory
+- simonw/datasette-upload-dbs
