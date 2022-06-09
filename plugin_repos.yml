@@ -87,3 +87,4 @@
 - simonw/datasette-gzip
 - simonw/datasette-copy-to-memory
 - simonw/datasette-upload-dbs
+- simonw/datasette-socrata
