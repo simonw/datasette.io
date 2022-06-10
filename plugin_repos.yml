@@ -88,3 +88,4 @@
 - simonw/datasette-copy-to-memory
 - simonw/datasette-upload-dbs
 - simonw/datasette-socrata
+- eyeseast/datasette-query-files
