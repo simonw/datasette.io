@@ -1,3 +1,6 @@
+- date: 2022-06-30
+  body: |-
+    [s3-ocr](https://datasette.io/tools/s3-ocr) is a new tool which can run OCR (via Amazon Textract) against every PDF file in an S3 bucket and write the results to a searchable SQLite database, ready to use with Datasette. Read more about it in [s3-ocr: Extract text from PDF files stored in an S3 bucket](https://simonwillison.net/2022/Jun/30/s3-ocr/).
 - date: 2022-05-05
   body: |-
     [Datasette Lite](https://lite.datasette.io/) is a new way to run Datasette: entirely in your browser, thanks to the [Pyodide](https://pyodide.org/) project which provides a full Python environment compiled to WebAssembly. You can use it to explore any SQLite database file hosted on a CORS-enabled static hosting provider, which includes GitHub and GitHub Pages. Read more about this project in [Datasette Lite: a server-side Python web application running in a browser](https://simonwillison.net/2022/May/4/datasette-lite/).
