@@ -89,3 +89,4 @@
 - simonw/datasette-upload-dbs
 - simonw/datasette-socrata
 - simonw/datasette-scale-to-zero
+- simonw/datasette-expose-env
