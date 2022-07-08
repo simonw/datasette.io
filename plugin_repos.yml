@@ -89,3 +89,5 @@
 - simonw/datasette-upload-dbs
 - simonw/datasette-socrata
 - eyeseast/datasette-query-files
+- simonw/datasette-scale-to-zero
+- simonw/datasette-expose-env
