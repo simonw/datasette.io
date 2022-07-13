@@ -7,10 +7,20 @@
   about_url: https://www.thesquirrelcensus.com/
   description: |-
     Data for each of 3,023 squirrel sightings in Central Park, including location coordinates, age, primary and secondary fur color, elevation, activities, communications, and interactions between squirrels and with humans.
-- url: https://data.london.gov.uk/download/animal-rescue-incidents-attended-by-lfb/f43b485e-fb35-419c-aa7a-fa75676e5835/Animal%20Rescue%20incidents%20attended%20by%20LFB%20from%20Jan%202009.csv
-  name: Animal rescue incidents attended by the London Fire Brigade
-  table_name: london_fire_brigade_animal_rescues
-  source: London Datastore
-  source_url: https://data.london.gov.uk/dataset/animal-rescue-incidents-attended-by-lfb
+# Bring this back when the app can follow redirects:
+# - url: https://data.london.gov.uk/download/animal-rescue-incidents-attended-by-lfb/f43b485e-fb35-419c-aa7a-fa75676e5835/Animal%20Rescue%20incidents%20attended%20by%20LFB%20from%20Jan%202009.csv
+#   name: Animal rescue incidents attended by the London Fire Brigade
+#   table_name: london_fire_brigade_animal_rescues
+#   source: London Datastore
+#   source_url: https://data.london.gov.uk/dataset/animal-rescue-incidents-attended-by-lfb
+#   description: |-
+#     The London Fire Brigade attends a range of non-fire incidents, including assistance to animals that may be trapped or in distress. This data includes every such incident since January 2009, and is updated monthly.
+- url: https://github.com/wri/global-power-plant-database/raw/master/output_database/global_power_plant_database.csv
+  name: Global Power Plant Database
+  table_name: global_power_plants
+  source: WRI
+  source_url: https://github.com/wri/global-power-plant-database
+  about: Global Power Plant Database
+  about_url: https://datasets.wri.org/dataset/globalpowerplantdatabase
   description: |-
-    The London Fire Brigade attends a range of non-fire incidents, including assistance to animals that may be trapped or in distress. This data includes every such incident since January 2009, and is updated monthly.
+    An open database of all the power plants in the world. The result of a large collaboration involving many partners, coordinated by the World Resources Institute and Google Earth Outreach.
