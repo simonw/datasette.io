@@ -15,7 +15,7 @@
 #   source_url: https://data.london.gov.uk/dataset/animal-rescue-incidents-attended-by-lfb
 #   description: |-
 #     The London Fire Brigade attends a range of non-fire incidents, including assistance to animals that may be trapped or in distress. This data includes every such incident since January 2009, and is updated monthly.
-- url: https://github.com/wri/global-power-plant-database/raw/master/output_database/global_power_plant_database.csv
+- url: https://raw.githubusercontent.com/wri/global-power-plant-database/master/output_database/global_power_plant_database.csv
   name: Global Power Plant Database
   table_name: global_power_plants
   source: WRI
