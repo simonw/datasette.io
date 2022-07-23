@@ -19,6 +19,7 @@ datasette publish cloudrun \
   --install=datasette-graphql \
   --install=datasette-json-html \
   --install=datasette-debug-asgi \
+  --install=datasette-gzip \
   --install=html5lib \
   --install=beautifulsoup4 \
   --install 'dogsheep-beta>=0.10.1'
