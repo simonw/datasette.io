@@ -1,3 +1,6 @@
+- date: 2022-07-31
+  body: |-
+    New tutorial and accompanying ten minute video: [Cleaning data with sqlite-utils and Datasette](https://datasette.io/tutorials/clean-data).
 - date: 2022-06-30
   body: |-
     [s3-ocr](https://datasette.io/tools/s3-ocr) is a new tool which can run OCR (via Amazon Textract) against every PDF file in an S3 bucket and write the results to a searchable SQLite database, ready to use with Datasette. Read more about it in [s3-ocr: Extract text from PDF files stored in an S3 bucket](https://simonwillison.net/2022/Jun/30/s3-ocr/).
