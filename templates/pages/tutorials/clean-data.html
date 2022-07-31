@@ -20,6 +20,9 @@
 pre {
   overflow: auto;
 }
+code {
+  word-break: break-all;
+}
 </style>
 {% endblock %}
 
@@ -29,7 +32,7 @@ pre {
 
 <h1>Cleaning data with sqlite-utils and Datasette</h1>
 
-<p>This tutorial will show you how to use <a href="https://sqlite-utils.datasette.io/">sqlite-utils</a> to clean data, import it into SQLite and then explore it with Datasette.</p>
+<p>This tutorial will show you how to use the <a href="https://sqlite-utils.datasette.io/">sqlite-utils</a> command line tool import data into SQLite, clean it and then explore it with Datasette.</p>
 
 <p>The concepts in this tutorial are also demonstrated in this video of a talk I gave at the <a href="https://www.hytradboi.com/">HYTRADBOI conference</a> in April 2022.</p>
 
@@ -49,7 +52,9 @@ Here are [the installation instructions](https://sqlite-utils.datasette.io/en/st
 
 ## Import the CSV into a SQLite database
 
-Once `sqlite-utils` is installed you can use it to create a new `manatees.db` SQLite database like this:
+`sqlite-utils` is a command line tool, so you'll need to open up a terminal on your computer and change directory to the place where you saved the CSV file.
+
+You can create a new `manatees.db` SQLite database like this:
 
     sqlite-utils insert manatees.db locations \\
       Manatee_Carcass_Recovery_Locations_in_Florida.csv --csv -d
