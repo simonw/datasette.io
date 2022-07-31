@@ -242,6 +242,51 @@ This runs against the `REPDATE`, `created_date` and `last_edited_date` columns. 
 
 Run that command, then view the data in Datasette again. Now you can sort the data by those columns to see the oldest or most recently created records!
 
+## Extracting columns into a separate table
+
+There's one more improvement we will make to our data.
+
+Open the table in Datasette, then use either the suggested facets list or the cog menu at the top of the columns to facet by both `DCODE` and `MORTALITY`.
+
+![Screenshot showing the data faceted by DCODE and MORTALITY - the counts of results shown for the two different facets are the same](https://simonw.github.io/datasette-screenshots/non-retina/tutorials-clean-data-facets.png)
+
+The result counts shown for the two facets are the same. This suggests that these two columns represent the same data - a `DCODE` of 1 corresponds to a `MORTALITY` of \"Human Related: Watercraft Collision\", 2 means \"Human Related: Flood Gate/Canal Lock\" and so on.
+
+We can use the [sqlite-utils extract](https://sqlite-utils.datasette.io/en/stable/cli.html#extracting-columns-into-a-separate-table) command to extract these columns into a separate table.
+
+    sqlite-utils extract manatees.db locations DCODE MORTALITY \\
+      --rename MORTALITY name \\
+      --table mortality
+
+Running this will create a new table called `mortality` and populate it with one row for each of the `DCODE` and `MORTALITY` pairs in the database. It removes those columns from the `locations` table and replaces them with a `mortality_id` foreign key column pointing to the new table.
+
+Here's the output of `sqlite-utils schema manatees.db` showing the impact of those changes on the schema:
+
+    CREATE TABLE [mortality] (
+      [id] INTEGER PRIMARY KEY,
+      [DCODE] INTEGER,
+      [name] TEXT
+    );
+    CREATE TABLE \"locations\" (
+      [FIELDID] TEXT PRIMARY KEY,
+      [REPDATE] TEXT,
+      [REPYEAR] INTEGER,
+      [REPMONTH] INTEGER,
+      [REPDAY] INTEGER,
+      [SEX] TEXT,
+      [TLENGTH] FLOAT,
+      [COUNTY] TEXT,
+      [latitude] FLOAT,
+      [longitude] FLOAT,
+      [mortality_id] INTEGER,
+      [created_date] TEXT,
+      [last_edited_date] TEXT,
+      FOREIGN KEY([mortality_id]) REFERENCES [mortality]([id])
+    );
+    CREATE UNIQUE INDEX [idx_mortality_DCODE_name]
+       ON [mortality] ([DCODE], [name]);
+
+
 ## Further reading
 
 `sqlite-utils` offers a lot more tools for cleaning up data. Check out this documentation and these blog posts for more details.
