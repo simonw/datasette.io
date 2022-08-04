@@ -360,7 +360,7 @@ Here's an example that creates two CTEs, one called `presidents` and one called 
         join executives
           on executive_terms.executive_id = executives.id
       where
-        type = 'prez'
+        executive_terms.type = 'prez'
     ),
     vice_presidents as (
       select
@@ -370,7 +370,7 @@ Here's an example that creates two CTEs, one called `presidents` and one called 
         join executives
           on executive_terms.executive_id = executives.id
       where
-        type = 'viceprez'
+        executive_terms.type = 'viceprez'
     )
     select
       distinct name
@@ -378,7 +378,7 @@ Here's an example that creates two CTEs, one called `presidents` and one called 
       presidents
     where name in vice_presidents
 
-[Try this CTE query here](https://congress-legislators.datasettes.com/legislators?sql=with+presidents+as+%28%0D%0A++select%0D%0A++++executives.name%0D%0A++from%0D%0A++++executive_terms%0D%0A++++join+executives+on+executive_terms.executive_id+%3D+executives.id%0D%0A++where%0D%0A++++type+%3D+%27prez%27%0D%0A%29%2C%0D%0Avice_presidents+as+%28%0D%0A++select%0D%0A++++executives.name%0D%0A++from%0D%0A++++executive_terms%0D%0A++++join+executives+on+executive_terms.executive_id+%3D+executives.id%0D%0A++where%0D%0A++++type+%3D+%27viceprez%27%0D%0A%29%0D%0Aselect%0D%0A++distinct+name%0D%0Afrom%0D%0A++presidents%0D%0Awhere%0D%0A++name+in+vice_presidents).
+[Try this CTE query here](https://congress-legislators.datasettes.com/legislators?sql=with+presidents+as+%28%0D%0A++select%0D%0A++++executives.name%0D%0A++from%0D%0A++++executive_terms%0D%0A++++join+executives+on+executive_terms.executive_id+%3D+executives.id%0D%0A++where%0D%0A++++executive_terms.type+%3D+%27prez%27%0D%0A%29%2C%0D%0Avice_presidents+as+%28%0D%0A++select%0D%0A++++executives.name%0D%0A++from%0D%0A++++executive_terms%0D%0A++++join+executives+on+executive_terms.executive_id+%3D+executives.id%0D%0A++where%0D%0A++++executive_terms.type+%3D+%27viceprez%27%0D%0A%29%0D%0Aselect%0D%0A++distinct+name%0D%0Afrom%0D%0A++presidents%0D%0Awhere%0D%0A++name+in+vice_presidents).
 
 The two CTEs are defined using `with alias_name as (select ...), second_alias as (select ...)` - then the query that returns the final results is added on at the end.
 
