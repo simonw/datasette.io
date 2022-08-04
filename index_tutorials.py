@@ -16,6 +16,9 @@ async def main():
         assert tutorial_response.status_code == 200
         soup = Soup(tutorial_response.text, "html5lib")
         title = soup.select("h1")[0].text
+        # Remove any no-search elements
+        for el in soup.select('.no-search'):
+            el.decompose()
         body = soup.select(".content")[0].text
         db["tutorials"].insert(
             {

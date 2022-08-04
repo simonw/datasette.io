@@ -1,0 +1,8 @@
+<div class="no-search">
+  <h3>More tutorials</h3>
+  <ul>
+  {% for row in sql("select path, title from tutorials where path != ?", [path], database="content") %}
+      <li><a href="{{ row.path }}">{{ row.title }}</a></li>
+  {% endfor %}
+  </ul>
+</div>
