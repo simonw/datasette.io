@@ -1,5 +1,5 @@
 ---
-title: Datasette for Data Journalism
+title: Datasette for data journalism
 summary: Datasette was originally designed as a tool for data journalists, to help report on data-driven stories, crunch through large datasets and publish the results.
 order: 4
 ---

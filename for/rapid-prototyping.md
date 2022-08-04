@@ -1,7 +1,7 @@
 ---
 title: Datasette for rapid prototyping
 summary: Spin up a JSON (or GraphQL) API for any data in minutes. Use it to prototype and prove your ideas without building a custom backend.
-order: 3
+order: 7
 ---
 Want to build a prototype? Datasette lets you turn any source of data into a powerful JSON or [GraphQL](https://github.com/simonw/datasette-graphql) API, ideal for use as the backend for an interactive prototype.
 
