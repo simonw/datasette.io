@@ -1,93 +1,226 @@
-- simonw/datasette-ripgrep
-- simonw/datasette-graphql
-- simonw/datasette-cluster-map
-- simonw/datasette-vega
-- simonw/datasette-auth-github
-- simonw/datasette-json-html
-- simonw/datasette-render-images
-- simonw/datasette-css-properties
-- simonw/datasette-copyable
-- simonw/datasette-media
-- simonw/datasette-seaborn
-- simonw/datasette-jq
-- simonw/datasette-leaflet-geojson
-- simonw/datasette-atom
-- simonw/datasette-jellyfish
-- simonw/datasette-cors
-- simonw/datasette-bplist
-- simonw/datasette-pretty-json
-- simonw/datasette-auth-passwords
-- simonw/datasette-publish-vercel
-- simonw/datasette-upload-csvs
-- simonw/datasette-render-markdown
-- simonw/datasette-render-binary
-- simonw/datasette-search-all
-- simonw/datasette-insert
-- simonw/datasette-sentry
-- simonw/datasette-template-sql
-- simonw/datasette-edit-schema
-- simonw/datasette-ics
-- simonw/datasette-indieauth
-- simonw/datasette-dateutil
-- simonw/datasette-leaflet-freedraw
-- simonw/datasette-render-timestamps
-- simonw/datasette-export-notebook
-- simonw/datasette-rure
-- simonw/datasette-publish-fly
-- simonw/datasette-leaflet
-- simonw/datasette-write
-- simonw/datasette-auth-existing-cookies
-- simonw/datasette-auth-tokens
-- simonw/datasette-saved-queries
-- simonw/datasette-mask-columns
-- simonw/datasette-configure-fts
-- simonw/datasette-render-html
-- simonw/datasette-yaml
-- simonw/datasette-sqlite-fts4
-- simonw/datasette-show-errors
-- simonw/datasette-block-robots
-- simonw/datasette-debug-asgi
-- simonw/datasette-configure-asgi
-- simonw/datasette-psutil
-- simonw/datasette-haversine
-- simonw/datasette-tiles
-- simonw/datasette-column-inspect
-- simonw/datasette-glitch
-- simonw/datasette-block
-- simonw/datasette-basemap
-- simonw/datasette-backup
-- simonw/datasette-schema-versions
-- simonw/datasette-permissions-sql
-- simonw/datasette-import-table
-- simonw/datasette-placekey
-- simonw/datasette-init
-- dogsheep/dogsheep-beta
-- eyeseast/datasette-geojson
-- bretwalker/datasette-query-history
-- simonw/datasette-remote-metadata
-- simonw/datasette-pyinstrument
-- simonw/datasette-query-links
-- simonw/datasette-x-forwarded-host
-- simonw/datasette-verify
-- simonw/datasette-template-request
-- simonw/datasette-jupyterlite
-- simonw/datasette-redirect-to-https
-- simonw/datasette-pretty-traces
-- simonw/datasette-tiddlywiki
-- simonw/datasette-redirect-forbidden
-- eyeseast/datasette-geojson-map
-- eyeseast/sqlite-colorbrewer
-- simonw/datasette-hashed-urls
-- simonw/datasette-packages
-- simonw/datasette-auth0
-- simonw/datasette-hovercards
-- rclement/datasette-dashboards
-- hydrosquall/datasette-nteract-data-explorer
-- simonw/datasette-total-page-time
-- simonw/datasette-gzip
-- simonw/datasette-copy-to-memory
-- simonw/datasette-upload-dbs
-- simonw/datasette-socrata
-- eyeseast/datasette-query-files
-- simonw/datasette-scale-to-zero
-- simonw/datasette-expose-env
+- repo: simonw/datasette-ripgrep
+- repo: simonw/datasette-graphql
+  tags:
+  - API
+- repo: simonw/datasette-cluster-map
+  tags:
+  - Visualization
+  - Geospatial
+  - Leaflet
+  - Maps
+- repo: simonw/datasette-vega
+  tags:
+  - Visualization
+- repo: simonw/datasette-auth-github
+  tags:
+  - Authentication
+- repo: simonw/datasette-json-html
+  tags:
+  - Render Cell
+- repo: simonw/datasette-render-images
+  tags:
+  - Render Cell
+- repo: simonw/datasette-css-properties
+  tags:
+  - Output
+- repo: simonw/datasette-copyable
+  tags:
+  - Output
+- repo: simonw/datasette-media
+- repo: simonw/datasette-seaborn
+  tags:
+  - Visualization
+- repo: simonw/datasette-jq
+  tags:
+  - SQL Functions
+- repo: simonw/datasette-leaflet-geojson
+  tags:
+  - Leaflet
+  - Output
+  - Geospatial
+  - Maps
+- repo: simonw/datasette-atom
+  tags:
+  - Output
+- repo: simonw/datasette-jellyfish
+  tags:
+  - SQL Functions
+- repo: simonw/datasette-cors
+  tags:
+  - API
+- repo: simonw/datasette-bplist
+  tags:
+  - Render Cell
+- repo: simonw/datasette-pretty-json
+  tags:
+  - Render Cell
+- repo: simonw/datasette-auth-passwords
+  tags:
+  - Authentication
+- repo: simonw/datasette-publish-vercel
+  tags:
+  - Publish
+- repo: simonw/datasette-upload-csvs
+  tags:
+  - Data Import
+- repo: simonw/datasette-render-markdown
+  tags:
+  - Render Cell
+- repo: simonw/datasette-render-binary
+  tags:
+  - Render Cell
+- repo: simonw/datasette-search-all
+  tags:
+  - Search
+- repo: simonw/datasette-insert
+  tags:
+  - Data Import
+  - API
+- repo: simonw/datasette-sentry
+- repo: simonw/datasette-template-sql
+  tags:
+  - Template
+- repo: simonw/datasette-edit-schema
+- repo: simonw/datasette-ics
+  tags:
+  - Output
+- repo: simonw/datasette-indieauth
+  tags:
+  - Authentication
+- repo: simonw/datasette-dateutil
+  tags:
+  - SQL Functions
+- repo: simonw/datasette-leaflet-freedraw
+  tags:
+  - Leaflet
+  - Geospatial
+  - Maps
+- repo: simonw/datasette-render-timestamps
+  tags:
+  - Render Cell
+- repo: simonw/datasette-export-notebook
+  tags:
+  - Output
+- repo: simonw/datasette-rure
+  tags:
+  - SQL Functions
+- repo: simonw/datasette-publish-fly
+  tags:
+  - Publish
+- repo: simonw/datasette-leaflet
+  tags:
+  - Leaflet
+  - Geospatial
+  - Maps
+- repo: simonw/datasette-write
+  tags:
+  - Data Import
+- repo: simonw/datasette-auth-existing-cookies
+  tags:
+  - Authentication
+- repo: simonw/datasette-auth-tokens
+  tags:
+  - Authentication
+  - API
+- repo: simonw/datasette-saved-queries
+- repo: simonw/datasette-mask-columns
+- repo: simonw/datasette-configure-fts
+- repo: simonw/datasette-render-html
+  tags:
+  - Render Cell
+- repo: simonw/datasette-yaml
+  tags:
+  - Output
+- repo: simonw/datasette-sqlite-fts4
+  tags:
+  - Search
+  - SQL Functions
+- repo: simonw/datasette-show-errors
+- repo: simonw/datasette-block-robots
+- repo: simonw/datasette-debug-asgi
+- repo: simonw/datasette-configure-asgi
+- repo: simonw/datasette-psutil
+- repo: simonw/datasette-haversine
+  tags:
+  - SQL Functions
+- repo: simonw/datasette-tiles
+  tags:
+  - Geospatial
+  - Maps
+- repo: simonw/datasette-column-inspect
+- repo: simonw/datasette-glitch
+- repo: simonw/datasette-block
+- repo: simonw/datasette-basemap
+  tags:
+  - Geospatial
+  - Maps
+- repo: simonw/datasette-backup
+- repo: simonw/datasette-schema-versions
+  tags:
+  - API
+- repo: simonw/datasette-permissions-sql
+  tags:
+  - Authentication
+- repo: simonw/datasette-import-table
+  tags:
+  - Data Import
+- repo: simonw/datasette-placekey
+  tags:
+  - SQL Functions
+  - Geospatial
+- repo: simonw/datasette-init
+- repo: dogsheep/dogsheep-beta
+  tags:
+  - Search
+- repo: eyeseast/datasette-geojson
+  tags:
+  - Geospatial
+  - Output
+- repo: bretwalker/datasette-query-history
+- repo: simonw/datasette-remote-metadata
+- repo: simonw/datasette-pyinstrument
+- repo: simonw/datasette-query-links
+  tags:
+  - Render Cell
+- repo: simonw/datasette-x-forwarded-host
+- repo: simonw/datasette-verify
+- repo: simonw/datasette-template-request
+  tags:
+  - Template
+- repo: simonw/datasette-jupyterlite
+- repo: simonw/datasette-redirect-to-https
+- repo: simonw/datasette-pretty-traces
+- repo: simonw/datasette-tiddlywiki
+- repo: simonw/datasette-redirect-forbidden
+- repo: eyeseast/datasette-geojson-map
+  tags:
+  - Geospatial
+  - Maps
+- repo: eyeseast/sqlite-colorbrewer
+  tags:
+  - Geospatial
+  - SQL Functions
+- repo: simonw/datasette-hashed-urls
+- repo: simonw/datasette-packages
+- repo: simonw/datasette-auth0
+  tags:
+  - Authentication
+- repo: simonw/datasette-hovercards
+- repo: rclement/datasette-dashboards
+  tags:
+  - Visualization
+- repo: hydrosquall/datasette-nteract-data-explorer
+  tags:
+  - Visualization
+- repo: simonw/datasette-total-page-time
+- repo: simonw/datasette-gzip
+- repo: simonw/datasette-copy-to-memory
+- repo: simonw/datasette-upload-dbs
+  tags:
+  - Data Import
+- repo: simonw/datasette-socrata
+  tags:
+  - Data Import
+- repo: eyeseast/datasette-query-files
+- repo: simonw/datasette-scale-to-zero
+- repo: simonw/datasette-expose-env

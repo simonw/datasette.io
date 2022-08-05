@@ -13,7 +13,8 @@ yaml-to-sqlite content.db example_csvs example_csvs.yml
 markdown-to-sqlite content.db uses for/*.md
 
 # Build plugin and tools directories
-yaml-to-sqlite content.db plugin_repos plugin_repos.yml --single-column repo
+sqlite-utils drop-table content.db plugin_repos
+yaml-to-sqlite content.db plugin_repos plugin_repos.yml
 yaml-to-sqlite content.db tool_repos tool_repos.yml --single-column repo
 python build_directory.py content.db --fetch-missing-releases \
    --always-fetch-releases-for-repo simonw/datasette-app
