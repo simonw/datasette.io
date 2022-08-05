@@ -36,7 +36,6 @@
 - repo: simonw/datasette-leaflet-geojson
   tags:
   - Leaflet
-  - Output
   - Geospatial
   - Maps
 - repo: simonw/datasette-atom
