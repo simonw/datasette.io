@@ -45,7 +45,7 @@ Every table page in Datasette - such as [this one](https://congress-legislators.
 
 ![The link is directly below the filters interface](/static/tutorials/learn-sql/view-and-edit-sql.jpg)
 
-Click [that link](https://congress-legislators.datasettes.com/legislators?sql=select+id%2C+name%2C+id_bioguide%2C+id_govtrack%2C+id_icpsr%2C+id_wikipedia%2C+id_wikidata%2C+id_google_entity_id%2C+name_first%2C+name_last%2C+bio_birthday%2C+bio_gender%2C+id_house_history%2C+name_middle%2C+name_nickname%2C+id_ballotpedia%2C+name_suffix%2C+id_bioguide_previous%2C+id_house_history_alternate%2C+other_names%2C+id_thomas%2C+id_cspan%2C+id_votesmart%2C+id_lis%2C+name_official_full%2C+id_opensecrets%2C+id_fec%2C+id_maplight%2C+leadership_roles%2C+family+from+legislators+where+%22bio_gender%22+%3D+%3Ap0+order+by+id+limit+101&p0=F) to see the SQL query that was used for the current page - including any filters that have been applied, in this case the filter for `bio_gender = \"F\"`.
+Click [that link](https://congress-legislators.datasettes.com/legislators?sql=select+id%2C+name%2C+id_bioguide%2C+id_govtrack%2C+id_icpsr%2C+id_wikipedia%2C+id_wikidata%2C+id_google_entity_id%2C+name_first%2C+name_last%2C+bio_birthday%2C+bio_gender%2C+id_house_history%2C+name_middle%2C+name_nickname%2C+id_ballotpedia%2C+name_suffix%2C+id_bioguide_previous%2C+id_house_history_alternate%2C+other_names%2C+id_thomas%2C+id_cspan%2C+id_votesmart%2C+id_lis%2C+name_official_full%2C+id_opensecrets%2C+id_fec%2C+id_maplight%2C+leadership_roles%2C+family+from+legislators+where+%22bio_gender%22+%3D+%3Ap0+order+by+id+limit+101&p0=F) to see the SQL query that was used for the current page - including any filters that have been applied, in this case the filter for `bio_gender = 'F'`.
 
 You can then edit that query to make it do something else!
 
@@ -99,7 +99,7 @@ Here's [the formatted version](https://congress-legislators.datasettes.com/legis
     from
       legislators
     where
-      \"bio_gender\" = :p0
+      bio_gender = :p0
     order by
       id
     limit
@@ -109,7 +109,7 @@ Here's [the formatted version](https://congress-legislators.datasettes.com/legis
 
 The `select` section specifies which columns you would like to return. Each column name is separated by a comma - but if you have a comma following the last column you you will get [an error message](https://congress-legislators.datasettes.com/legislators?sql=select%0D%0A++id%2C%0D%0A++name%2C%0D%0A++id_bioguide%2C%0D%0A++id_govtrack%2C%0D%0A++id_icpsr%2C%0D%0A++id_wikipedia%2C%0D%0A++id_wikidata%2C%0D%0A++id_google_entity_id%2C%0D%0A++name_first%2C%0D%0A++name_last%2C%0D%0A++bio_birthday%2C%0D%0A++bio_gender%2C%0D%0A++id_house_history%2C%0D%0A++name_middle%2C%0D%0A++name_nickname%2C%0D%0A++id_ballotpedia%2C%0D%0A++name_suffix%2C%0D%0A++id_bioguide_previous%2C%0D%0A++id_house_history_alternate%2C%0D%0A++other_names%2C%0D%0A++id_thomas%2C%0D%0A++id_cspan%2C%0D%0A++id_votesmart%2C%0D%0A++id_lis%2C%0D%0A++name_official_full%2C%0D%0A++id_opensecrets%2C%0D%0A++id_fec%2C%0D%0A++id_maplight%2C%0D%0A++leadership_roles%2C%0D%0A++family%2C%0D%0Afrom%0D%0A++legislators%0D%0Awhere%0D%0A++%22bio_gender%22+%3D+%3Ap0%0D%0Aorder+by%0D%0A++id%0D%0Alimit%0D%0A++101&p0=F).
 
-> `near \"from\": syntax error`
+> `near  from: syntax error`
 
 ### from
 
@@ -120,8 +120,8 @@ The `from` section specifies which table the records should be selected from - h
 The `where` section adds filter conditions. These can be combined using `and`, for example this query will select [just legislators](https://congress-legislators.datasettes.com/legislators?sql=select%0D%0A++id%2C%0D%0A++name%2C%0D%0A++id_bioguide%2C%0D%0A++id_govtrack%2C%0D%0A++id_icpsr%2C%0D%0A++id_wikipedia%2C%0D%0A++id_wikidata%2C%0D%0A++id_google_entity_id%2C%0D%0A++name_first%2C%0D%0A++name_last%2C%0D%0A++bio_birthday%2C%0D%0A++bio_gender%2C%0D%0A++id_house_history%2C%0D%0A++name_middle%2C%0D%0A++name_nickname%2C%0D%0A++id_ballotpedia%2C%0D%0A++name_suffix%2C%0D%0A++id_bioguide_previous%2C%0D%0A++id_house_history_alternate%2C%0D%0A++other_names%2C%0D%0A++id_thomas%2C%0D%0A++id_cspan%2C%0D%0A++id_votesmart%2C%0D%0A++id_lis%2C%0D%0A++name_official_full%2C%0D%0A++id_opensecrets%2C%0D%0A++id_fec%2C%0D%0A++id_maplight%2C%0D%0A++leadership_roles%2C%0D%0A++family%0D%0Afrom%0D%0A++legislators%0D%0Awhere%0D%0A++%22bio_gender%22+%3D+%27M%27%0D%0A++and+%22name_suffix%22+%3D+%27Jr.%27%0D%0Aorder+by%0D%0A++id%0D%0Alimit%0D%0A++101&p0=M&p1=Jr.) who are male and have a `Jr.` name suffix:
 
     where
-      \"bio_gender\" = 'M'
-      and \"name_suffix\" = 'Jr.'
+      bio_gender = 'M'
+      and name_suffix = 'Jr.'
 
 This section is optional - if you do not include a `where` clause you will get back every row in the table.
 
@@ -161,23 +161,23 @@ Clicking that [\"View and edit SQL\"](https://congress-legislators.datasettes.co
       rowid,
       type,
       start,
-      [end],
+      end,
       party,
       how,
       executive_id
     from
       executive_terms
     where
-      \"start\" like :p0
-      and \"type\" = :p1
+      start like :p0
+      and type= :p1
 
 The `:p0` and `:p1` fields here correspond to \"named parameters\" - they provide a safe way to pass values to a SQL query, without having to worry about [SQL injection](https://en.wikipedia.org/wiki/SQL_injection).
 
 These field names are extracted from the query. If you change the where clause to look like this:
 
     where
-      \"start\" like :century
-      and \"type\" = :type
+      start like :century
+      and type = :type
 
 Then fields called `century` and `type` will be displayed instead of `p0` and `p1`.
 
@@ -186,8 +186,8 @@ Since they are form fields, you can change those values too. Try changing `prez`
 If you weren't using named parameters, the where clause of the query could look like this instead:
 
     where
-      \"start\" like '18%'
-      and \"type\" = 'prez'
+      start like '18%'
+      and type = 'prez'
 
 String values like `'18%'` and `'prez'` must be enclosed in single or double quotes (single quotes are preferred), if you are not using the `:p0` syntax.
 
@@ -202,7 +202,7 @@ The double quotes around the column names here are optional - they are only requ
 To find rows where the `start` column begins with the string `18` we use this where filter:
 
     where
-      \"start\" like '18%'
+      start like '18%'
 
 The SQL `like` operator applies wildcards to strings - `%` means \"match anything\" and `_` (underscore) means \"match a single character\".
 
@@ -225,7 +225,7 @@ A SQL *join* can be used to combine the data from multiple tables. Here's a quer
     select
       executive_terms.type,
       executive_terms.start,
-      executive_terms.[end],
+      executive_terms.end,
       executive_terms.party,
       executive_terms.how,
       executives.name
@@ -243,7 +243,7 @@ Since there are now two tables involved in the query, it's a good idea to includ
     select
       executive_terms.type,
       executive_terms.start,
-      executive_terms.[end],
+      executive_terms.end,
       executive_terms.party,
       executive_terms.how,
       executives.name
