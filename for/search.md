@@ -30,22 +30,21 @@ The search on [www.niche-museums.com](https://www.niche-museums.com/) uses this 
 
 This uses the `search` canned query, which is [defined here]([https://github.com/simonw/til/blob/8f961be162868c53b5c484272091bdab703a747a/metadata.yaml#L16-L32](https://github.com/simonw/museums/blob/74e999c0e82781302bf0346a761ee5d88e168863/metadata.yaml#L55-L69)) and looks like this:
 
-```sql
-select
-  museums_fts.rank,
-  museums.*
-from
-  museums
-  join museums_fts on museums.id = museums_fts.rowid
-where
-  museums_fts match case
-    :q
-    when '' then '*'
-    else escape_fts_query(:q)
-  end
-order by
-  museums_fts.rank
-```
+    select
+      museums_fts.rank,
+      museums.*
+    from
+      museums
+      join museums_fts on museums.id = museums_fts.rowid
+    where
+      museums_fts match case
+        :q
+        when '' then '*'
+        else escape_fts_query(:q)
+      end
+    order by
+      museums_fts.rank
+
 Try [that query here](https://www.niche-museums.com/browse?sql=select%0D%0A++museums_fts.rank%2C%0D%0A++museums.*%0D%0Afrom%0D%0A++museums%0D%0A++join+museums_fts+on+museums.id+%3D+museums_fts.rowid%0D%0Awhere%0D%0A++museums_fts+match+case%0D%0A++++%3Aq%0D%0A++++when+%27%27+then+%27*%27%0D%0A++++else+escape_fts_query%28%3Aq%29%0D%0A++end%0D%0Aorder+by%0D%0A++museums_fts.rank&q=bones).
 
 The results are then rendered by [this custom template](https://github.com/simonw/museums/blob/74e999c0e82781302bf0346a761ee5d88e168863/templates/query-browse-search.html).
