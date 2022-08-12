@@ -24,9 +24,9 @@ Alternatively, you can configure search directly within the Datasette interface 
 
 Datasette [canned queries](https://docs.datasette.io/en/stable/sql_queries.html#canned-queries) can be used to configure a SQL query which returns search results for a table, ordered by relevance.
 
-The search on www.niche-museums.com uses this approach. Here's an example search, for `bones`:
+The search on [www.niche-museums.com](https://www.niche-museums.com/) uses this approach. Here's an example search, for `bones`:
 
-- https://www.niche-museums.com/browse/search?q=bones
+- [www.niche-museums.com/browse/search?q=bones](https://www.niche-museums.com/browse/search?q=bones)
 
 This uses the `search` canned query, which is [defined here]([https://github.com/simonw/til/blob/8f961be162868c53b5c484272091bdab703a747a/metadata.yaml#L16-L32](https://github.com/simonw/museums/blob/74e999c0e82781302bf0346a761ee5d88e168863/metadata.yaml#L55-L69)) and looks like this:
 
@@ -54,6 +54,6 @@ The results are then rendered by [this custom template](https://github.com/simon
 
 The **[datasette-search-all](https://datasette.io/plugins/datasette-search-all)** plugin adds a search box which runs searches in parallel against all of the FTS-configured tables in all of the databases attached to Datasette.
 
-You can see that in action here: https://fara.datasettes.com/-/search?q=manafort
+You can see that in action here: [fara.datasettes.com/-/search?q=manafort](https://fara.datasettes.com/-/search?q=manafort)
 
-**[dogsheep-beta](https://datasette.io/plugins/dogsheep-beta)** is a plugin which adds a customizable search engine that can create an index to search multiple tables at once with combined relevance scoring. It is used for the search on this site, for example https://datasette.io/-/beta?q=fts - you can read more about how it works in [Building a search engine for datasette.io](https://simonwillison.net/2020/Dec/19/dogsheep-beta/).
+**[dogsheep-beta](https://datasette.io/plugins/dogsheep-beta)** is a plugin which adds a customizable search engine that can create an index to search multiple tables at once with combined relevance scoring. It is used for the search on this site, for example [datasette.io/-/beta?q=fts](https://datasette.io/-/beta?q=fts) - you can read more about how it works in [Building a search engine for datasette.io](https://simonwillison.net/2020/Dec/19/dogsheep-beta/).
