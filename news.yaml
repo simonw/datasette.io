@@ -1,3 +1,6 @@
+- date: 2022-18-19
+  body: |-
+    A new edition of the Datasette Newsletter: [Datasette Lite, Datasette Tutorials, Datasette Cloud](https://datasette.substack.com/p/datasette-lite-datasette-tutorials).
 - date: 2022-08-14
   body: |-
     [Datasette 0.62](https://docs.datasette.io/en/stable/changelog.html#v0-62) introduces compatibility with Pyodide for [Datasette Lite](https://lite.datasette.io/), and incorporates a number of bug fixes, plugin hook upgrades and other improvements.
