@@ -223,3 +223,6 @@
 - repo: eyeseast/datasette-query-files
 - repo: simonw/datasette-scale-to-zero
 - repo: simonw/datasette-expose-env
+- repo: simonw/datasette-mp3-audio
+  tags:
+  - Render Cell
