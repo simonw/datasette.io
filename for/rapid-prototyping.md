@@ -9,4 +9,5 @@ Use Datasette with **[Observable notebooks](https://observablehq.com/)** to quic
 
 Datasette works as a great data for **[Jupyter notebooks](https://jupyter.org/)** too.
 
-[Fast Autocomplete Search for Your Website](https://simonwillison.net/2018/Dec/19/fast-autocomplete-search/) shows how to build a full autocomplete search engine for your website, powered by Datasette and a few dozen lines of custom JavaScript.
+- **[Analyzing ScotRail audio announcements with Datasette—from prototype to production](https://simonwillison.net/2022/Aug/21/scotrail/)** talks through the full process of creating an initial rapid prototype using Datasette Lite and growing that into a full production Datasette instance.
+- **[Fast Autocomplete Search for Your Website](https://simonwillison.net/2018/Dec/19/fast-autocomplete-search/)** shows how to build a full autocomplete search engine for your website, powered by Datasette and a few dozen lines of custom JavaScript.
