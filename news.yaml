@@ -1,6 +1,6 @@
-- date: 2022-08-19
+- date: 2022-08-21
   body: |-
-    A new edition of the Datasette Newsletter: [Datasette Lite, Datasette Tutorials, Datasette Cloud](https://datasette.substack.com/p/datasette-lite-datasette-tutorials).
+    [Analyzing ScotRail audio announcements with Datasette—from prototype to production](https://simonwillison.net/2022/Aug/21/scotrail/) provides a detailed walk-through of the process of constructing an initial rapid prototype using Datasette Lite, extending it with a custom plugin and then deploying it as a full Datasette instance using GitHub Actions and Vercel.
 - date: 2022-08-14
   body: |-
     [Datasette 0.62](https://docs.datasette.io/en/stable/changelog.html#v0-62) introduces compatibility with Pyodide for [Datasette Lite](https://lite.datasette.io/), and incorporates a number of bug fixes, plugin hook upgrades and other improvements.
