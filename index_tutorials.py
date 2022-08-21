@@ -12,6 +12,8 @@ async def main():
     index_soup = Soup(index_response.text, "html5lib")
     tutorial_links = index_soup.select(".content ul a")
     for link in tutorial_links:
+        if not link["href"].startswith("/tutorials"):
+            continue
         tutorial_response = await ds.client.get(link["href"])
         assert tutorial_response.status_code == 200
         soup = Soup(tutorial_response.text, "html5lib")
