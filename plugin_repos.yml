@@ -226,3 +226,6 @@
 - repo: simonw/datasette-mp3-audio
   tags:
   - Render Cell
+- repo: simonw/datasette-multiline-links
+  tags:
+  - Render Cell
