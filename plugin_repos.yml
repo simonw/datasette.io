@@ -1,4 +1,6 @@
 - repo: simonw/datasette-ripgrep
+  tags:
+  - Search
 - repo: simonw/datasette-graphql
   tags:
   - API
@@ -28,6 +30,8 @@
   tags:
   - Output
 - repo: simonw/datasette-media
+  tags:
+  - Ops
 - repo: simonw/datasette-seaborn
   tags:
   - Visualization
@@ -79,6 +83,7 @@
 - repo: simonw/datasette-sentry
   tags:
   - Debug
+  - Ops
 - repo: simonw/datasette-template-sql
   tags:
   - Template
@@ -149,6 +154,8 @@
   tags:
   - Debug
 - repo: simonw/datasette-configure-asgi
+  tags:
+  - Ops
 - repo: simonw/datasette-psutil
   tags:
   - Debug
@@ -162,11 +169,15 @@
 - repo: simonw/datasette-column-inspect
 - repo: simonw/datasette-glitch
 - repo: simonw/datasette-block
+  tags:
+  - Ops
 - repo: simonw/datasette-basemap
   tags:
   - Geospatial
   - Maps
 - repo: simonw/datasette-backup
+  tags:
+  - Ops
 - repo: simonw/datasette-schema-versions
   tags:
   - API
@@ -191,6 +202,8 @@
   - Output
 - repo: bretwalker/datasette-query-history
 - repo: simonw/datasette-remote-metadata
+  tags:
+  - Ops
 - repo: simonw/datasette-pyinstrument
   tags:
   - Debug
@@ -198,16 +211,24 @@
   tags:
   - Render Cell
 - repo: simonw/datasette-x-forwarded-host
+  tags:
+  - Ops
 - repo: simonw/datasette-verify
 - repo: simonw/datasette-template-request
   tags:
   - Template
 - repo: simonw/datasette-jupyterlite
+  tags:
+  - Apps
 - repo: simonw/datasette-redirect-to-https
+  tags:
+  - Ops
 - repo: simonw/datasette-pretty-traces
   tags:
   - Debug
 - repo: simonw/datasette-tiddlywiki
+  tags:
+  - Apps
 - repo: simonw/datasette-redirect-forbidden
   tags:
   - Authentication
@@ -242,6 +263,7 @@
 - repo: simonw/datasette-gzip
   tags:
   - Performance
+  - Ops
 - repo: simonw/datasette-copy-to-memory
   tags:
   - Performance
@@ -255,6 +277,7 @@
 - repo: simonw/datasette-scale-to-zero
   tags:
   - Performance
+  - Ops
 - repo: simonw/datasette-expose-env
   tags:
   - Debug
