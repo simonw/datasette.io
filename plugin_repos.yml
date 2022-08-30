@@ -136,6 +136,8 @@
   - SQL Functions
 - repo: simonw/datasette-show-errors
 - repo: simonw/datasette-block-robots
+  tags:
+  - SEO
 - repo: simonw/datasette-debug-asgi
 - repo: simonw/datasette-configure-asgi
 - repo: simonw/datasette-psutil
@@ -229,3 +231,6 @@
 - repo: simonw/datasette-multiline-links
   tags:
   - Render Cell
+- repo: simonw/datasette-sitemap
+  tags:
+  - SEO
