@@ -2,6 +2,7 @@
 - repo: simonw/datasette-graphql
   tags:
   - API
+  - Template
 - repo: simonw/datasette-cluster-map
   tags:
   - Visualization
@@ -76,6 +77,8 @@
   - Data Import
   - API
 - repo: simonw/datasette-sentry
+  tags:
+  - Debug
 - repo: simonw/datasette-template-sql
   tags:
   - Template
@@ -124,6 +127,8 @@
 - repo: simonw/datasette-saved-queries
 - repo: simonw/datasette-mask-columns
 - repo: simonw/datasette-configure-fts
+  tags:
+  - Search
 - repo: simonw/datasette-render-html
   tags:
   - Render Cell
@@ -135,12 +140,18 @@
   - Search
   - SQL Functions
 - repo: simonw/datasette-show-errors
+  tags:
+  - Debug
 - repo: simonw/datasette-block-robots
   tags:
   - SEO
 - repo: simonw/datasette-debug-asgi
+  tags:
+  - Debug
 - repo: simonw/datasette-configure-asgi
 - repo: simonw/datasette-psutil
+  tags:
+  - Debug
 - repo: simonw/datasette-haversine
   tags:
   - SQL Functions
@@ -159,6 +170,7 @@
 - repo: simonw/datasette-schema-versions
   tags:
   - API
+  - Debug
 - repo: simonw/datasette-permissions-sql
   tags:
   - Authentication
@@ -180,6 +192,8 @@
 - repo: bretwalker/datasette-query-history
 - repo: simonw/datasette-remote-metadata
 - repo: simonw/datasette-pyinstrument
+  tags:
+  - Debug
 - repo: simonw/datasette-query-links
   tags:
   - Render Cell
@@ -191,8 +205,12 @@
 - repo: simonw/datasette-jupyterlite
 - repo: simonw/datasette-redirect-to-https
 - repo: simonw/datasette-pretty-traces
+  tags:
+  - Debug
 - repo: simonw/datasette-tiddlywiki
 - repo: simonw/datasette-redirect-forbidden
+  tags:
+  - Authentication
 - repo: eyeseast/datasette-geojson-map
   tags:
   - Geospatial
@@ -202,7 +220,11 @@
   - Geospatial
   - SQL Functions
 - repo: simonw/datasette-hashed-urls
+  tags:
+  - Performance
 - repo: simonw/datasette-packages
+  tags:
+  - Debug
 - repo: simonw/datasette-auth0
   tags:
   - Authentication
@@ -214,8 +236,15 @@
   tags:
   - Visualization
 - repo: simonw/datasette-total-page-time
+  tags:
+  - Performance
+  - Debug
 - repo: simonw/datasette-gzip
+  tags:
+  - Performance
 - repo: simonw/datasette-copy-to-memory
+  tags:
+  - Performance
 - repo: simonw/datasette-upload-dbs
   tags:
   - Data Import
@@ -224,7 +253,11 @@
   - Data Import
 - repo: eyeseast/datasette-query-files
 - repo: simonw/datasette-scale-to-zero
+  tags:
+  - Performance
 - repo: simonw/datasette-expose-env
+  tags:
+  - Debug
 - repo: simonw/datasette-mp3-audio
   tags:
   - Render Cell
