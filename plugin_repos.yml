@@ -290,3 +290,6 @@
 - repo: simonw/datasette-sitemap
   tags:
   - SEO
+- repo: simonw/datasette-render-image-tags
+  tags:
+  - Render Cell
