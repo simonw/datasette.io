@@ -1,3 +1,6 @@
+- date: 2022-09-08
+  body: |-
+    [Exploring the training data behind Stable Diffusion](https://simonwillison.net/2022/Sep/5/laion-aesthetics-weeknotes/) describes the process of building and deploying a 4GB searchable SQLite database using Datasette, starting with Parquet data that was used to train the Stable Diffusion image generation model. See also [Exploring 12 Million of the 2.3 Billion Images Used to Train Stable Diffusion’s Image Generator](https://waxy.org/2022/08/exploring-12-million-of-the-images-used-to-train-stable-diffusions-image-generator/).
 - date: 2022-08-21
   body: |-
     [Analyzing ScotRail audio announcements with Datasette—from prototype to production](https://simonwillison.net/2022/Aug/21/scotrail/) provides a detailed walk-through of the process of constructing an initial rapid prototype using Datasette Lite, extending it with a custom plugin and then deploying it as a full Datasette instance using GitHub Actions and Vercel.
