@@ -296,3 +296,6 @@
 - repo: simonw/datasette-sandstorm-support
   tags:
   - Authentication
+- repo: simonw/datasette-edit-templates
+  tags:
+  - Ops
