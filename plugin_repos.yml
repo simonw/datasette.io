@@ -293,3 +293,6 @@
 - repo: simonw/datasette-render-image-tags
   tags:
   - Render Cell
+- repo: simonw/datasette-sandstorm-support
+  tags:
+  - Authentication
