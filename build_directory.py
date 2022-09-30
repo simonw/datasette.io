@@ -8,36 +8,38 @@ import sqlite_utils
 
 
 REPO_FIELDS = """
-        id
-        nameWithOwner
-        createdAt
-        openGraphImageUrl
-        usesCustomOpenGraphImage
-        defaultBranchRef {
-          target {
-            oid
-          }
-        }
-        repositoryTopics(first:100) {
-          totalCount
-          nodes {
-            topic {
-              name
-            }
-          }
-        }
-        openIssueCount: issues(states:[OPEN]) {
-          totalCount
-        }
-        closedIssueCount: issues(states:[CLOSED]) {
-          totalCount
-        }
-        releases(last: 1) {
-          totalCount
-          nodes {
-            tagName
-          }
-        }
+fragment repoFields on Repository {
+  id
+  nameWithOwner
+  createdAt
+  openGraphImageUrl
+  usesCustomOpenGraphImage
+  defaultBranchRef {
+    target {
+      oid
+    }
+  }
+  repositoryTopics(first: 100) {
+    totalCount
+    nodes {
+      topic {
+        name
+      }
+    }
+  }
+  openIssueCount: issues(states: [OPEN]) {
+    totalCount
+  }
+  closedIssueCount: issues(states: [CLOSED]) {
+    totalCount
+  }
+  releases(last: 1) {
+    totalCount
+    nodes {
+      tagName
+    }
+  }
+}
 """
 
 
@@ -48,7 +50,7 @@ def build_query(repos):
         repo_fragments.append(
             """
         repo_{i}: repository(name: "{name}", owner: "{owner}") {open_curly}
-          {REPO_FIELDS}
+          ...repoFields
         {close_curly}
         """.format(
                 REPO_FIELDS=REPO_FIELDS,
@@ -61,9 +63,12 @@ def build_query(repos):
         )
 
     return """
-    query { REPOS }
+    REPO_FIELDS
+    { REPOS }
     """.replace(
         "REPOS", "\n".join(repo_fragments)
+    ).replace(
+        "REPO_FIELDS", REPO_FIELDS
     )
 
 
@@ -84,6 +89,7 @@ client = GraphqlClient(endpoint="https://api.github.com/graphql")
 
 def fetch_plugins(oauth_token, repos):
     query = build_query(repos)
+    print(query)
     data = client.execute(
         query=query,
         headers={"Authorization": "Bearer {}".format(oauth_token)},
