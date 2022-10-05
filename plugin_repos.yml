@@ -299,3 +299,6 @@
 - repo: simonw/datasette-edit-templates
   tags:
   - Ops
+- repo: simonw/datasette-public
+  tags:
+  - Authentication
