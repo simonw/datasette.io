@@ -302,3 +302,6 @@
 - repo: simonw/datasette-public
   tags:
   - Authentication
+- repo: simonw/datasette-gunicorn
+  tags:
+  - Ops
