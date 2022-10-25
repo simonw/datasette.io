@@ -33,7 +33,7 @@ fragment repoFields on Repository {
   closedIssueCount: issues(states: [CLOSED]) {
     totalCount
   }
-  releases(last: 1) {
+  releases(orderBy: {field: CREATED_AT, direction: DESC}, first: 1) {
     totalCount
     nodes {
       tagName
