@@ -88,18 +88,26 @@ client = GraphqlClient(endpoint="https://api.github.com/graphql")
 
 
 def fetch_plugins(oauth_token, repos):
-    query = build_query(repos)
-    print(query)
-    data = client.execute(
-        query=query,
-        headers={"Authorization": "Bearer {}".format(oauth_token)},
-    )
-    assert "errors" not in data, data["errors"]
-    nodes = []
-    for key in data["data"]:
-        if key.startswith("repo_"):
-            nodes.append(data["data"][key])
-    return nodes
+    chunks = []
+    repos_copy = list(repos)
+    while repos_copy:
+        chunk, repos_copy = repos_copy[:50], repos_copy[50:]
+        chunks.append(chunk)
+    all_nodes = []
+    for chunk in chunks:
+        query = build_query(chunk)
+        print(query)
+        data = client.execute(
+            query=query,
+            headers={"Authorization": "Bearer {}".format(oauth_token)},
+        )
+        assert "errors" not in data, data["errors"]
+        nodes = []
+        for key in data["data"]:
+            if key.startswith("repo_"):
+                nodes.append(data["data"][key])
+        all_nodes.extend(nodes)
+    return all_nodes
 
 
 @click.command()
