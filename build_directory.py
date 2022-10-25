@@ -91,7 +91,7 @@ def fetch_plugins(oauth_token, repos):
     chunks = []
     repos_copy = list(repos)
     while repos_copy:
-        chunk, repos_copy = repos_copy[:50], repos_copy[50:]
+        chunk, repos_copy = repos_copy[:20], repos_copy[20:]
         chunks.append(chunk)
     all_nodes = []
     for chunk in chunks:
