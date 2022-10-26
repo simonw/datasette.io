@@ -302,6 +302,9 @@
 - repo: simonw/datasette-public
   tags:
   - Authentication
+- repo: ocdtrekkie/datasette-external-links-new-tabs
+  tags:
+  - Ops
 - repo: simonw/datasette-gunicorn
   tags:
   - Ops
