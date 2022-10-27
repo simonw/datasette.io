@@ -1,3 +1,6 @@
+- date: 2022-10-27
+  body: |-
+    [Datasette 0.63](https://docs.datasette.io/en/stable/changelog.html#v0-63) is out. Here are the [annotated release notes](https://simonwillison.net/2022/Oct/27/datasette-0-63/).
 - date: 2022-09-08
   body: |-
     [Exploring the training data behind Stable Diffusion](https://simonwillison.net/2022/Sep/5/laion-aesthetics-weeknotes/) describes the process of building and deploying a 4GB searchable SQLite database using Datasette, starting with Parquet data that was used to train the Stable Diffusion image generation model. See also [Exploring 12 Million of the 2.3 Billion Images Used to Train Stable Diffusion’s Image Generator](https://waxy.org/2022/08/exploring-12-million-of-the-images-used-to-train-stable-diffusions-image-generator/).
