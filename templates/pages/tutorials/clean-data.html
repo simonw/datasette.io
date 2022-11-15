@@ -226,13 +226,11 @@ The date columns currently look like this:
 
     2021/10/15 11:30:55+00
 
-This is using the American `yyyy-dd-mm` format. The problem with this format (other than that it greatly confuses Europeans) is that it doesn't support sorting: if you sort alphabetically by tht column you'll get the results in a surprising order.
-
-We can fix that by converting to the ISO standard format `yyyy-mm-dd`.
+This is using `YYYY/MM/DD` format (at least it's not that confusing - for Europeans - American MM/DD/YYYY thing). I prefer the ISO standard format `YYYY-MM-DD` - so let's convert it.
 
 The [sqlite-utils transform](https://sqlite-utils.datasette.io/en/stable/cli.html#converting-data-in-columns) command can be used to apply a transformation function to the values in one or more columns.
 
-Here's how to use that to parse miscellaneous date and time formats and turn them into that standard, sortable format:
+Here's how to use that to parse miscellaneous date and time formats and turn them into that standard ISO format:
 
     sqlite-utils convert manatees.db locations \\
       REPDATE created_date last_edited_date \\
@@ -240,7 +238,7 @@ Here's how to use that to parse miscellaneous date and time formats and turn the
 
 This runs against the `REPDATE`, `created_date` and `last_edited_date` columns. It will use the built-in `r.parsedatetime()` recipe ([documented here](https://sqlite-utils.datasette.io/en/stable/cli.html#sqlite-utils-convert-recipes)) to convert those values and save them back to the same column.
 
-Run that command, then view the data in Datasette again. Now you can sort the data by those columns to see the oldest or most recently created records!
+Run that command, then view the data in Datasette again. Those columns have now been converted!
 
 ## Extracting columns into a separate table
 
