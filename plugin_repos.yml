@@ -308,3 +308,10 @@
 - repo: simonw/datasette-gunicorn
   tags:
   - Ops
+- repo: simonw/datasette-export
+  tags:
+  - Ops
+- repo: simonw/datasette-ephemeral-tables
+  tags:
+  - Ops
+  - Debug
