@@ -1,3 +1,6 @@
+- date: 2022-12-02
+  body: |-
+    [Datasette’s new JSON write API: The first alpha of Datasette 1.0](https://simonwillison.net/2022/Dec/2/datasette-write-api/) introduces the new write API shipped in the first of the Datasette 1.0 alpha series of releases, including detailed descriptions of two demos that show how the API can be used.
 - date: 2022-10-27
   body: |-
     [Datasette 0.63](https://docs.datasette.io/en/stable/changelog.html#v0-63) is out. Here are the [annotated release notes](https://simonwillison.net/2022/Oct/27/datasette-0-63/).
