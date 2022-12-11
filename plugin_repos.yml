@@ -315,3 +315,5 @@
   tags:
   - Ops
   - Debug
+- repo: simonw/datasette-secret-santa
+  - Apps
