@@ -1,3 +1,6 @@
+- date: 2022-12-15
+  body: |-
+    [Datasette 1.0a2: Upserts and finely grained permissions](https://simonwillison.net/2022/Dec/15/datasette-1a2/) describes the new upsert API and much improved permissions capabilities introduced in the latest [Datasette 1.0a2 alpha](https://docs.datasette.io/en/latest/changelog.html#a2-2022-12-14) release.
 - date: 2022-12-02
   body: |-
     [Datasette’s new JSON write API: The first alpha of Datasette 1.0](https://simonwillison.net/2022/Dec/2/datasette-write-api/) introduces the new write API shipped in the first of the Datasette 1.0 alpha series of releases, including detailed descriptions of two demos that show how the API can be used.
