@@ -318,3 +318,6 @@
 - repo: simonw/datasette-secret-santa
   tags:
   - Apps
+- repo: cldellow/datasette-scraper
+  tags:
+  - Data Import
