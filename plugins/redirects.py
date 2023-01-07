@@ -17,4 +17,12 @@ def register_routes():
                 "https://discord.gg/ktd74dm5mw", status=301
             ),
         ),
+        # /help/X may be linked to from the datasette CLI - served with 302 because I may change
+        # what they target in the future.
+        (
+            r"^/help/extensions/?$",
+            lambda request: Response.redirect(
+                "https://docs.datasette.io/en/latest/installation.html#a-note-about-extensions", status=302
+            ),
+        ),   
     )
