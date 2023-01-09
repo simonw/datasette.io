@@ -335,10 +335,11 @@ geojson-to-sqlite timezones.db countries \
 <span class="pl-s">                and search_frame = country.geometry</span>
 <span class="pl-s">            )</span>
 <span class="pl-s">            and intersects(timezones.geometry, country.geometry) = 1</span></pre></div>
-<p>In addition to providing canned queries called <code>by_name</code> and <code>by_country</code>, this also sets metadata showing the source of the data we used for the database.</p>
-<p>It also defines one more important setting:</p>
+<p>In addition to providing canned queries called <code>by_name</code> and <code>by_country</code>, this file also includes metadata showing the source of the data we used for the database.</p>
+<p>It also sets one more important option:</p>
 <div class="highlight highlight-source-yaml"><pre><span class="pl-ent">allow_sql</span>: <span class="pl-c1">false</span></pre></div>
-<p>This option <a href="https://docs.datasette.io/en/stable/authentication.html#controlling-the-ability-to-execute-arbitrary-sql">prevents users from executing their own SQL queries</a> against our published database. Only the canned queries we have defined will be available.</p>
+<p>This option <a href="https://docs.datasette.io/en/stable/authentication.html#controlling-the-ability-to-execute-arbitrary-sql">prevents users from executing their own custom SQL queries</a> against our published database. Only the canned queries we have defined will be available.</p>
+<p>We're using that option here because SpatiaLite has a large number of functions, some of which could crash the underlying Datasette instance.</p>
 <p>We can test our new <code>metadata.yml</code> file by starting Datasette like this:</p>
 <pre><code>datasette timezones.db --load-extension spatialite -m metadata.yml
 </code></pre>
@@ -347,7 +348,7 @@ geojson-to-sqlite timezones.db countries \
 <p><a href="https://fly.io/">Fly</a> is an excellent choice for hosting this, since the API could attract a large amount of traffic.</p>
 <p><a href="https://cloud.google.com/run">Google Cloud Run</a> charges based on how much sustained traffic an instance gets, which could become expensive for this application.</p>
 <p>Fly charge a flat monthly rate for the instance, plus additional fees for bandwidth.</p>
-<p>Current Fly pricing <a href="https://fly.io/docs/about/pricing/">can be found here</a>. At the time of writing a 256MB instance cost $1.94/month.</p>
+<p>Current Fly pricing <a href="https://fly.io/docs/about/pricing/">can be found here</a>. At the time of writing an instance with 256MB of RAM - enough to comfortably host this API - costs $1.94/month.</p>
 <p>You'll need to install the Fly CLI tool:</p>
 <pre><code>curl -L https://fly.io/install.sh | sh
 </code></pre>
