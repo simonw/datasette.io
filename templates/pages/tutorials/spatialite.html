@@ -205,7 +205,7 @@ geojson-to-sqlite timezones.db countries \
 <span class="pl-k">where</span> intersects(
   <span class="pl-c1">timezones</span>.<span class="pl-c1">geometry</span>, (
     <span class="pl-k">select</span> geometry <span class="pl-k">from</span> countries <span class="pl-k">where</span> admin <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>United Kingdom<span class="pl-pds">'</span></span>
-  )
+  ) <span class="pl-k">=</span> <span class="pl-c1">1</span>
 )</pre></div>
 <p>We are using a couple of additional tricks here.</p>
 <p>The <code>intersects()</code> function is a SpatiaLite function that checks if two geometries intersect each other in any way.</p>
@@ -225,7 +225,7 @@ geojson-to-sqlite timezones.db countries \
 <span class="pl-k">where</span> intersects(
   <span class="pl-c1">timezones</span>.<span class="pl-c1">geometry</span>, (
     <span class="pl-k">select</span> geometry <span class="pl-k">from</span> countries <span class="pl-k">where</span> admin <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>United States of America<span class="pl-pds">'</span></span>
-  )
+  )  <span class="pl-k">=</span> <span class="pl-c1">1</span>
 )</pre></div>
 <p>It's necessary to use <code>simplify(...) as geometry</code> here because the <code>datasette-geojson-map</code> plugin will look for an output column called <code>geometry</code> to render on the map.</p>
 <p>Here's <a href="https://timezones.datasette.io/timezones/by_country?country=United+States+of+America">the results of this query</a> for the United States.</p>
