@@ -1,0 +1,377 @@
+{% extends "page_base.html" %}
+
+{% block title %}Building a location to time zone API with SpatiaLite - Tutorial{% endblock %}
+
+{% block extra_head %}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:creator" content="@datasetteproj">
+<meta name="twitter:title" content="Building a location to time zone API with SpatiaLite">
+<meta name="twitter:description" content="This tutorial shows how to build an API for looking up time zones based on latitude/longitude points using SpatiaLite and Datasette.">
+<meta name="twitter:image" content="https://simonw.github.io/datasette-screenshots/non-retina/timezones.png">
+<meta name="twitter:image:alt" content="Screenshot of an example database in Datasette">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Building a location to time zone API with SpatiaLite">
+<meta property="og:description" content="This tutorial shows how to build an API for looking up time zones based on latitude/longitude points using SpatiaLite and Datasette.">
+<meta property="og:image" content="https://simonw.github.io/datasette-screenshots/non-retina/timezones.png">
+<meta property="og:image:alt" content="Screenshot of an example database in Datasette">
+<link rel="stylesheet" type="text/css" href="/static/github-light.css">
+<style>
+pre {
+  overflow: auto;
+}
+code {
+  word-break: break-all;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+
+<p class="breadcrumbs"><a href="/tutorials">Tutorials</a> &gt; Building a location to time zone API with SpatiaLite</p>
+
+<h1>Building a location to time zone API with SpatiaLite</h1>
+<p>The <a href="https://www.gaia-gis.it/fossil/libspatialite/index">SpatiaLite extension</a> for SQLite adds a large number of functions for geospatial analysis, which can be used with Datasette to build GIS (Geographic Information System) applications.</p>
+<p>This tutorial will show how SpatiaLite and Datasette can be combined to create a JSON API that can return the time zone for a specific latitude and longitude point on earth.</p>
+<h2>What we are going to build</h2>
+<p>You can try the API out here. Give it a latitude and longitude and it will return the corresponding time zone ID: <a href="https://timezones.datasette.io/timezones/by_point">https://timezones.datasette.io/timezones/by_point</a></p>
+<p>Some examples:</p>
+<ul>
+<li>
+<a href="https://timezones.datasette.io/timezones/by_point?longitude=-0.1406632&amp;latitude=50.8246776">Brighton, England</a> is in Europe/London (<a href="https://timezones.datasette.io/timezones/by_point.json?longitude=-0.1406632&amp;latitude=50.8246776&amp;_shape=array">in JSON</a>)</li>
+<li>
+<a href="https://timezones.datasette.io/timezones/by_point?longitude=-122.4494224&amp;latitude=37.8022071">San Francisco, USA</a> is in America/Los_Angeles (<a href="https://timezones.datasette.io/timezones/by_point.json?longitude=-122.4494224&amp;latitude=37.8022071&amp;_shape=array">in JSON</a>)</li>
+<li>
+<a href="https://timezones.datasette.io/timezones/by_point?longitude=139.7819661&amp;latitude=35.6631424">Tokyo, Japan</a> is Asia/Tokyo (<a href="https://timezones.datasette.io/timezones/by_point.json?longitude=139.7819661&amp;latitude=35.6631424&amp;_shape=array">in JSON</a>)</li>
+</ul>
+<h2>Setting up a development environment</h2>
+<p>You will need two things in place for this tutorial:</p>
+<ul>
+<li>SpatiaLite installed on your system</li>
+<li>A Python installation that allows the <code>sqlite3</code> module to load additional extensions</li>
+</ul>
+<h3>Recommended: Use GitHub Codespaces</h3>
+<p><a href="https://github.com/codespaces">GitHub Codespaces</a> can provide you with a free development environment for this project accessible through your web browser, with all of the tools you need pre-installed.</p>
+<p>This is the <strong>easiest</strong> way to work through this tutorial.</p>
+<p><a href="https://github.com/codespaces/new?machine=basicLinux32gb&amp;repo=114008133&amp;ref=main">Visit this link</a> to create a new Codespace with everything you will need for the rest of the tutorial.</p>
+<h3>Using a Mac</h3>
+<p>On a Mac you can install SpatiaLite and Datasette using Homebrew like so:</p>
+<pre><code>brew install spatialite-tools datasette
+</code></pre>
+<p>If you are on a Mac you may find that your installation of Python cannot load external SQLite modules. You can check by running the following:</p>
+<pre><code>datasette --load-extension spatialite
+</code></pre>
+<p>If you get an error message about <code>enable_load_extension</code> then consult <a href="https://datasette.io/help/extensions">this page</a> for hints on how to fix the problem.</p>
+<h2>Building the database</h2>
+<p>To build this project we first need geographic shapes for all of the world's time zones.</p>
+<p><a href="https://github.com/evansiroky/timezone-boundary-builder">timezone-boundary-builder</a> is a project by Evan Siroky which uses data from <a href="https://www.openstreetmap.org">OpenStreetMap</a> to create detailed time zone polygons, which he then releases in GeoJSON and Shapefile format. The result is made available under the <a href="http://opendatacommons.org/licenses/odbl/">Open Data Commons Open Database License (ODbL)</a>.</p>
+<p>Start by downloading the <code>timezones-with-oceans.shapefile.zip</code> file from the <a href="https://github.com/evansiroky/timezone-boundary-builder/releases">latest release</a>:</p>
+<p><code>wget https://github.com/evansiroky/timezone-boundary-builder/releases/download/2022g/timezones-with-oceans.shapefile.zip</code></p>
+<p>(If you are using Codespaces you should run all of these commands in the "Terminal" tab of the Codespaces interface.)</p>
+<p>A <a href="https://en.wikipedia.org/wiki/Shapefile">Shapefile</a> is a set of files that describe a collection of geographic features. There's no need to unzip this zip file - our tools can work directly with it.</p>
+<p>We can load the file into a new SpatiaLite database using the <code>shapefile-to-sqlite</code> command.</p>
+<p>If you are running this tutorial in Codespaces this has been installed already. Otherwise, you can install it like this:</p>
+<pre><code>pip install shapefile-to-sqlite
+</code></pre>
+<p>To load the Shapefile into a database, use the following:</p>
+<pre><code>shapefile-to-sqlite timezones.db \
+    timezones-with-oceans.shapefile.zip \
+    --table timezones \
+    --spatial-index
+</code></pre>
+<p>This will create a new database file called <code>timezones.db</code>, and load the shapes from the Shapefile into a new table called <code>timezones</code>. It will also set up a spatial index on the <code>timezones</code> table, described later.</p>
+<p>The command will show a progress bar like this:</p>
+<pre><code>zip://timezones-with-oceans.shapefile.zip
+  [########----------------------------]   22%  00:00:38
+</code></pre>
+<p>This make take a couple of minutes to complete.</p>
+<h2>Browsing the database in Datasette</h2>
+<p>We can now start Datasette against that file to browse the data:</p>
+<pre><code>datasette timezones.db --load-extension spatialite
+</code></pre>
+<p>You should see the following output:</p>
+<pre><code>INFO:     Started server process [5385]
+INFO:     Waiting for application startup.
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://127.0.0.1:8001 (Press CTRL+C to quit)
+</code></pre>
+<p>If you are using your own computer you can now visit <a href="http://127.0.0.1:8001">http://127.0.0.1:8001</a> to see the Datasette interface.</p>
+<p>If you are running in Codespaces the tool should offer an "Open in Browser" button.</p>
+<p>You can now browse the database. There should be a <code>timezones</code> table with three columns: <code>id</code>, <code>tzid</code> and <code>geometry</code></p>
+<p>There isn't much to see yet though! The geometry columns are just big binary blobs.</p>
+<h3>Viewing the time zone shapes on a map</h3>
+<p>To see the time zone geometries on a map, we can install a Datasette plugin.</p>
+<p><a href="https://datasette.io/plugins/datasette-geojson-map">datasette-geojson-map</a> by Chris Amico adds the ability to render GeoJSON and SpatiaLite geometries directly on a map.</p>
+<p>Hit Ctrl+C in the terminal to stop the Datasette server, then run the following:</p>
+<pre><code>datasette install datasette-geojson-map
+</code></pre>
+<p>Now start Datasette running again:</p>
+<pre><code>datasette timezones.db \
+  --load-extension spatialite \
+  --setting default_page_size 10
+</code></pre>
+<p>We're adding an extra setting here, to set the default page size to 10. This is because some of the time zone polygons are really large and the default page size of 100 can take a long time to render.</p>
+<p>Visit the <code>timezones</code> table again and you should see something like this:</p>
+<p><img src="https://simonw.github.io/datasette-screenshots/non-retina/timezones.png" alt="The timezones table page in Datasette shows a map at the top with a small number of time zones represented, above a table listing them by name." style="max-width: 100%">
+<h2>Finding the time zone for a point</h2>
+<p>Now that we have a table full of time zone geometries we can construct a SQL query that can show us the time zone for any specific point on earth.</p>
+<p>We can do this using the SpatiaLite <code>within()</code> function, which takes two geometries and checks if one is contained within the other.</p>
+<p>First we're going to need a geometry that represents a specific latitude/longitude point.</p>
+<p><code>41.798, -87.696</code> is a point within the city of Chicago - see it <a href="https://www.google.com/maps/?ll=41.798,-87.696&amp;z=10">here on Google Maps</a>.</p>
+<p>We can use the SpatiaLite <code>MakePoint(longitude, latitude)</code> function (note that the latitude and longitude are reversed here) to create a geometry which can then be used with the <code>within()</code> function:</p>
+<div class="highlight highlight-source-sql"><pre><span class="pl-k">select</span>
+  tzid
+<span class="pl-k">from</span>
+  timezones
+<span class="pl-k">where</span>
+  within(
+    MakePoint(<span class="pl-k">-</span><span class="pl-c1">87</span>.<span class="pl-c1">696</span>, <span class="pl-c1">41</span>.<span class="pl-c1">798</span>),
+    <span class="pl-c1">timezones</span>.<span class="pl-c1">Geometry</span>
+  ) <span class="pl-k">=</span> <span class="pl-c1">1</span></pre></div>
+<p><code>within(geom1, geom2)</code> returns <code>1</code> if the first geometry is contained within the second, and <code>0</code> if it is not.</p>
+<p>Sure enough, this query returns <code>America/Chicago</code>.</p>
+<h2>Using parameters in the SQL query</h2>
+<p>Datasette has a feature where SQL queries can contain named parameters <code>:like_this</code> which will be turned into form fields and used to feed new values to the queries.</p>
+<p>Try that with the following query:</p>
+<div class="highlight highlight-source-sql"><pre><span class="pl-k">select</span>
+  tzid
+<span class="pl-k">from</span>
+  timezones
+<span class="pl-k">where</span>
+  within(
+    MakePoint(:longitude, :latitude),
+    <span class="pl-c1">timezones</span>.<span class="pl-c1">Geometry</span>
+  ) <span class="pl-k">=</span> <span class="pl-c1">1</span></pre></div>
+<p>This looks like it should work... but if you try it with the previous coordinates you'll see that it returns no results.</p>
+<p>This is because <code>MakePoint()</code> needs to be given floating point values, but Datasette passes all parameters as strings.</p>
+<p>If you pass invalid types, <code>MakePoint()</code> returns <code>null</code> - and <code>within(null, geometry)</code> then returns <code>-1</code> to specify an invalid result.</p>
+<p>We can fix this by casting the strings to floats, like this:</p>
+<div class="highlight highlight-source-sql"><pre><span class="pl-k">select</span>
+  tzid
+<span class="pl-k">from</span>
+  timezones
+<span class="pl-k">where</span>
+  within(
+    MakePoint(cast(:longitude <span class="pl-k">as</span> float), cast(:latitude <span class="pl-k">as</span> float)),
+    <span class="pl-c1">timezones</span>.<span class="pl-c1">Geometry</span>
+  ) <span class="pl-k">=</span> <span class="pl-c1">1</span></pre></div>
+<p>This query has the desired effect: given a latitude and longitude for any point on earth it will return the correct time zone.</p>
+<h2>Speeding it up with an index</h2>
+<p>There's one remaining catch with this query: it's relatively slow. In my testing I was seeing anything between 150ms and 750ms for the query to run, due to the need to compare the point with all 455 polygons in the database.</p>
+<p>We used the <code>--spatial-index</code> option when we first imported the data. Here's how to take advantage of that spatial index to speed things up:</p>
+<div class="highlight highlight-source-sql"><pre><span class="pl-k">select</span> tzid
+<span class="pl-k">from</span>
+  timezones
+<span class="pl-k">where</span>
+  within(
+    MakePoint(cast(:longitude <span class="pl-k">as</span> float), cast(:latitude <span class="pl-k">as</span> float)),
+    <span class="pl-c1">timezones</span>.<span class="pl-c1">Geometry</span>
+  ) <span class="pl-k">=</span> <span class="pl-c1">1</span>
+  <span class="pl-k">and</span> rowid <span class="pl-k">in</span> (
+    <span class="pl-k">select</span>
+      rowid
+    <span class="pl-k">from</span>
+      SpatialIndex
+    <span class="pl-k">where</span>
+      f_table_name <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>timezones<span class="pl-pds">'</span></span>
+      <span class="pl-k">and</span> search_frame <span class="pl-k">=</span> MakePoint(cast(:longitude <span class="pl-k">as</span> float), cast(:latitude <span class="pl-k">as</span> float))
+  )</pre></div>
+<p>The trick here is the extra <code>and rowid in (...)</code> subquery.</p>
+<p><code>SpatialIndex</code> is a special table - it's a virtual table created by SpatiaLite.</p>
+<p>You can query that table by passing the name of another table that has a spatial index associated with it - in this case <code>timezones</code>. Then you pass in a geometry as <code>search_frame</code> and the table will return a list of <code>rowid</code> values representing any polygons with a rough bounding box that overlaps that of the geometry you passed in.</p>
+<p>Note that this is not an exact comparison: some of the row IDs you get back may not intersect exactly with the geometry.</p>
+<p>But it's a good enough approximation. You can combine these values with a more accurate <code>within()</code> check, which will then only have to run full calculations against a subset of the overall set of polygons.</p>
+<p>In my local testing this dropped the time taken for the query from 150ms to less than 8ms - a significant speedup!</p>
+<h2>Adding country polygons</h2>
+<p>Which time zones are relevant for a specific country?</p>
+<p>Our data at the moment can't tell us that. We can filter for just time zones that start with <code>America/</code> but this will give us everything for both North and South America. Wouldn't it be neat if we could browse our time zones by country instead?</p>
+<p>We can try to answer that question by loading in polygons for every country in the world.</p>
+<p><a href="https://datahub.io/core/geo-countries">datahub.io/core/geo-countries</a> has the data we need for this, derived from <a href="https://www.naturalearthdata.com/">Natural Earth</a> and released under the <a href="https://opendatacommons.org/licenses/pddl/1-0/">PDDL</a> license.</p>
+<p>We can download a GeoJSON file of countries like this:</p>
+<pre><code>wget https://datahub.io/core/geo-countries/r/countries.geojson
+</code></pre>
+<p>Now we can use <a href="https://datasette.io/tools/geojson-to-sqlite">geojson-to-sqlite</a> to load it into a <code>countries</code> database table, again creating a spatial index:</p>
+<pre><code>pip install geojson-to-sqlite
+
+geojson-to-sqlite timezones.db countries \
+  countries.geojson --spatial-index 
+</code></pre>
+<p>Datasette should pick up the new <code>countries</code> table, and <code>datasette-geojson-map</code> will now show rendered outlines of those countries.</p>
+<p>To find the time zones that intersect a specific country, we can use the following query:</p>
+<div class="highlight highlight-source-sql"><pre><span class="pl-k">select</span>
+  tzid,
+  geometry
+<span class="pl-k">from</span>
+  timezones
+<span class="pl-k">where</span> intersects(
+  <span class="pl-c1">timezones</span>.<span class="pl-c1">geometry</span>, (
+    <span class="pl-k">select</span> geometry <span class="pl-k">from</span> countries <span class="pl-k">where</span> admin <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>United Kingdom<span class="pl-pds">'</span></span>
+  )
+)</pre></div>
+<p>We are using a couple of additional tricks here.</p>
+<p>The <code>intersects()</code> function is a SpatiaLite function that checks if two geometries intersect each other in any way.</p>
+<p>We'e also using a subquery to access the geometry of the country that we are interested in:</p>
+<div class="highlight highlight-source-sql"><pre><span class="pl-k">select</span> geometry <span class="pl-k">from</span> countries <span class="pl-k">where</span> admin <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>United Kingdom<span class="pl-pds">'</span></span></pre></div>
+<p>The <code>admin</code> column in <code>countries</code> has names of the countries - here we are pulling back the geometry for the United Kingdom.</p>
+<p>Here are <a href="https://timezones.datasette.io/timezones/by_country?country=United+Kingdom">the results of this query</a>.</p>
+<h2>Simplifying the polygons</h2>
+<p>Try changing the country name to "United States of America" and you may run into a problem: the geometries for the time zones that intersect with the United States are so large that they may not be possible to render on the map!</p>
+<p>We can help solve that using another SpatiaLite function: <code>simplify()</code>. This function applies the <a href="https://en.wikipedia.org/wiki/Ramer%E2%80%93Douglas%E2%80%93Peucker_algorithm">Douglas–Peucker algorithm</a> to simplify a polygon down to a smaller number of points, which makes it much easier to render.</p>
+<p><code>simplify()</code> takes a geometry and a precision value. After some trial and error I found that a precision value of <code>0.05</code> worked well for these time zone polygons:</p>
+<div class="highlight highlight-source-sql"><pre><span class="pl-k">select</span>
+  tzid,
+  simplify(geometry, <span class="pl-c1">0</span>.<span class="pl-c1">05</span>) <span class="pl-k">as</span> geometry
+<span class="pl-k">from</span>
+  timezones
+<span class="pl-k">where</span> intersects(
+  <span class="pl-c1">timezones</span>.<span class="pl-c1">geometry</span>, (
+    <span class="pl-k">select</span> geometry <span class="pl-k">from</span> countries <span class="pl-k">where</span> admin <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>United States of America<span class="pl-pds">'</span></span>
+  )
+)</pre></div>
+<p>It's necessary to use <code>simplify(...) as geometry</code> here because the <code>datasette-geojson-map</code> plugin will look for an output column called <code>geometry</code> to render on the map.</p>
+<p>Here's <a href="https://timezones.datasette.io/timezones/by_country?country=United+States+of+America">the results of this query</a> for the United States.</p>
+<h2>Speeding that up with an index</h2>
+<p>We can use a spatial index in a similar way to the time zone query listed above:</p>
+<div class="highlight highlight-source-sql"><pre>with country <span class="pl-k">as</span> (
+  <span class="pl-k">select</span>
+    geometry
+  <span class="pl-k">from</span>
+    countries
+  <span class="pl-k">where</span>
+    admin <span class="pl-k">=</span> :country
+)
+<span class="pl-k">select</span>
+  <span class="pl-c1">timezones</span>.<span class="pl-c1">tzid</span>,
+  simplify(<span class="pl-c1">timezones</span>.<span class="pl-c1">geometry</span>, <span class="pl-c1">0</span>.<span class="pl-c1">05</span>) <span class="pl-k">as</span> geometry
+<span class="pl-k">from</span>
+  timezones,
+  country
+<span class="pl-k">where</span>
+  <span class="pl-c1">timezones</span>.<span class="pl-c1">id</span> <span class="pl-k">in</span> (
+    <span class="pl-k">select</span>
+      <span class="pl-c1">SpatialIndex</span>.<span class="pl-c1">rowid</span>
+    <span class="pl-k">from</span>
+      SpatialIndex,
+      country
+    <span class="pl-k">where</span>
+      f_table_name <span class="pl-k">=</span> <span class="pl-s"><span class="pl-pds">'</span>timezones<span class="pl-pds">'</span></span>
+      <span class="pl-k">and</span> search_frame <span class="pl-k">=</span> <span class="pl-c1">country</span>.<span class="pl-c1">geometry</span>
+  )
+  <span class="pl-k">and</span> intersects(<span class="pl-c1">timezones</span>.<span class="pl-c1">geometry</span>, <span class="pl-c1">country</span>.<span class="pl-c1">geometry</span>) <span class="pl-k">=</span> <span class="pl-c1">1</span></pre></div>
+<p>This uses the same trick as before - a <code>where timezones.id in (...)</code> subselect that returns a list of likely <code>rowid</code> values from the <code>SpatialIndex</code> virtual table.</p>
+<p>If a table has an integer primary key - such as our <code>timezones</code> table here - SQLite will set the <code>rowid</code> to be the same value, which is why we can compare <code>timezones.id</code> with <code>rowid</code> in this query.</p>
+<p>We're using one more trick here. To avoid having to run that query to select the country geometry twice, we're instead bundling that into a CTE - a Common Table Expression - at the start of the query.</p>
+<p>The <code>with country as (...)</code> piece makes the result of that query available as a temporary table called <code>country</code> for the duration of the SQL query.</p>
+<h2>Defining metadata with canned queries</h2>
+<p>Now that we've figured out all of the queries needed to power our API, it's time to tie them together into a configuration that we can deploy to the internet.</p>
+<p>Datasette's <a href="https://docs.datasette.io/en/stable/metadata.html">metadata system</a> can be used to provide extra information about the database, and it can also be used to configure <a href="https://docs.datasette.io/en/stable/sql_queries.html#canned-queries">canned queries</a> - SQL queries with names, like the <code>by_point</code> example shown at the beginning of this tutorial.</p>
+<p>Here's a <code>metadata.yml</code> file which defines both the <code>by_point</code> query and a query for looking up time zones by country code.</p>
+<div class="highlight highlight-source-yaml"><pre><span class="pl-ent">title</span>: <span class="pl-s">Time zones API</span>
+<span class="pl-ent">description</span>: <span class="pl-s">|</span>
+<span class="pl-s">  An API for looking up time zones by latitude/longitude</span>
+<span class="pl-s"></span><span class="pl-ent">about</span>: <span class="pl-s">simonw/timezones-api</span>
+<span class="pl-ent">about_url</span>: <span class="pl-s">https://github.com/simonw/timezones-api</span>
+<span class="pl-ent">license</span>: <span class="pl-s">ODbL</span>
+<span class="pl-ent">license_url</span>: <span class="pl-s">http://opendatacommons.org/licenses/odbl/</span>
+<span class="pl-ent">source</span>: <span class="pl-s">timezone-boundary-builder</span>
+<span class="pl-ent">source_url</span>: <span class="pl-s">https://github.com/evansiroky/timezone-boundary-builder</span>
+<span class="pl-ent">allow_sql</span>: <span class="pl-c1">false</span>
+<span class="pl-ent">databases</span>:
+  <span class="pl-ent">timezones</span>:
+    <span class="pl-ent">tables</span>:
+      <span class="pl-ent">countries</span>:
+        <span class="pl-ent">source</span>: <span class="pl-s">Natural Earth</span>
+        <span class="pl-ent">source_url</span>: <span class="pl-s">https://www.naturalearthdata.com/</span>
+        <span class="pl-ent">license</span>: <span class="pl-s">Open Data Commons Public Domain Dedication and License (PDDL) v1.0</span>
+        <span class="pl-ent">license_url</span>: <span class="pl-s">https://opendatacommons.org/licenses/pddl/1-0/</span>
+        <span class="pl-ent">about</span>: <span class="pl-s">geo-countries</span>
+        <span class="pl-ent">about_url</span>: <span class="pl-s">https://datahub.io/core/geo-countries</span>
+    <span class="pl-ent">queries</span>:
+      <span class="pl-ent">by_point</span>:
+        <span class="pl-ent">title</span>: <span class="pl-s">Find time zone by lat/lon</span>
+        <span class="pl-ent">sql</span>: <span class="pl-s">|</span>
+<span class="pl-s">          select tzid</span>
+<span class="pl-s">          from</span>
+<span class="pl-s">            timezones</span>
+<span class="pl-s">          where</span>
+<span class="pl-s">            within(</span>
+<span class="pl-s">              MakePoint(cast(:longitude as float), cast(:latitude as float)),</span>
+<span class="pl-s">              timezones.Geometry</span>
+<span class="pl-s">            ) = 1</span>
+<span class="pl-s">            and rowid in (</span>
+<span class="pl-s">              select</span>
+<span class="pl-s">                rowid</span>
+<span class="pl-s">              from</span>
+<span class="pl-s">                SpatialIndex</span>
+<span class="pl-s">              where</span>
+<span class="pl-s">                f_table_name = 'timezones'</span>
+<span class="pl-s">                and search_frame = MakePoint(cast(:longitude as float), cast(:latitude as float))</span>
+<span class="pl-s">            )</span>
+<span class="pl-s"></span>      <span class="pl-ent">by_country</span>:
+        <span class="pl-ent">title</span>: <span class="pl-s">Find time zones that intersect a country</span>
+        <span class="pl-ent">sql</span>: <span class="pl-s">|</span>
+<span class="pl-s">          with country as (</span>
+<span class="pl-s">            select</span>
+<span class="pl-s">              geometry</span>
+<span class="pl-s">            from</span>
+<span class="pl-s">              countries</span>
+<span class="pl-s">            where</span>
+<span class="pl-s">              admin = :country</span>
+<span class="pl-s">          )</span>
+<span class="pl-s">          select</span>
+<span class="pl-s">            timezones.tzid,</span>
+<span class="pl-s">            simplify(timezones.geometry, 0.05) as geometry</span>
+<span class="pl-s">          from</span>
+<span class="pl-s">            timezones,</span>
+<span class="pl-s">            country</span>
+<span class="pl-s">          where</span>
+<span class="pl-s">            timezones.id in (</span>
+<span class="pl-s">              select</span>
+<span class="pl-s">                SpatialIndex.rowid</span>
+<span class="pl-s">              from</span>
+<span class="pl-s">                SpatialIndex,</span>
+<span class="pl-s">                country</span>
+<span class="pl-s">              where</span>
+<span class="pl-s">                f_table_name = 'timezones'</span>
+<span class="pl-s">                and search_frame = country.geometry</span>
+<span class="pl-s">            )</span>
+<span class="pl-s">            and intersects(timezones.geometry, country.geometry) = 1</span></pre></div>
+<p>In addition to providing canned queries called <code>by_name</code> and <code>by_country</code>, this also sets metadata showing the source of the data we used for the database.</p>
+<p>It also defines one more important setting:</p>
+<div class="highlight highlight-source-yaml"><pre><span class="pl-ent">allow_sql</span>: <span class="pl-c1">false</span></pre></div>
+<p>This option <a href="https://docs.datasette.io/en/stable/authentication.html#controlling-the-ability-to-execute-arbitrary-sql">prevents users from executing their own SQL queries</a> against our published database. Only the canned queries we have defined will be available.</p>
+<p>We can test our new <code>metadata.yml</code> file by starting Datasette like this:</p>
+<pre><code>datasette timezones.db --load-extension spatialite -m metadata.yml
+</code></pre>
+<h2>Deploying the application to Fly</h2>
+<p>The <a href="https://docs.datasette.io/en/stable/publish.html">datasette publish</a> command can be used to deploy Datasette instances to a variety of different hosting providers.</p>
+<p><a href="https://fly.io/">Fly</a> is an excellent choice for hosting this, since the API could attract a large amount of traffic.</p>
+<p><a href="https://cloud.google.com/run">Google Cloud Run</a> charges based on how much sustained traffic an instance gets, which could become expensive for this application.</p>
+<p>Fly charge a flat monthly rate for the instance, plus additional fees for bandwidth.</p>
+<p>Current Fly pricing <a href="https://fly.io/docs/about/pricing/">can be found here</a>. At the time of writing a 256MB instance cost $1.94/month.</p>
+<p>You'll need to install the Fly CLI tool:</p>
+<pre><code>curl -L https://fly.io/install.sh | sh
+</code></pre>
+<p>Then run the following to authenticate with Fly:</p>
+<pre><code>flyctl auth login
+</code></pre>
+<p>You should also install the <a href="https://datasette.io/plugins/datasette-publish-fly">datasette-publish-fly</a> plugin:</p>
+<pre><code>pip install datasette-publish-fly
+</code></pre>
+<p>With all of those pieces in place, you can deploy the application like this:</p>
+<pre><code>datasette publish fly timezones.db \
+  --app timezones-api \
+  --setting default_page_size 10 \
+  --install datasette-geojson-map \
+  --metadata metadata.yml \
+  --spatialite
+</code></pre>
+<p>You need a unique <code>--app</code> name (I've already claimed <code>timezones-api</code> for this demo).</p>
+<p>The <code>--spatialite</code> flag ensures SpatiaLite is configured for the deployed application.</p>
+<p>The deploy command make take a few minutes to complete. Once it has finished you can visit <code>https://your-app-name.fly.dev/</code> to see the finished application, live on the internet.</p>
+<p>Here's <a href="https://timezones.datasette.io">timezones.datasette.io</a>, deployed using this exact command.</p>
+<h2>Source code</h2>
+<p>The source code for everything in this tutorial can be found in the <a href="https://github.com/simonw/timezones-api">simonw/timezones-api</a> repository on GitHub.</p>
+
+{% include "_more_tutorials.html" %}
+
+{% endblock %}
