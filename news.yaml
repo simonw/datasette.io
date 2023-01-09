@@ -1,3 +1,6 @@
+- date: 2023-01-09
+  body: |-
+    [Datasette 0.64](https://docs.datasette.io/en/stable/changelog.html#v0-64) is out, and includes [a strong warning](https://docs.datasette.io/en/stable/spatialite.html#warning) against running SpatiaLite in production without disabling arbitrary SQL queries, plus a new [--setting default_allow_sql off](https://docs.datasette.io/en/stable/settings.html#setting-default-allow-sql) setting to make it easier to do that. See [Datasette 0.64, with a warning about SpatiaLite](https://simonwillison.net/2023/Jan/9/datasette-064/) for more about this release. A new tutorial, [Building a location to time zone API with SpatiaLite](https://datasette.io/tutorials/spatialite), describes how to safely use SpatiaLite and Datasette to build and deploy an API for looking up time zones for a latitude/longitude location.
 - date: 2022-12-15
   body: |-
     [Datasette 1.0a2: Upserts and finely grained permissions](https://simonwillison.net/2022/Dec/15/datasette-1a2/) describes the new upsert API and much improved permissions capabilities introduced in the latest [Datasette 1.0a2 alpha](https://docs.datasette.io/en/latest/changelog.html#a2-2022-12-14) release.
