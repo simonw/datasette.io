@@ -22,7 +22,7 @@ def register_routes():
         (
             r"^/help/extensions/?$",
             lambda request: Response.redirect(
-                "https://docs.datasette.io/en/latest/installation.html#a-note-about-extensions", status=302
+                "https://docs.datasette.io/en/stable/installation.html#a-note-about-extensions", status=302
             ),
         ),   
     )
