@@ -38,3 +38,4 @@
 - simonw/pypi-to-sqlite
 - simonw/s3-ocr
 - simonw/sqlite-comprehend
+- myles/mastodon-to-sqlite
