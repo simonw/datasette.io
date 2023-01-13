@@ -318,3 +318,18 @@
 - repo: simonw/datasette-secret-santa
   tags:
   - Apps
+- repo: cldellow/datasette-scraper
+  tags:
+  - Data Import
+- repo: simonw/datasette-openai
+  tags:
+  - AI
+  - SQL Functions
+- repo: simonw/datasette-faiss
+  tags:
+  - AI
+  - SQL Functions
+  - Search
+- repo: simonw/datasette-cookies-for-magic-parameters
+  tags:
+  - Authentication

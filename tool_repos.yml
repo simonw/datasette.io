@@ -38,3 +38,5 @@
 - simonw/pypi-to-sqlite
 - simonw/s3-ocr
 - simonw/sqlite-comprehend
+- simonw/json-to-files
+- simonw/openai-to-sqlite
