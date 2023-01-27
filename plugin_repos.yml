@@ -333,3 +333,6 @@
 - repo: simonw/datasette-cookies-for-magic-parameters
   tags:
   - Authentication
+- repo: simonw/datasette-youtube-embed
+  tags:
+  - Render Cell
