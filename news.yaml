@@ -1,3 +1,6 @@
+- date: 2023-01-28
+  body: |-
+    [Examples of sites built using Datasette](https://datasette.io/examples) now includes screenshots of Datasette deployments that illustrate a variety of problems that can be addressed using Datasette and its plugins.
 - date: 2023-01-13
   body: |-
     [Semantic search answers: Q&A against documentation with GPT3 + OpenAI embeddings](https://simonwillison.net/2023/Jan/13/semantic-search-answers/) shows how Datasette can be used to implement semantic search and build a system for answering questions against an existing corpus of text, using two new plugins: [datasette-openai](https://datasette.io/plugins/datasette-openai) and [datasette-faiss](https://datasette.io/plugins/datasette-faiss), and a new tool: [openai-to-sqlite](https://datasette.io/tools/openai-to-sqlite).
