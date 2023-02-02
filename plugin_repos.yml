@@ -336,3 +336,15 @@
 - repo: simonw/datasette-youtube-embed
   tags:
   - Render Cell
+- repo: asg017/sqlite-regex
+  tags:
+  - Extension
+- repo: asg017/sqlite-ulid
+  tags:
+  - Extension
+- repo: asg017/sqlite-jsonschema
+  tags:
+  - Extension
+- repo: asg017/sqlite-fastrand
+  tags:
+  - Extension
