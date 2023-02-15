@@ -205,7 +205,7 @@ select
   users.login as owner,
   repos.description as description,
   repos.stargazers_count,
-  pypi_versions.name,
+  pypi_versions.name as tag_name,
   max(pypi_releases.upload_time) as latest_release_at,
   repos.created_at as created_at,
   datasette_repos.openGraphImageUrl,
