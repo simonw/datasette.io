@@ -336,3 +336,6 @@
 - repo: simonw/datasette-youtube-embed
   tags:
   - Render Cell
+- repo: simonw/datasette-codespaces
+  tags:
+  - Ops

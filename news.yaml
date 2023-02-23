@@ -1,3 +1,6 @@
+- date: 2023-02-23
+  body: |-
+    [Using Datasette in GitHub Codespaces](https://datasette.io/tutorials/codespaces) is a new tutorial showing how Datasette can be run in GitHub's free Codespaces browser-based development environments, using the new [datasette-codespaces plugin](https://datasette.io/plugins/datasette-codespaces).
 - date: 2023-01-28
   body: |-
     [Examples of sites built using Datasette](https://datasette.io/examples) now includes screenshots of Datasette deployments that illustrate a variety of problems that can be addressed using Datasette and its plugins.
