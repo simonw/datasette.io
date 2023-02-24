@@ -92,7 +92,7 @@ We'll do that using the [sqlite-utils](https://sqlite-utils.datasette.io/) comma
 
 We can leave Datasette running in the background by starting a new terminal. Click on the word \"python\" at the top of the terminal window and select \"Split terminal\":
 
-![Clicknig Python reviels a menu with several options - the top one is called Split Terminal](https://raw.githubusercontent.com/simonw/codespaces-datasette/main/split-terminal.jpg)
+![Clicking Python reviels a menu with several options - the top one is called Split Terminal](https://raw.githubusercontent.com/simonw/codespaces-datasette/main/split-terminal.jpg)
 
 You should now have two terminal windows next to each other.
 
@@ -107,14 +107,12 @@ Then confirm installation with:
 ![Screenshot of two terminal windows - the left one contains Datasette, while the right one shows a freshly installed copy of sqlite-utils.](https://raw.githubusercontent.com/simonw/codespaces-datasette/main/two-terminals.jpg)
 
 Let's fetch a CSV file from the web:
-```
-wget https://static.simonwillison.net/static/2022/Manatee_Carcass_Recovery_Locations_in_Florida.csv
-```
-And insert it into our database:
-```
-sqlite-utils insert data.db locations \
-  Manatee_Carcass_Recovery_Locations_in_Florida.csv --csv -d
-```
+""") }}
+<p><code>wget https://static.simonwillison.net/static/2022/Manatee_Carcass_Recovery_Locations_in_Florida.csv</code></p>
+<p>And insert it into our database:</p>
+<pre><code>sqlite-utils insert data.db locations \
+    Manatee_Carcass_Recovery_Locations_in_Florida.csv --csv -d</code></pre>
+{{ render_markdown("""
 This creates a new table called `locations` containing the data from that CSV file - manatee carcass recovery locations in Florida dating back to 1974.
 
 The `--csv` option tells sqlite-utils to treat the file as a CSV file, and the `-d` option tells it to infer the column types from the data (rather than treating every column as a text column).
@@ -128,17 +126,16 @@ Datasette has over 100 available plugins, listed in the [plugins directory](http
 To install these, we first need to stop the Datasette server running. To do this first click back on the terminal window running Datasette and then hit `Ctrl+C` to stop the server.
 
 The `datasette install ...` command installs new plugins. Let's install a few of them:
-
-```
-datasette install \
+""") }}
+<pre><code>datasette install \
   datasette-vega \
   datasette-cluster-map \
   datasette-copyable \
   datasette-configure-fts \
   datasette-edit-schema \
   datasette-upload-csvs
-```
-
+</code></pre>
+{{ render_markdown("""
 Here's what each of these plugins does:
 
 - [datasette-vega](https://datasette.io/plugins/datasette-vega) adds line, bar and scatter chart visualizations
