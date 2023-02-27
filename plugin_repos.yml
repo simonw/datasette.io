@@ -14,6 +14,7 @@
 - repo: simonw/datasette-vega
   tags:
   - Visualization
+  extra_search: plot chart graph
 - repo: simonw/datasette-auth-github
   tags:
   - Authentication

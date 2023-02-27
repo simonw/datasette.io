@@ -1,42 +1,168 @@
-- simonw/csvs-to-sqlite
-- simonw/sqlite-utils
-- simonw/django-sql-dashboard
-- simonw/db-to-sqlite
-- dogsheep/twitter-to-sqlite
-- simonw/csv-diff
-- dogsheep/github-to-sqlite
-- dogsheep/dogsheep-photos
-- dogsheep/healthkit-to-sqlite
-- dogsheep/dogsheep-beta
-- dogsheep/google-takeout-to-sqlite
-- dogsheep/pocket-to-sqlite
-- dogsheep/swarm-to-sqlite
-- simonw/yaml-to-sqlite
-- simonw/airtable-export
-- simonw/markdown-to-sqlite
-- simonw/geojson-to-sqlite
-- simonw/dbf-to-sqlite
-- simonw/sqlite-transform
-- dogsheep/hacker-news-to-sqlite
-- dogsheep/evernote-to-sqlite
-- simonw/sqlite-diffable
-- simonw/sqlite-generate
-- simonw/shapefile-to-sqlite
-- dogsheep/genome-to-sqlite
-- simonw/download-tiles
-- simonw/tableau-to-sqlite
-- simonw/fec-to-sqlite
-- dogsheep/inaturalist-to-sqlite
-- simonw/sphinx-to-sqlite
-- simonw/datasette-clone
-- simonw/datasette-app
-- simonw/git-history
-- simonw/s3-credentials
-- simonw/google-drive-to-sqlite
-- simonw/shot-scraper
-- eyeseast/geocode-sqlite
-- simonw/pypi-to-sqlite
-- simonw/s3-ocr
-- simonw/sqlite-comprehend
-- simonw/json-to-files
-- simonw/openai-to-sqlite
+- repo: simonw/csvs-to-sqlite
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: simonw/sqlite-utils
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: simonw/django-sql-dashboard
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: simonw/db-to-sqlite
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: dogsheep/twitter-to-sqlite
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: simonw/csv-diff
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: dogsheep/github-to-sqlite
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: dogsheep/dogsheep-photos
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: dogsheep/healthkit-to-sqlite
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: dogsheep/dogsheep-beta
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: dogsheep/google-takeout-to-sqlite
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: dogsheep/pocket-to-sqlite
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: dogsheep/swarm-to-sqlite
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: simonw/yaml-to-sqlite
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: simonw/airtable-export
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: simonw/markdown-to-sqlite
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: simonw/geojson-to-sqlite
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: simonw/dbf-to-sqlite
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: simonw/sqlite-transform
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: dogsheep/hacker-news-to-sqlite
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: dogsheep/evernote-to-sqlite
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: simonw/sqlite-diffable
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: simonw/sqlite-generate
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: simonw/shapefile-to-sqlite
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: dogsheep/genome-to-sqlite
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: simonw/download-tiles
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: simonw/tableau-to-sqlite
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: simonw/fec-to-sqlite
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: dogsheep/inaturalist-to-sqlite
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: simonw/sphinx-to-sqlite
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: simonw/datasette-clone
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: simonw/datasette-app
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: simonw/git-history
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: simonw/s3-credentials
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: simonw/google-drive-to-sqlite
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: simonw/shot-scraper
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: eyeseast/geocode-sqlite
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: simonw/pypi-to-sqlite
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: simonw/s3-ocr
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: simonw/sqlite-comprehend
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: simonw/json-to-files
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: simonw/openai-to-sqlite
+  tags:
+  - Untagged
+  extra_search: ""

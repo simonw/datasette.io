@@ -204,6 +204,8 @@ select
   repos.full_name as full_name,
   users.login as owner,
   repos.description as description,
+  {repo_table}.extra_search as extra_search,
+  {repo_table}.tags as tags,
   repos.stargazers_count,
   pypi_versions.name as tag_name,
   max(pypi_releases.upload_time) as latest_release_at,
@@ -241,13 +243,7 @@ from
   left join pypi_releases on pypi_releases.package = repos.name
   left join pypi_versions on pypi_releases.version = pypi_versions.id
   join users on users.id = repos.owner
-where
-  datasette_repos.nameWithOwner in (
-    select
-      repo
-    from
-      {repo_table}
-  )
+  join {repo_table} on {repo_table}.repo = datasette_repos.nameWithOwner
 group by
   repos.id
 order by
