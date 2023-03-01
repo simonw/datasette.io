@@ -334,6 +334,9 @@
 - repo: simonw/datasette-cookies-for-magic-parameters
   tags:
   - Authentication
+- repo: simonw/datasette-simple-html
+  tags:
+  - SQL Functions
 - repo: simonw/datasette-youtube-embed
   tags:
   - Render Cell
