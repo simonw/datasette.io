@@ -343,3 +343,6 @@
 - repo: simonw/datasette-codespaces
   tags:
   - Ops
+- repo: simonw/datasette-explain
+  tags:
+  - Debug
