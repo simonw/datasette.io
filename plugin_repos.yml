@@ -346,3 +346,6 @@
 - repo: simonw/datasette-explain
   tags:
   - Debug
+- repo: UUDigitalHumanitieslab/datasette-matomo
+  tags:
+  - Analytics
