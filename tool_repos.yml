@@ -166,3 +166,7 @@
   tags:
   - Untagged
   extra_search: ""
+- repo: dogsheep/apple-notes-to-sqlite
+  tags:
+  - Untagged
+  extra_search: ""
