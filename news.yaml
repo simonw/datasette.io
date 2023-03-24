@@ -1,3 +1,6 @@
+- date: 2023-03-24
+  body: |-
+    [I built a ChatGPT plugin to answer questions about data hosted in Datasette](https://simonwillison.net/2023/Mar/24/datasette-chatgpt-plugin/) describes a new experimental Datasette plugin to enable people to query data hosted in a Datasette interface via ChatGPT, asking human language questions that are automatically converted to SQL and used to generate a readable response.
 - date: 2023-02-23
   body: |-
     [Using Datasette in GitHub Codespaces](https://datasette.io/tutorials/codespaces) is a new tutorial showing how Datasette can be run in GitHub's free Codespaces browser-based development environments, using the new [datasette-codespaces plugin](https://datasette.io/plugins/datasette-codespaces).
