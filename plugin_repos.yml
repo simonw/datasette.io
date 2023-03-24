@@ -349,3 +349,6 @@
 - repo: UUDigitalHumanitieslab/datasette-matomo
   tags:
   - Analytics
+- repo: simonw/datasette-chatgpt-plugin
+  tags:
+  - API
