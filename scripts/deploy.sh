@@ -22,4 +22,5 @@ datasette publish cloudrun \
   --install=datasette-gzip \
   --install=html5lib \
   --install=beautifulsoup4 \
-  --install 'dogsheep-beta>=0.10.1'
+  --install 'dogsheep-beta>=0.10.1' \
+  --install datasette-chatgpt-plugin
