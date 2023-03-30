@@ -352,3 +352,30 @@
 - repo: simonw/datasette-chatgpt-plugin
   tags:
   - API
+- repo: asg017/sqlite-regex
+  tags:
+  - Extension
+- repo: asg017/sqlite-ulid
+  tags:
+  - Extension
+- repo: asg017/sqlite-jsonschema
+  tags:
+  - Extension
+- repo: asg017/sqlite-fastrand
+  tags:
+  - Extension
+- repo: asg017/sqlite-path
+  tags:
+  - Extension
+- repo: asg017/sqlite-url
+  tags:
+  - Extension
+- repo: asg017/sqlite-html
+  tags:
+  - Extension
+- repo: asg017/sqlite-http
+  tags:
+  - Extension
+- repo: asg017/sqlite-lines
+  tags:
+  - Extension
