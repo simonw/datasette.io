@@ -352,3 +352,6 @@
 - repo: simonw/datasette-chatgpt-plugin
   tags:
   - API
+- repo: rclement/datasette-ml
+  tags:
+  - Machine Learning
