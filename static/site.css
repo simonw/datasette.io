@@ -34,7 +34,7 @@ a:active {
 }
 
 pre {
-    word-wrap: break-word;
+    word-break: break-word;
 }
 
 header nav ul {
