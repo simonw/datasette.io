@@ -173,7 +173,7 @@
             <h3>{{ prettydate(row["released_at"]) }}</h3>
             {% set ns.current_date = prettydate(row["released_at"]) %}
           {% endif %}
-          <h4><a href="{% if row["release_url"] %}{{ row["release_url"] }}{% else %}/plugins/{{ row["name"] }}{% endif %}">{{ row["name"] }} {{ row["version"]}}</a>
+          <h4><a href="{% if row["release_url"] %}{{ row["release_url"] }}{% else %}https://pypi.org/project/{{ row["name"] }}/{% endif %}">{{ row["name"] }} {{ row["version"]}}</a>
             {% if row["pypi_summary"] != ns.current_pypi_summary and row["pypi_summary"] %}
               <span style="font-weight: normal; color: #666; font-size: 0.9em;"> - {{ row["pypi_summary"] }}</span>
               {% set ns.current_pypi_summary = row["pypi_summary"] %}
