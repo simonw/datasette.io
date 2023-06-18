@@ -170,3 +170,7 @@
   tags:
   - Untagged
   extra_search: ""
+- repo: simonw/llm
+  tags:
+  - Untagged
+  extra_search: "ai chatgpt openai"
