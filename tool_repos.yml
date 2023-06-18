@@ -174,3 +174,11 @@
   tags:
   - Untagged
   extra_search: "ai chatgpt openai"
+- repo: simonw/strip-tags
+  tags:
+  - Untagged
+  extra_search: ""
+- repo: simonw/ttok
+  tags:
+  - Untagged
+  extra_search: ""
