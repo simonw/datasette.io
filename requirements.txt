@@ -28,4 +28,4 @@ datasette-json-html
 datasette-debug-asgi
 html5lib
 beautifulsoup4
-pygments
+Pygments==2.15.1
