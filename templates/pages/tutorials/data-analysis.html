@@ -1,0 +1,579 @@
+{% extends "page_base.html" %}
+
+{% block title %}Data analysis with SQLite and Python - Tutorial{% endblock %}
+
+{% block extra_head %}
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:creator" content="@datasetteproj">
+<meta name="twitter:title" content="Data analysis with SQLite and Python">
+<meta name="twitter:description" content="A 2h45m video tutorial about SQLite, Python, sqlite-utils and Datasette presented at PyCon 2023">
+<meta name="twitter:image" content="">
+<meta name="twitter:image:alt" content="">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Data analysis with SQLite and Python">
+<meta property="og:description" content="A 2h45m video tutorial about SQLite, Python, sqlite-utils and Datasette presented at PyCon 2023">
+<meta property="og:image" content="">
+<meta property="og:image:alt" content="">
+<script src="/static/lite-yt-embed.js"></script>
+<link rel="stylesheet" href="/static/lite-yt-embed.css" />
+<link rel="stylesheet" href="https://til.simonwillison.net/static/github-light.css" />
+
+<style>
+pre {
+  overflow: auto;
+}
+code {
+  word-break: break-all;
+}
+pre { line-height: 125%; }
+td.linenos .normal { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+span.linenos { color: inherit; background-color: transparent; padding-left: 5px; padding-right: 5px; }
+td.linenos .special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+span.linenos.special { color: #000000; background-color: #ffffc0; padding-left: 5px; padding-right: 5px; }
+.codehilite .hll { background-color: #ffffcc }
+.codehilite { background: #ffffff; }
+.codehilite .c { color: #008800; font-style: italic } /* Comment */
+.codehilite .err { color: #a61717; background-color: #e3d2d2 } /* Error */
+.codehilite .g { color: #2c2cff } /* Generic */
+.codehilite .k { color: #2c2cff } /* Keyword */
+.codehilite .x { background-color: #ffffe0 } /* Other */
+.codehilite .ch { color: #008800; font-style: italic } /* Comment.Hashbang */
+.codehilite .cm { color: #008800; font-style: italic } /* Comment.Multiline */
+.codehilite .cp { color: #008800; font-style: italic } /* Comment.Preproc */
+.codehilite .cpf { color: #008800; font-style: italic } /* Comment.PreprocFile */
+.codehilite .c1 { color: #008800; font-style: italic } /* Comment.Single */
+.codehilite .cs { color: #008800; font-style: italic } /* Comment.Special */
+.codehilite .gd { color: #2c2cff } /* Generic.Deleted */
+.codehilite .ge { color: #008800 } /* Generic.Emph */
+.codehilite .gr { color: #d30202 } /* Generic.Error */
+.codehilite .gh { color: #2c2cff } /* Generic.Heading */
+.codehilite .gi { color: #2c2cff } /* Generic.Inserted */
+.codehilite .go { color: #2c2cff } /* Generic.Output */
+.codehilite .gp { color: #2c2cff } /* Generic.Prompt */
+.codehilite .gs { color: #2c2cff } /* Generic.Strong */
+.codehilite .gu { color: #2c2cff } /* Generic.Subheading */
+.codehilite .gt { color: #2c2cff } /* Generic.Traceback */
+.codehilite .kc { color: #2c2cff; font-weight: bold } /* Keyword.Constant */
+.codehilite .kd { color: #2c2cff } /* Keyword.Declaration */
+.codehilite .kn { color: #2c2cff } /* Keyword.Namespace */
+.codehilite .kp { color: #2c2cff } /* Keyword.Pseudo */
+.codehilite .kr { color: #353580; font-weight: bold } /* Keyword.Reserved */
+.codehilite .kt { color: #2c2cff } /* Keyword.Type */
+.codehilite .m { color: #2c8553; font-weight: bold } /* Literal.Number */
+.codehilite .s { color: #800080 } /* Literal.String */
+.codehilite .nb { color: #2c2cff } /* Name.Builtin */
+.codehilite .nf { font-weight: bold; font-style: italic } /* Name.Function */
+.codehilite .nv { color: #2c2cff; font-weight: bold } /* Name.Variable */
+.codehilite .w { color: #bbbbbb } /* Text.Whitespace */
+.codehilite .mb { color: #2c8553; font-weight: bold } /* Literal.Number.Bin */
+.codehilite .mf { color: #2c8553; font-weight: bold } /* Literal.Number.Float */
+.codehilite .mh { color: #2c8553; font-weight: bold } /* Literal.Number.Hex */
+.codehilite .mi { color: #2c8553; font-weight: bold } /* Literal.Number.Integer */
+.codehilite .mo { color: #2c8553; font-weight: bold } /* Literal.Number.Oct */
+.codehilite .sa { color: #800080 } /* Literal.String.Affix */
+.codehilite .sb { color: #800080 } /* Literal.String.Backtick */
+.codehilite .sc { color: #800080 } /* Literal.String.Char */
+.codehilite .dl { color: #800080 } /* Literal.String.Delimiter */
+.codehilite .sd { color: #800080 } /* Literal.String.Doc */
+.codehilite .s2 { color: #800080 } /* Literal.String.Double */
+.codehilite .se { color: #800080 } /* Literal.String.Escape */
+.codehilite .sh { color: #800080 } /* Literal.String.Heredoc */
+.codehilite .si { color: #800080 } /* Literal.String.Interpol */
+.codehilite .sx { color: #800080 } /* Literal.String.Other */
+.codehilite .sr { color: #800080 } /* Literal.String.Regex */
+.codehilite .s1 { color: #800080 } /* Literal.String.Single */
+.codehilite .ss { color: #800080 } /* Literal.String.Symbol */
+.codehilite .bp { color: #2c2cff } /* Name.Builtin.Pseudo */
+.codehilite .fm { font-weight: bold; font-style: italic } /* Name.Function.Magic */
+.codehilite .vc { color: #2c2cff; font-weight: bold } /* Name.Variable.Class */
+.codehilite .vg { color: #2c2cff; font-weight: bold } /* Name.Variable.Global */
+.codehilite .vi { color: #2c2cff; font-weight: bold } /* Name.Variable.Instance */
+.codehilite .vm { color: #2c2cff; font-weight: bold } /* Name.Variable.Magic */
+.codehilite .il { color: #2c8553; font-weight: bold } /* Literal.Number.Integer.Long */
+</style>
+{% endblock %}
+
+{% block content %}
+
+<p class="breadcrumbs"><a href="/tutorials">Tutorials</a> &gt; Data analysis with SQLite and Python</p>
+
+{% markdown %}
+# Data analysis with SQLite and Python
+
+A 2h45m video tutorial about SQLite, Python, sqlite-utils and Datasette presented at PyCon 2023.
+{% endmarkdown %}
+
+<lite-youtube videoid="5TdIxxBPUSI" playlabel="Play: Data analysis with SQLite and Python"></lite-youtube>
+
+{% markdown extensions="fenced_code codehilite" extra_tags="span div" extra_attrs="span:class div:class" %}
+
+## What you'll need
+
+### python3 and pip
+
+For the first part of this tutorial, you'll need a Python 3 interpreter with the `sqlite3` standard library module available.
+
+You can run this on your own computer, or use a browser-based environment.
+
+<https://pyodide.org/en/stable/console.html> will work for a purely browser-based (WebAssembly) environment.
+
+For the second part, you'll also need the ability to `pip install` Python packages.
+
+Python 3 on your own laptop (maybe in a fresh virtual environment) is a good option here. You could also use [GitHub Codespaces](https://github.com/github/codespaces-jupyter) or [Google Colab](https://colab.research.google.com/) or [Jupyter Hub](https://jupyter.org/try) or your online notebook solution of choice.
+
+### Optional: GitHub Codespaces
+
+I'll be working through the tutorial using GitHub Codespaces, using <https://github.com/github/codespaces-jupyter>
+
+![Animated demo of Codespaces Jupyter](https://sqlite-tutorial-pycon-2023.readthedocs.io/en/latest/_images/codespaces-jupyter.gif)
+
+## sqlite-utils
+
+[sqlite-utils](https://sqlite-utils.datasette.io/) provides "CLI tool and Python utility functions for manipulating SQLite databases".
+
+You can install it the same way as Datasette:
+
+    pip install sqlite-utils
+
+Or with `pipx`:
+
+    pipx install sqlite-utils
+
+Or with Homebrew:
+
+    brew install sqlite-utils
+
+It works as both a CLI tool and a Python library.
+
+### Using the command-line tools to clean data
+
+We'll follow this tutorial next: **[Cleaning data with sqlite-utils and Datasette](https://datasette.io/tutorials/clean-data)**
+
+### Using sqlite-utils as a Python library, to import all the PEPs
+
+Let's take our PEPs example from earlier and implement it again, but better, using `sqlite-utils`.
+
+I'll do this in a notebook.
+
+```
+!git clone https://github.com/python/peps /tmp/peps
+```
+
+We now have ALL of the PEPs in `/tmp/peps`.
+
+```
+import pathlib
+
+files = list(pathlib.Path("/tmp/peps").glob("pep-*.txt"))
+```
+
+And parse them with our function from earlier:
+
+```python
+def parse_pep(s):
+    intro, body = s.split("\n\n", 1)
+    pep = {}
+    current_key = None
+    current_value = None
+    for line in intro.split("\n"):
+        # If the line starts with whitespace, it's a continuation of the previous value
+        if line.startswith(" ") or line.startswith("\t"):
+            if current_key is not None:
+                current_value += " " + line.strip()
+                pep[current_key] = current_value.strip()
+        else:
+            # Split the line into key and value
+            parts = line.split(": ", 1)
+            if len(parts) == 2:
+                key, value = parts
+                # Update the current key and value
+                current_key = key
+                current_value = value
+                # Add the key-value pair to the pep dictionary
+                pep[current_key] = current_value.strip()
+    pep["Body"] = body.strip()
+    return pep
+```
+
+```python
+peps = []
+for file in files:
+    peps.append(parse_pep(file.read_text()))
+```
+
+We now have a list of dictionaries. Let's load them into SQLite:
+
+```
+%pip install sqlite-utils
+```
+
+```python
+import sqlite_utils
+db = sqlite_utils.Database("/tmp/peps.db")
+db["peps"].insert_all(peps, pk="PEP", alter=True, replace=True)
+```
+I got this error:
+```
+OperationalError: table peps has no column named PEP-Delegate
+```
+To fix that:
+```python
+db["peps"].insert_all(peps, pk="PEP", alter=True, replace=True)
+print(db["peps"].count)
+# Outputs 429 
+```
+## Enabling full-text search
+
+SQLite has surprisingly good full-text search built in.
+
+`sqlite-utils` can help you enable it:
+
+```python
+db["peps"].enable_fts(["Title", "Body"])
+```
+Datasette will detect this and add a search box to the top of the table page.
+
+To run searches in relevance order you'll need to execute a custom SQL query:
+
+```sql
+select
+  PEP,
+  peps.Title,
+  Version,
+  Author,
+  Status,
+  Type,
+  Created,
+  peps.Body,
+  peps_fts.rank
+from
+  peps
+join
+  peps_fts on peps.rowid = peps_fts.rowid
+where
+  peps_fts match :search
+order by
+  peps_fts.rank
+limit
+  20
+```
+
+## Publishing a database to Vercel
+
+First, install both Vercel and the `datasette-publish-vercel` plugin.
+
+<https://vercel.com/docs/cli> has documentation for installing the Vercel CLI.
+
+On macOS:
+
+```bash
+brew install vercel-cli
+```
+Or use one of these:
+
+```bash
+npm i -g vercel
+```
+Or:
+
+```bash
+pnpm i -g vercel
+```
+Now run this command to login:
+
+```bash
+vercel login
+```
+Install the plugin:
+
+```bash
+datasette install datasette-publish-vercel
+```
+And deploy the database:
+
+```bash
+datasette publish vercel /tmp/peps.db --project python-peps
+```
+### Other publishing options
+
+Datasette [can publish](https://docs.datasette.io/en/stable/publish.html) to the following providers:
+
+- Heroku (`datasette publish heroku`)
+- Google Cloud Run (`datasette publish cloudrun`)
+- Vercel (with [datasette-publish-vercel](https://datasette.io/plugins/datasette-publish-vercel))
+- Fly (with [datasette-publish-fly](https://datasette.io/plugins/datasette-publish-fly))
+
+Further deployment options are described [in the documentation](https://docs.datasette.io/en/stable/deploying.html).
+
+## Datasette Lite
+
+It's Datasette... running entirely in your web browser with WebAssembly and Pyodide!
+
+<https://lite.datasette.io/>
+
+### Loading SQLite, CSV and JSON data
+
+- SQLite: <https://lite.datasette.io/?url=https://github.com/simonw/scrape-hmb-traffic/blob/main/hmb.db?&install=datasette-copyable#/hmb?sql=with+item1+as+(%0A++select%0A++++time(datetime(commits.commit_at%2C+'-7+hours'))+as+t%2C%0A++++duration_in_traffic+%2F+60+as+mins_in_traffic%0A++from%0A++++item_version%0A++++join+commits+on+item_version._commit+%3D+commits.id%0A++order+by%0A++++commits.commit_at%0A)%2C%0Aitem2+as+(%0A++select%0A++++time(datetime(commits.commit_at%2C+'-7+hours'))+as+t%2C%0A++++duration_in_traffic+%2F+60+as+mins_in_traffic%0A++from%0A++++item2_version%0A++++join+commits+on+item2_version._commit+%3D+commits.id%0A++order+by%0A++++commits.commit_at%0A)%0Aselect%0A++item1.*%2C%0A++item2.mins_in_traffic+as+mins_in_traffic_other_way%0Afrom%0A++item1%0A++join+item2+on+item1.t+%3D+item2.t> - see [Measuring traffic during the Half Moon Bay Pumpkin Festival](https://simonwillison.net/2022/Oct/19/measuring-traffic/)
+- CSV: <https://lite.datasette.io/?csv=https://raw.githubusercontent.com/fivethirtyeight/data/master/fight-songs/fight-songs.csv>
+- JSON: <https://lite.datasette.io/?json=https://gist.github.com/simonw/73d15c0dd1025d1196829740bacf4464>
+
+### Installing plugins
+
+Add `?install=name-of-plugin` to `pip install` that plugin into your browser's environment!
+
+This only works with a subset of plugins.
+
+- <https://lite.datasette.io/?install=datasette-copyable&json=https://gist.github.com/simonw/73d15c0dd1025d1196829740bacf4464>
+
+### Further reading
+
+- [Datasette Lite: a server-side Python web application running in a browser](https://simonwillison.net/2022/May/4/datasette-lite/)
+- [Plugin support for Datasette Lite](https://simonwillison.net/2022/Aug/17/datasette-lite-plugins/)
+- [Joining CSV files in your browser using Datasette Lite](https://simonwillison.net/2022/Jun/20/datasette-lite-csvs/)
+
+## Advanced SQL
+
+### Aggregations
+
+The simplest form of aggregation is the one Datasette does to implement its own faceting feature.
+
+```sql
+select
+  party,
+  count(*)
+from
+  executive_terms
+where
+  type = 'prez'
+group by
+  party
+```
+[Try that query here](https://congress-legislators.datasettes.com/legislators?sql=select%0D%0A++party%2C%0D%0A++count%28*%29%0D%0Afrom%0D%0A++executive_terms%0D%0Awhere%0D%0A++type+%3D+%27prez%27%0D%0Agroup+by%0D%0A++party).
+
+The `group by` creates groups of rows, then the aggregation functions calculate a value across that entire group.
+
+The most common aggregation functions are:
+
+- `count(*)` - count the number of rows in each group
+- `max(column)` - maximum value for a column
+- `min(column)` - minimum value for a column
+- `sum(column)` - sum up the values in the column
+
+Here's an example of `sum()` and `count()` from [What's in the RedPajama-Data-1T LLM training set](https://simonwillison.net/2023/Apr/17/redpajama-data/):
+```sql
+select
+  top_folders,
+  sum(size_gb) as total_gb,
+  count(*) as num_files
+from raw
+group by top_folders
+order by sum(size_gb) desc
+```
+[Run that in Datasette Lite](https://lite.datasette.io/?install=datasette-copyable&json=https://gist.github.com/simonw/73d15c0dd1025d1196829740bacf4464#/data?sql=select%0A++top_folders%2C%0A++cast+%28sum%28size_gb%29+as+integer%29+as+total_gb%2C%0A++count%28*%29+as+num_files%0Afrom+raw%0Agroup+by+top_folders%0Aorder+by+sum%28size_gb%29+desc).
+
+Change the `total_gb` line to this to round it to the nearest integer:
+```sql
+  cast (sum(size_gb) as integer) as total_gb,
+```
+### Subqueries
+
+SQLite has excellent support for subqueries. You can use them in `where X in` clauses:
+
+```sql
+select html_url from releases where repo in (
+  select id from repos where full_name in (
+    select repo from plugin_repos
+  )
+)
+order by created_at desc
+```
+[Run that on datasette.io](https://datasette.io/content?sql=select+html_url+from+releases+where+repo+in+%28%0D%0A++select+id+from+repos+where+full_name+in+%28%0D%0A++++select+repo+from+plugin_repos%0D%0A++%29%0D%0A%29%0D%0Aorder+by+created_at+desc). Sometimes I find these to be more readable than joins!
+
+You can also use them directly in `select` clauses:
+
+```sql
+select
+  full_name,
+  (
+    select
+      html_url
+    from
+      releases
+    where
+      releases.repo = repos.id
+    order by
+      created_at desc
+    limit
+      1
+  ) as latest_release
+from
+  repos
+```
+[Run that here](https://datasette.io/content?sql=select+full_name%2C+%28select+html_url+from+releases+where+releases.repo+%3D+repos.id+order+by+created_at+desc+limit+1%29+as+latest_release+from+repos).
+
+### CTEs
+
+CTE is a terrible name for an incredibly powerful feature. It stands for Common Table Expressions. Think of it as a way of creating an alias to a temporary table for the duration of a query.
+
+```sql
+with presidents as (
+  select
+    executives.name
+  from
+    executive_terms
+    join executives
+      on executive_terms.executive_id = executives.id
+  where
+    executive_terms.type = 'prez'
+),
+vice_presidents as (
+  select
+    executives.name
+  from
+    executive_terms
+    join executives
+      on executive_terms.executive_id = executives.id
+  where
+    executive_terms.type = 'viceprez'
+)
+select
+  distinct name
+from
+  presidents
+where name in vice_presidents
+```
+[Try this CTE query here](https://congress-legislators.datasettes.com/legislators?sql=with+presidents+as+%28%0D%0A++select%0D%0A++++executives.name%0D%0A++from%0D%0A++++executive_terms%0D%0A++++join+executives+on+executive_terms.executive_id+%3D+executives.id%0D%0A++where%0D%0A++++executive_terms.type+%3D+%27prez%27%0D%0A%29%2C%0D%0Avice_presidents+as+%28%0D%0A++select%0D%0A++++executives.name%0D%0A++from%0D%0A++++executive_terms%0D%0A++++join+executives+on+executive_terms.executive_id+%3D+executives.id%0D%0A++where%0D%0A++++executive_terms.type+%3D+%27viceprez%27%0D%0A%29%0D%0Aselect%0D%0A++distinct+name%0D%0Afrom%0D%0A++presidents%0D%0Awhere%0D%0A++name+in+vice_presidents).
+
+## JSON
+
+SQLite has excellent JSON functionality built in. Store JSON in a `text` column and you can query it using `json_extract()` - you can also build JSON values in `select` queries.
+
+[Returning related rows in a single SQL query using JSON](https://til.simonwillison.net/sqlite/related-rows-single-query) shows some advanced tricks you can do with this.
+
+```sql
+select
+  legislators.id,
+  legislators.name,
+  json_group_array(json_object(
+    'type', legislator_terms.type,
+    'state', legislator_terms.state,
+    'start', legislator_terms.start,
+    'end', legislator_terms.end,
+    'party', legislator_terms.party
+   )) as terms,
+   count(*) as num_terms
+from
+  legislators join legislator_terms on legislator_terms.legislator_id = legislators.id
+  group by legislators.id
+order by
+  id
+limit
+  10
+```
+[Run that query](https://congress-legislators.datasettes.com/legislators?sql=select%0D%0A++legislators.id%2C%0D%0A++legislators.name%2C%0D%0A++json_group_array(json_object(%0D%0A++++%27type%27%2C+legislator_terms.type%2C%0D%0A++++%27state%27%2C+legislator_terms.state%2C%0D%0A++++%27start%27%2C+legislator_terms.start%2C%0D%0A++++%27end%27%2C+legislator_terms.end%2C%0D%0A++++%27party%27%2C+legislator_terms.party%0D%0A+++))+as+terms%2C%0D%0A+++count(*)+as+num_terms%0D%0Afrom%0D%0A++legislators+join+legislator_terms+on+legislator_terms.legislator_id+%3D+legislators.id%0D%0A++group+by+legislators.id%0D%0Aorder+by%0D%0A++id%0D%0Alimit%0D%0A++10).
+
+Paul Ford [said about SQLite's JSON support](https://simonwillison.net/2018/Jan/29/paul-ford/):
+
+> The JSON interface is like, “we save the text and when you retrieve it we parse the JSON at several hundred MB/s and let you do path queries against it please stop overthinking it, this is filing cabinet.”
+
+### Window functions
+
+I wanted to run a query that would return the following:
+
+- The repository name
+- The date of the most recent release from that repository (the releases table is a many-to-one against repos)
+- The total number of releases
+- **The three most recent releases** (as a JSON array of objects)
+
+
+```sql
+with cte as (
+  select
+    repos.full_name,
+    releases.created_at,
+    releases.id as rel_id,
+    releases.name as rel_name,
+    releases.created_at as rel_created_at,
+    rank() over (partition by repos.id order by releases.created_at desc) as rel_rank
+  from repos
+    left join releases on releases.repo = repos.id
+)
+select
+  full_name,
+  max(created_at) as max_created_at,
+  count(rel_id) as releases_count,
+  json_group_array(
+    json_object(
+      'id', rel_id,
+      'name', rel_name,
+      'created_at', rel_created_at
+    )
+  ) filter (where rel_id is not null and rel_rank <= 3) as recent_releases
+from cte
+group by full_name
+order by releases_count desc
+```
+[Run that query here](https://datasette.io/content?sql=with+cte+as+%28%0D%0A++select%0D%0A++++repos.full_name%2C%0D%0A++++releases.created_at%2C%0D%0A++++releases.id+as+rel_id%2C%0D%0A++++releases.name+as+rel_name%2C%0D%0A++++releases.created_at+as+rel_created_at%2C%0D%0A++++rank%28%29+over+%28partition+by+repos.id+order+by+releases.created_at+desc%29+as+rel_rank%0D%0A++from+repos%0D%0A++++left+join+releases+on+releases.repo+%3D+repos.id%0D%0A%29%0D%0Aselect%0D%0A++full_name%2C%0D%0A++max%28created_at%29+as+max_created_at%2C%0D%0A++count%28rel_id%29+as+releases_count%2C%0D%0A++json_group_array%28%0D%0A++++json_object%28%0D%0A++++++%27id%27%2C+rel_id%2C%0D%0A++++++%27name%27%2C+rel_name%2C%0D%0A++++++%27created_at%27%2C+rel_created_at%0D%0A++++%29%0D%0A++%29+filter+%28where+rel_id+is+not+null+and+rel_rank+%3C%3D+3%29+as+recent_releases%0D%0Afrom+cte%0D%0Agroup+by+full_name%0D%0Aorder+by+releases_count+desc).
+
+[Running this smaller query](https://datasette.io/content?sql=with+cte+as+(%0D%0A++select%0D%0A++++repos.full_name%2C%0D%0A++++releases.created_at%2C%0D%0A++++releases.id+as+rel_id%2C%0D%0A++++releases.name+as+rel_name%2C%0D%0A++++releases.created_at+as+rel_created_at%2C%0D%0A++++rank()+over+(partition+by+repos.id+order+by+releases.created_at+desc)+as+rel_rank%0D%0A++from+repos%0D%0A++++left+join+releases+on+releases.repo+%3D+repos.id%0D%0A)%0D%0Aselect+*+from+cte) helps show what's going on with that `rel_rank` column:
+
+```sql
+with cte as (
+  select
+    repos.full_name,
+    releases.created_at,
+    releases.id as rel_id,
+    releases.name as rel_name,
+    releases.created_at as rel_created_at,
+    rank() over (partition by repos.id order by releases.created_at desc) as rel_rank
+  from repos
+    left join releases on releases.repo = repos.id
+)
+select * from cte
+```
+
+## Baked Data
+
+The [The Baked Data architectural pattern](https://simonwillison.net/2021/Jul/28/baked-data/) describes this approach, which is key to taking full advantage of SQLite and Datasette.
+
+I like to build my databases in GitHub Actions.
+
+### Niche Museums and TILs
+
+- <https://www.niche-museums.com/> is published from the <https://github.com/simonw/museums> repository - one big YAML file for the content.
+- <https://til.simonwillison.net/> is published <https://github.com/simonw/til> - separate Markdown files for each item.
+
+Both of these sites have Atom feeds that are defined using a Datasette [canned query](https://docs.datasette.io/en/stable/sql_queries.html#canned-queries), in conjunction with the [datasette-atom](https://datasette.io/plugins/datasette-atom) plugin.
+
+- <https://www.niche-museums.com/browse/feed>
+- <https://til.simonwillison.net/tils/feed>
+
+### Generating a newsletter with an Observable notebook
+
+I wrote about this in [Semi-automating a Substack newsletter with an Observable notebook](https://simonwillison.net/2023/Apr/4/substack-observable/):
+
+- <https://datasette.simonwillison.net/simonwillisonblog> is a Datasette/SQLite copy of my Django blog, created using [db-to-sqlite](https://datasette.io/tools/db-to-sqlite) by my <https://github.com/simonw/simonwillisonblog-backup> GitHub repository.
+- <https://observablehq.com/@simonw/blog-to-newsletter> is my Observable notebook that assembles a newsletter from that data.
+- <https://simonw.substack.com/> is the Substack newsletter that I copy that content into.
+
+## More demos and further reading
+
+### Fun demos
+
+I post a lot of Datasette projects on my blog. Some of my recent favourites:
+
+- [Exploring the training data behind Stable Diffusion](https://simonwillison.net/2022/Sep/5/laion-aesthetics-weeknotes/) describes how I built [laion-aesthetic.datasette.io](https://laion-aesthetic.datasette.io/laion-aesthetic-6pls/images) to explore 12m training images used for Stable Diffusion.
+- [Analyzing ScotRail audio announcements with Datasette—from prototype to production](https://simonwillison.net/2022/Aug/21/scotrail/) explains the [scotrail.datasette.io](https://scotrail.datasette.io/) project.
+- [I built a ChatGPT plugin to answer questions about data hosted in Datasette](https://simonwillison.net/2023/Mar/24/datasette-chatgpt-plugin/) is one of my earlier explorations at the intersection of LLM AI and Datasette.
+
+### SpatiaLite
+
+- [Building a location to time zone API with SpatiaLite](https://datasette.io/tutorials/spatialite) shows how to use SpatiaLite and Datasette to create an API for looking up time zones based on latitude/longitude points.
+- [Drawing shapes on a map to query a SpatiaLite database](https://simonwillison.net/2021/Jan/24/drawing-shapes-spatialite/) introduces the `datasette-leaflet-freedraw` plugin and introduces the [calands.datasettes.com](https://calands.datasettes.com/) demo.
+- [Joining CSV and JSON data with an in-memory SQLite database](https://simonwillison.net/2021/Jun/19/sqlite-utils-memory/)
+
+{% endmarkdown %}
+
+{% include "_more_tutorials.html" %}
+
+{% endblock %}
