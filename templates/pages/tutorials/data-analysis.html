@@ -153,6 +153,23 @@ It works as both a CLI tool and a Python library.
 
 We'll follow this tutorial next: **[Cleaning data with sqlite-utils and Datasette](https://datasette.io/tutorials/clean-data)**
 
+### Getting started with Datasette
+
+As part of the cleaning data tutorial, you should have installed and started using Datasette.
+
+In case you skipped the tutorial, here's how to start Datasette running in Codespaces:
+
+```bash
+pipx install datasette
+datasette install datasette-codespaces
+datasette --create data.db # Creates a data.db database and starts Datasette
+```
+If you aren't using Codespaces you can skip installing that `datasette-codespaces` plugin.
+
+See [Using Datasette in GitHub Codespaces](https://datasette.io/tutorials/codespaces) for more details.
+
+The [Datasette installation documentation](https://docs.datasette.io/en/stable/installation.html) has information on further options.
+
 ### Using sqlite-utils as a Python library, to import all the PEPs
 
 Let's take our PEPs example from earlier and implement it again, but better, using `sqlite-utils`.
