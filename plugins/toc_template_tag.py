@@ -1,7 +1,6 @@
 from bs4 import BeautifulSoup as Soup
 from datasette import hookimpl
 from jinja2 import nodes
-from jinja2.exceptions import TemplateSyntaxError
 from jinja2.ext import Extension
 
 

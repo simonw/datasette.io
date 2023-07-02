@@ -1,5 +1,6 @@
 from datasette import hookimpl
 from datasette_render_markdown import render_markdown
+from html.parser import HTMLParser
 
 
 def _render_markdown(markdown):
@@ -24,7 +25,6 @@ def prepare_connection(conn):
 
 # strip_tags() copied from Django, licensed under BSD license
 # https://github.com/django/django/blob/3.1.4/django/utils/html.py#L150-L191
-from html.parser import HTMLParser
 
 
 class MLStripper(HTMLParser):
