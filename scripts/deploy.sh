@@ -12,7 +12,7 @@ datasette publish cloudrun \
   --plugins-dir=plugins \
   --static=static:static \
   --install='datasette-render-markdown>=2.2' \
-  --install=Pygments' \
+  --install=Pygments \
   --install=datasette-template-sql \
   --install=python-dateutil \
   --install=datasette-vega \
