@@ -67,11 +67,11 @@ def build_tree(links):
 
 
 def tree_to_html(tree):
-    html = "<ul>\n"
-    for depth, name, link, children in tree:
-        html += f'    <li><a href="#{link}">{name}</a>'
+    html = ["<ul>"]
+    for _, name, link, children in tree:
+        html.append(f'    <li><a href="#{link}">{name}</a>')
         if children:
-            html += "\n" + tree_to_html(children) + "    "
-        html += "</li>\n"
-    html += "</ul>"
-    return html
+            html.append(tree_to_html(children))
+        html.append("</li>")
+    html.append("</ul>")
+    return "\n".join(html)
