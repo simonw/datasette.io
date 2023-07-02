@@ -38,7 +38,7 @@ code {
 
 <lite-youtube videoid="B55hcKYye_c" playlabel="Play: Datasette: a big bag of tricks for solving interesting problems using SQLite"></lite-youtube>
 
-{{ render_markdown("""
+{% markdown extra_attrs="a:name,href" %}
 
 ## Start with some CSV data
 
@@ -56,7 +56,7 @@ Here are [the installation instructions](https://sqlite-utils.datasette.io/en/st
 
 You can create a new `manatees.db` SQLite database like this:
 
-    sqlite-utils insert manatees.db locations \\
+    sqlite-utils insert manatees.db locations \
       Manatee_Carcass_Recovery_Locations_in_Florida.csv --csv -d
 
 This [sqlite-utils insert](https://sqlite-utils.datasette.io/en/stable/cli.html#inserting-csv-or-tsv-data) command inserts data into a database table, creating the table if necessary.
@@ -73,7 +73,7 @@ Having created the database, we can use the `schema` command to view its schema:
 
 The output of that command looks like this:
 
-    CREATE TABLE \"locations\" (
+    CREATE TABLE "locations" (
        [X] FLOAT,
        [Y] FLOAT,
        [OBJECTID] INTEGER,
@@ -104,7 +104,7 @@ We can use the `sqlite-utils tables` command to see those tables:
 
 Output is:
 
-    [{\"table\": \"locations\", \"count\": 13568}]
+    [{"table": "locations", "count": 13568}]
 
 The `--counts` option adds a count of the rows in each table. That's over 13,000 deceased manatees!
 
@@ -119,17 +119,17 @@ By default, the `tables` command outputs JSON. You can change this to be a table
 
 Let's run a SQL query against your data. The [sqlite-utils command](https://sqlite-utils.datasette.io/en/stable/cli.html#running-sql-queries) to do that looks like this:
 
-    sqlite-utils manatees.db \"select * from locations limit 2\"
+    sqlite-utils manatees.db "select * from locations limit 2"
 
 This outputs JSON, showing the first two rows and every column (thanks to that `select *`):
 
-    [{\"X\": -80.1176098026034, \"Y\": 26.1004059191504, \"OBJECTID\": 149433, \"FIELDID\": \"M7401\", \"REPDATE\": \"1974/04/03 00:00:00+00\", \"REPYEAR\": 1974, \"REPMONTH\": 4, \"REPDAY\": 3, \"SEX\": \"F\", \"TLENGTH\": 260.0, \"STATE\": \"FL\", \"COUNTY\": \"Broward\", \"LAT\": 26.100401, \"LONG_\": -80.117607, \"DCODE\": 9, \"MORTALITY\": \"Undetermined: Other\", \"created_user\": \"FWC\", \"created_date\": \"2021/10/15 11:30:55+00\", \"last_edited_user\": \"FWC\", \"last_edited_date\": \"2021/10/15 11:30:55+00\"},
-     {\"X\": -80.1664354041335, \"Y\": 25.8337161801256, \"OBJECTID\": 149434, \"FIELDID\": \"M7402\", \"REPDATE\": \"1974/06/27 00:00:00+00\", \"REPYEAR\": 1974, \"REPMONTH\": 6, \"REPDAY\": 27, \"SEX\": \"M\", \"TLENGTH\": 290.0, \"STATE\": \"FL\", \"COUNTY\": \"Miami-Dade\", \"LAT\": 25.833711, \"LONG_\": -80.166433, \"DCODE\": 1, \"MORTALITY\": \"Human Related: Watercraft Collision\", \"created_user\": \"FWC\", \"created_date\": \"2021/10/15 11:30:55+00\", \"last_edited_user\": \"FWC\", \"last_edited_date\": \"2021/10/15 11:30:55+00\"}]
+    [{"X": -80.1176098026034, "Y": 26.1004059191504, "OBJECTID": 149433, "FIELDID": "M7401", "REPDATE": "1974/04/03 00:00:00+00", "REPYEAR": 1974, "REPMONTH": 4, "REPDAY": 3, "SEX": "F", "TLENGTH": 260.0, "STATE": "FL", "COUNTY": "Broward", "LAT": 26.100401, "LONG_": -80.117607, "DCODE": 9, "MORTALITY": "Undetermined: Other", "created_user": "FWC", "created_date": "2021/10/15 11:30:55+00", "last_edited_user": "FWC", "last_edited_date": "2021/10/15 11:30:55+00"},
+     {"X": -80.1664354041335, "Y": 25.8337161801256, "OBJECTID": 149434, "FIELDID": "M7402", "REPDATE": "1974/06/27 00:00:00+00", "REPYEAR": 1974, "REPMONTH": 6, "REPDAY": 27, "SEX": "M", "TLENGTH": 290.0, "STATE": "FL", "COUNTY": "Miami-Dade", "LAT": 25.833711, "LONG_": -80.166433, "DCODE": 1, "MORTALITY": "Human Related: Watercraft Collision", "created_user": "FWC", "created_date": "2021/10/15 11:30:55+00", "last_edited_user": "FWC", "last_edited_date": "2021/10/15 11:30:55+00"}]
 
 Let's specify some columns, limit to 10 and add `-t` to output the results as a table.
 
-    sqlite-utils manatees.db -t \\
-      \"select REPDATE, MORTALITY, COUNTY from locations limit 10\"
+    sqlite-utils manatees.db -t \
+      "select REPDATE, MORTALITY, COUNTY from locations limit 10"
 
 This outputs:
 
@@ -170,20 +170,20 @@ The [sqlite-utils transform](https://sqlite-utils.datasette.io/en/stable/cli.htm
 
 The following command will make a bunch of changes to the table structure in one go:
 
-    sqlite-utils transform manatees.db locations \\
-      --rename LAT latitude \\
-      --rename LONG_ longitude \\
-      --drop created_user \\
-      --drop last_edited_user \\
-      --drop X \\
-      --drop Y \\
-      --drop STATE \\
-      --drop OBJECTID \\
+    sqlite-utils transform manatees.db locations \
+      --rename LAT latitude \
+      --rename LONG_ longitude \
+      --drop created_user \
+      --drop last_edited_user \
+      --drop X \
+      --drop Y \
+      --drop STATE \
+      --drop OBJECTID \
       --pk FIELDID
 
 Now run `sqlite-utils schema manatees.db` to see the result of those changes:
 
-    CREATE TABLE \"locations\" (
+    CREATE TABLE "locations" (
        [FIELDID] TEXT PRIMARY KEY,
        [REPDATE] TEXT,
        [REPYEAR] INTEGER,
@@ -218,7 +218,7 @@ If you visit `http://localhost:8001/manatees/locations` you will now see the fir
 
 ![Screenshot of Datasette showing a map of locations](https://simonw.github.io/datasette-screenshots/non-retina/tutorials-clean-data-locations-map.png)
 
-Click the \"load all\" button to load and display all 13,000+ locations.
+Click the "load all" button to load and display all 13,000+ locations.
 
 ## Fixing the date columns
 
@@ -232,8 +232,8 @@ The [sqlite-utils transform](https://sqlite-utils.datasette.io/en/stable/cli.htm
 
 Here's how to use that to parse miscellaneous date and time formats and turn them into that standard ISO format:
 
-    sqlite-utils convert manatees.db locations \\
-      REPDATE created_date last_edited_date \\
+    sqlite-utils convert manatees.db locations \
+      REPDATE created_date last_edited_date \
       'r.parsedatetime(value)'
 
 This runs against the `REPDATE`, `created_date` and `last_edited_date` columns. It will use the built-in `r.parsedatetime()` recipe ([documented here](https://sqlite-utils.datasette.io/en/stable/cli.html#sqlite-utils-convert-recipes)) to convert those values and save them back to the same column.
@@ -248,12 +248,12 @@ Open the table in Datasette, then use either the suggested facets list or the co
 
 ![Screenshot showing the data faceted by DCODE and MORTALITY - the counts of results shown for the two different facets are the same](https://simonw.github.io/datasette-screenshots/non-retina/tutorials-clean-data-facets.png)
 
-The result counts shown for the two facets are the same. This suggests that these two columns represent the same data - a `DCODE` of 1 corresponds to a `MORTALITY` of \"Human Related: Watercraft Collision\", 2 means \"Human Related: Flood Gate/Canal Lock\" and so on.
+The result counts shown for the two facets are the same. This suggests that these two columns represent the same data - a `DCODE` of 1 corresponds to a `MORTALITY` of "Human Related: Watercraft Collision", 2 means "Human Related: Flood Gate/Canal Lock" and so on.
 
 We can use the [sqlite-utils extract](https://sqlite-utils.datasette.io/en/stable/cli.html#extracting-columns-into-a-separate-table) command to extract these columns into a separate table.
 
-    sqlite-utils extract manatees.db locations DCODE MORTALITY \\
-      --rename MORTALITY name \\
+    sqlite-utils extract manatees.db locations DCODE MORTALITY \
+      --rename MORTALITY name \
       --table mortality
 
 Running this will create a new table called `mortality` and populate it with one row for each of the `DCODE` and `MORTALITY` pairs in the database. It removes those columns from the `locations` table and replaces them with a `mortality_id` foreign key column pointing to the new table.
@@ -265,7 +265,7 @@ Here's the output of `sqlite-utils schema manatees.db` showing the impact of tho
       [DCODE] INTEGER,
       [name] TEXT
     );
-    CREATE TABLE \"locations\" (
+    CREATE TABLE "locations" (
       [FIELDID] TEXT PRIMARY KEY,
       [REPDATE] TEXT,
       [REPYEAR] INTEGER,
@@ -294,7 +294,7 @@ Here's the output of `sqlite-utils schema manatees.db` showing the impact of tho
 - [Apply conversion functions to data in SQLite columns with the sqlite-utils CLI tool](https://simonwillison.net/2021/Aug/6/sqlite-utils-convert/)
 - [Refactoring databases with sqlite-utils extract](https://simonwillison.net/2020/Sep/23/sqlite-utils-extract/)
 
-""", extra_attrs={"a": ["name", "href"]}) }}
+{% endmarkdown %}
 
 {% include "_more_tutorials.html" %}
 
