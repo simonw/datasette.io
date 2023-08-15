@@ -354,31 +354,34 @@
   - API
 - repo: asg017/sqlite-vss
   tags:
-  - Extension
+  - SQLite Extension
 - repo: asg017/sqlite-regex
   tags:
-  - Extension
+  - SQLite Extension
 - repo: asg017/sqlite-ulid
   tags:
-  - Extension
+  - SQLite Extension
 - repo: asg017/sqlite-jsonschema
   tags:
-  - Extension
+  - SQLite Extension
 - repo: asg017/sqlite-fastrand
   tags:
-  - Extension
+  - SQLite Extension
 - repo: asg017/sqlite-path
   tags:
-  - Extension
+  - SQLite Extension
 - repo: asg017/sqlite-url
   tags:
-  - Extension
+  - SQLite Extension
 - repo: asg017/sqlite-html
   tags:
-  - Extension
+  - SQLite Extension
 - repo: asg017/sqlite-http
   tags:
-  - Extension
+  - SQLite Extension
 - repo: asg017/sqlite-lines
   tags:
-  - Extension
+  - SQLite Extension
+- repo: rclement/datasette-ml
+  tags:
+  - Machine Learning

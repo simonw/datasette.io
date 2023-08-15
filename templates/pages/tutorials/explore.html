@@ -20,7 +20,7 @@
 
 <p class="breadcrumbs"><a href="/tutorials">Tutorials</a> &gt; Exploring a database with Datasette</p>
 
-{{ render_markdown("""
+{% markdown extra_attrs="a:name,href" %}
 # Exploring a database with Datasette
 
 This tutorial will teach you how to use Datasette to explore a new database.
@@ -66,19 +66,19 @@ Clicking one of the linked names in that column will take you to a page for that
 
 ![The page for a row includes links to related rows](/static/tutorials/explore/row-with-links.jpg)
 
-The \"Links from other tables\" section shows how many rows in other tables refer back to this legislator.
+The "Links from other tables" section shows how many rows in other tables refer back to this legislator.
 
-In a database these are called \"foreign keys\" - they work by storing the ID of a row from another table in a dedicated foreign key column.
+In a database these are called "foreign keys" - they work by storing the ID of a row from another table in a dedicated foreign key column.
 
 Foreign keys are key to understanding why relational databases are so much more powerful than separate, stand-alone data files stored in something like CSV.
 
-## Using facets<a name=\"using-facets\"></a>
+## Using facets<a name="using-facets"></a>
 
 Facets are one of the most powerful Datasette features. They can help you take a table with thousands of rows and start quickly identifying interesting trends and patterns within that data.
 
 I'll show some examples using the [executive_terms](https://congress-legislators.datasettes.com/legislators/executive_terms) table.
 
-Facets can be applied in two ways: you can select an option from the \"suggested facets\" list, or you can select the \"Facet by this\" option from the cog menu next to each column.
+Facets can be applied in two ways: you can select an option from the "suggested facets" list, or you can select the "Facet by this" option from the cog menu next to each column.
 
 ![Screenshot of a table showing the suggested facet links and indicating where in the column cog menu the Facet by this link can be found](/static/tutorials/explore/select-facets.jpg)
 
@@ -88,7 +88,7 @@ Once selected, the facet interface is shown above the table, like in [this examp
 
 Each facet shows a list of the most common values for that column, with a total count number for each of those values.
 
-These numbers will update as you further filter the data: if you select \"Democratic\" you will see just the rows matching that party, and the \"type\" facet will update to show you that there have been 21 presidentals terms and 19 vice presidental terms for that party.
+These numbers will update as you further filter the data: if you select "Democratic" you will see just the rows matching that party, and the "type" facet will update to show you that there have been 21 presidentals terms and 19 vice presidental terms for that party.
 
 ![These facets show just the options for type - prev and viceprez - with the party option narrowed down to only Democratic](/static/tutorials/explore/facet-democratic.jpg)
 
@@ -98,7 +98,7 @@ These numbers will update as you further filter the data: if you select \"Democr
 2. Use them to filter just to Republican Senators from North Carolina (NC)
 3. Figure out which state has had the highest number of senatorial terms held by a member of the Republican party. ([solution if you get stuck](https://congress-legislators.datasettes.com/legislators/legislator_terms?_facet=party&party=Republican&_facet=state&_facet=type&type=sen))
 
-## Using filters<a name=\"using-filters\"></a>
+## Using filters<a name="using-filters"></a>
 
 When you select a facet, you're applying a filter to the data. These are reflected in the boxes at the top of the page:
 
@@ -122,7 +122,7 @@ Using the [legislator_terms](https://congress-legislators.datasettes.com/legisla
 2. ... that started in a year starting with 18
 3. ... and then facet by party to see which parties had the most senatorial terms
 
-## Sharing links<a name=\"sharing-links\"></a>
+## Sharing links<a name="sharing-links"></a>
 
 Every page within Datasette is designed to be shared. Copy and paste the page URL to share it with someone else.
 
@@ -145,18 +145,18 @@ Look for the `CSV` and `.json` links on any page to export the data in those for
 
 ![The export options live both above and below the table - above is the links to CSV, JSON and copyable while below is an Advanced export box with more options.](/static/tutorials/explore/export-options.jpg)
 
-The \"Advanced export\" box provides additional options. Use \"download file\" to download the CSV file to your computer. 
+The "Advanced export" box provides additional options. Use "download file" to download the CSV file to your computer. 
 
-The \"expand labels\" option will add an extra column with the label associated with any foreign key columns - in this example, it will add `legislator_id_label` to accompany the ID in `legislator_id`.
+The "expand labels" option will add an extra column with the label associated with any foreign key columns - in this example, it will add `legislator_id_label` to accompany the ID in `legislator_id`.
 
-Additional formats can be enabled using [plugins](https://datasette.io/plugins). The example instance is running the [datasette-copyable](https://datasette.io/plugins/datasette-copyable) plugin, which provides a `\"copyable\" link which can be used to export the data in different formats using copy-and-paste!
+Additional formats can be enabled using [plugins](https://datasette.io/plugins). The example instance is running the [datasette-copyable](https://datasette.io/plugins/datasette-copyable) plugin, which provides a `"copyable" link which can be used to export the data in different formats using copy-and-paste!
 
 Datasette can also be configured to allow users to download the entire database as a single file. You can find that `legislators.db` download option at the bottom of <https://congress-legislators.datasettes.com/legislators> - the entire database is only 5.2MB.
 
 ### Exercises
 
-1.  Download a CSV file of [Democratic Vice Presidents in the 1800s](https://congress-legislators.datasettes.com/legislators/executive_terms?_sort=rowid&_facet=party&_facet=type&start__startswith=18&party__in=Democratic%2CDemocrat&type__exact=viceprez#export), using the \"download file\" checkbox in the \"Advanced export\" box.
-2.  Use the \"copyable\" option to copy and paste that data directly into Google Sheets, Excel or Numbers.
+1.  Download a CSV file of [Democratic Vice Presidents in the 1800s](https://congress-legislators.datasettes.com/legislators/executive_terms?_sort=rowid&_facet=party&_facet=type&start__startswith=18&party__in=Democratic%2CDemocrat&type__exact=viceprez#export), using the "download file" checkbox in the "Advanced export" box.
+2.  Use the "copyable" option to copy and paste that data directly into Google Sheets, Excel or Numbers.
 
 ## Data visualization via plugins
 
@@ -168,7 +168,7 @@ You can click on clusters of markers to zoom in, and click on individual markers
 
 It's fun to use these maps to spot obvious outliers - in this case, the office of representative Aumua Amata Radewagen in American Samoa instantly stands out.
 
-This is another example of a Datasette plugin - in this case [datasette-cluster-map](https://datasette.io/plugins/datasette-cluster-map). Plugins can add additional features to Datasette, such as visualizations or alternative export methods (see \"copyable\" described above).
+This is another example of a Datasette plugin - in this case [datasette-cluster-map](https://datasette.io/plugins/datasette-cluster-map). Plugins can add additional features to Datasette, such as visualizations or alternative export methods (see "copyable" described above).
 
 For a larger example of a map visualization, take a look at [this map of 33,000+ global power plants](https://global-power-plants.datasettes.com/global-power-plants/global-power-plants) visualized using `datasette-cluster-map`.
 
@@ -176,7 +176,7 @@ For a larger example of a map visualization, take a look at [this map of 33,000+
 
 Now that you know how to explore tables using Datasette, the next covers how to [use Datasette to learn SQL](/tutorials/learn-sql).
 
-""", extra_attrs={"a": ["name", "href"]}) }}
+{% endmarkdown %}
 
 {% include "_more_tutorials.html" %}
 

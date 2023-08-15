@@ -14,13 +14,18 @@
 <meta property="og:description" content="How to start using Datasette inside GitHub Codespaces.">
 <meta property="og:image" content="https://raw.githubusercontent.com/simonw/codespaces-datasette/main/codespaces-ui.jpg">
 <meta property="og:image:alt" content="Screenshot of the GitHub Codespaces interface.">
+<style>
+a, pre, code {
+    overflow-wrap: break-word;
+}
+</style>
 {% endblock %}
 
 {% block content %}
 
 <p class="breadcrumbs"><a href="/tutorials">Tutorials</a> &gt; Using Datasette in GitHub Codespaces</p>
 
-{{ render_markdown("""
+{% markdown %}
 # Using Datasette in GitHub Codespaces
 
 [GitHub Codespaces](https://github.com/features/codespaces) is a free tool from GitHub that gives you a full Linux development environment running in the cloud, accessed entirely through your browser.
@@ -39,10 +44,10 @@ You can use any of your existing repositories, or create a brand new one.
 
 Or if you don't want to create your own repository you can use my [simonw/codespaces-datasette](https://github.com/simonw/codespaces-datasette) repository instead.
 
-Use the \"Code\" button, select the \"Codespaces\" tab and then click \"Create codespace on main\" to start a new codespace.
-""") }}
+Use the "Code" button, select the "Codespaces" tab and then click "Create codespace on main" to start a new codespace.
+{% endmarkdown %}
 <img style="max-width: min(100%, 400px)" alt="Click the Code button, then Codespaces, then Create codespace on main" src="https://raw.githubusercontent.com/simonw/codespaces-datasette/main/get-started.jpg">
-{{ render_markdown("""
+{% markdown %}
 
 After a short delay while the codespace starts running you should see an interface that looks like this:
 
@@ -80,9 +85,9 @@ You should see the following:
 
 ![The terminal window shows Datasette outputting some INFO: log lines. A dialog is shown next to it which reads: Your applicaiton running on port 8001 is available - it provides a big green Open in Browser button](https://raw.githubusercontent.com/simonw/codespaces-datasette/main/start-datasette.jpg)
 
-Click that \"Open in Browser\" button to open the Datasette web interface in a new browser tab.
+Click that "Open in Browser" button to open the Datasette web interface in a new browser tab.
 
-If you can't see that button, check to see if the \"Ports\" tab is available in the Codespaces interface. You can use that to connect to your Datasette instance instead.
+If you can't see that button, check to see if the "Ports" tab is available in the Codespaces interface. You can use that to connect to your Datasette instance instead.
 
 ## Step 4: Import some data
 
@@ -90,7 +95,7 @@ Your Datasette interface will start with an empty database. Let's add some data 
 
 We'll do that using the [sqlite-utils](https://sqlite-utils.datasette.io/) command line tool.
 
-We can leave Datasette running in the background by starting a new terminal. Click on the word \"python\" at the top of the terminal window and select \"Split terminal\":
+We can leave Datasette running in the background by starting a new terminal. Click on the word "python" at the top of the terminal window and select "Split terminal":
 
 ![Clicking Python reviels a menu with several options - the top one is called Split Terminal](https://raw.githubusercontent.com/simonw/codespaces-datasette/main/split-terminal.jpg)
 
@@ -107,12 +112,13 @@ Then confirm installation with:
 ![Screenshot of two terminal windows - the left one contains Datasette, while the right one shows a freshly installed copy of sqlite-utils.](https://raw.githubusercontent.com/simonw/codespaces-datasette/main/two-terminals.jpg)
 
 Let's fetch a CSV file from the web:
-""") }}
+{% endmarkdown %}
 <p><code>wget https://static.simonwillison.net/static/2022/Manatee_Carcass_Recovery_Locations_in_Florida.csv</code></p>
 <p>And insert it into our database:</p>
 <pre><code>sqlite-utils insert data.db locations \
-    Manatee_Carcass_Recovery_Locations_in_Florida.csv --csv -d</code></pre>
-{{ render_markdown("""
+    Manatee_Carcass_Recovery_Locations_in_Florida.csv \
+    --csv -d</code></pre>
+    {% markdown %}
 This creates a new table called `locations` containing the data from that CSV file - manatee carcass recovery locations in Florida dating back to 1974.
 
 The `--csv` option tells sqlite-utils to treat the file as a CSV file, and the `-d` option tells it to infer the column types from the data (rather than treating every column as a text column).
@@ -126,7 +132,7 @@ Datasette has over 100 available plugins, listed in the [plugins directory](http
 To install these, we first need to stop the Datasette server running. To do this first click back on the terminal window running Datasette and then hit `Ctrl+C` to stop the server.
 
 The `datasette install ...` command installs new plugins. Let's install a few of them:
-""") }}
+{% endmarkdown %}
 <pre><code>datasette install \
   datasette-vega \
   datasette-cluster-map \
@@ -135,7 +141,7 @@ The `datasette install ...` command installs new plugins. Let's install a few of
   datasette-edit-schema \
   datasette-upload-csvs
 </code></pre>
-{{ render_markdown("""
+{% markdown %}
 Here's what each of these plugins does:
 
 - [datasette-vega](https://datasette.io/plugins/datasette-vega) adds line, bar and scatter chart visualizations
@@ -152,19 +158,19 @@ We don't need the `--create` option any more as we know the database already exi
 
 ## Step 6: Explore those manatee locations on a map
 
-In Datasette, navigate to that \"locations\" table. It should have columns called X and Y which look like they might contain latitude and longitude data.
+In Datasette, navigate to that "locations" table. It should have columns called X and Y which look like they might contain latitude and longitude data.
 
 The `datasette-cluster-map` plugin can render these all on a map... but only if the columns have the names `latitude` and `longitude`.
 
 We can use the `datasette-edit-schema` plugin to rename those columns.
 
-Click on the cog icon at the top of the table, then select \"Edit table schema\".
+Click on the cog icon at the top of the table, then select "Edit table schema".
 
-""") }}
+{% endmarkdown %}
 <img style="max-width: min(100%, 600px)" alt="Screenshot of the Edit table data/locations screen, with a list of columns that can be changed. The first two have been renamed to longitude and latitude." src="https://raw.githubusercontent.com/simonw/codespaces-datasette/main/rename-columns.jpg">
-{{ render_markdown("""
+{% markdown extra_attrs="a:name,href" %}
 
-Rename the `X` and `Y` columns to `longitude` and `latitude` respectively, then click \"Apply changes\".
+Rename the `X` and `Y` columns to `longitude` and `latitude` respectively, then click "Apply changes".
 
 Return to the table page and you should see this map of Florida with manatee locations plotted on it:
 
@@ -174,7 +180,7 @@ Return to the table page and you should see this map of Florida with manatee loc
 
 Try working through the rest of the [Cleaning data with sqlite-utils and Datasette](https://datasette.io/tutorials/clean-data) tutorial to learn more about how to use `sqlite-utils` and Datasette together.
 
-""", extra_attrs={"a": ["name", "href"]}) }}
+{% endmarkdown %}
 
 {% include "_more_tutorials.html" %}
 

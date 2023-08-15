@@ -19,7 +19,7 @@
   <meta property="og:description" content="Datasette is a tool for exploring and publishing data. It helps people take data of any shape, analyze and explore it, and publish it as an interactive website and accompanying API.">
   <meta property="og:image" content="https://datasette.io/static/datasette-card.png">
 </head>
-<body>
+<body class="homepage">
   <header>
     <nav>
       {% include "_nav_links.html" %}
@@ -27,7 +27,7 @@
     <h1>
       <img class="datasette-logo" src="/static/datasette-logo.svg" alt="Datasette">
     </h1>
-    <p class="tagline">An open source multi-tool for exploring and publishing data</p>
+    <p class="tagline">Find stories in data</p>
     <p>
       <a href="https://pypi.org/project/datasette/"><img alt="PyPI" src="https://img.shields.io/pypi/v/datasette.svg"></a>
       <a href="https://docs.datasette.io/en/stable/changelog.html"><img alt="Changelog" src="https://img.shields.io/github/v/release/simonw/datasette?label=changelog"></a>
@@ -63,24 +63,24 @@
         <h2><a href="/for/exploratory-analysis">Exploratory data analysis</a></h2>
         <p>Import data from CSVs, JSON, database connections and more. Datasette will automatically show you patterns in your data and help you share your findings with your colleagues.</p>
       </div>
-    </div>
-    <div class="card">
-      <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10" viewBox="0 0 24 24">
-        <polyline points="16 16 12 12 8 16"></polyline>
-        <line x1="12" y1="12" x2="12" y2="21"></line>
-        <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path>
-        <polyline points="16 16 12 12 8 16"></polyline>
-      </svg>
-      <h2><a href="/for/publishing-data">Instant data publishing</a></h2>
-      <p><code>datasette publish</code> lets you instantly publish your data to hosting providers like Google Cloud Run, Heroku or Vercel.</p>
-    </div>
-    <div class="card">
-      <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10" viewBox="0 0 24 24">
-        <polyline points="16 18 22 12 16 6"></polyline>
-        <polyline points="8 6 2 12 8 18"></polyline>
-      </svg>
-      <h2><a href="/for/rapid-prototyping">Rapid prototyping</a></h2>
-      <p>Spin up a JSON API for any data in minutes. Use it to prototype and prove your ideas without building a custom backend.</p>
+      <div class="card">
+        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10" viewBox="0 0 24 24">
+          <polyline points="16 16 12 12 8 16"></polyline>
+          <line x1="12" y1="12" x2="12" y2="21"></line>
+          <path d="M20.39 18.39A5 5 0 0 0 18 9h-1.26A8 8 0 1 0 3 16.3"></path>
+          <polyline points="16 16 12 12 8 16"></polyline>
+        </svg>
+        <h2><a href="/for/publishing-data">Instant data publishing</a></h2>
+        <p><code>datasette publish</code> lets you instantly publish your data to hosting providers like Google Cloud Run, Heroku or Vercel.</p>
+      </div>
+      <div class="card">
+        <svg fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" class="w-10 h-10" viewBox="0 0 24 24">
+          <polyline points="16 18 22 12 16 6"></polyline>
+          <polyline points="8 6 2 12 8 18"></polyline>
+        </svg>
+        <h2><a href="/for/rapid-prototyping">Rapid prototyping</a></h2>
+        <p>Spin up a JSON API for any data in minutes. Use it to prototype and prove your ideas without building a custom backend.</p>
+      </div>
     </div>
     <div style="clear: both; padding-top: 2em;" class="two-col-wrapper">
       <div class="two-col-column">
@@ -173,7 +173,7 @@
             <h3>{{ prettydate(row["released_at"]) }}</h3>
             {% set ns.current_date = prettydate(row["released_at"]) %}
           {% endif %}
-          <h4><a href="{% if row["release_url"] %}{{ row["release_url"] }}{% else %}/plugins/{{ row["name"] }}{% endif %}">{{ row["name"] }} {{ row["version"]}}</a>
+          <h4><a href="{% if row["release_url"] %}{{ row["release_url"] }}{% else %}https://pypi.org/project/{{ row["name"] }}/{% endif %}">{{ row["name"] }} {{ row["version"]}}</a>
             {% if row["pypi_summary"] != ns.current_pypi_summary and row["pypi_summary"] %}
               <span style="font-weight: normal; color: #666; font-size: 0.9em;"> - {{ row["pypi_summary"] }}</span>
               {% set ns.current_pypi_summary = row["pypi_summary"] %}

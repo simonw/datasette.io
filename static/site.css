@@ -15,10 +15,17 @@ footer {
     border-top: 2px solid #0e0c82;
     padding-top: 0.5em;
 }
+.homepage h1 {
+    margin-bottom: 0;
+}
+.homepage pre {
+    white-space: pre-wrap;
+}
 .tagline {
     font-size: 1.4em;
     color: #0e0c82;
     text-shadow: 1px 1px 3px rgba(14, 12, 130, 0.3);
+    margin: 0;
 }
 .datasette-logo {
     width: 100%;
@@ -34,7 +41,7 @@ a:active {
 }
 
 pre {
-    word-wrap: break-word;
+    word-break: break-word;
 }
 
 header nav ul {
