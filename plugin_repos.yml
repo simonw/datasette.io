@@ -385,3 +385,7 @@
 - repo: rclement/datasette-ml
   tags:
   - Machine Learning
+- repo: datasette/datasette-write-ui
+  tags:
+  - Data Import
+  - UI
