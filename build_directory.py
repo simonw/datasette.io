@@ -240,7 +240,9 @@ select
 from
   datasette_repos
   join repos on datasette_repos.id = repos.node_id
-  left join pypi_releases on pypi_releases.package = repos.name
+  left join pypi_releases on (
+    pypi_releases.package = repos.name or pypi_releases.package = 'datasette-' || repos.name
+  )
   left join pypi_versions on pypi_releases.version = pypi_versions.id
   join users on users.id = repos.owner
   join {repo_table} on {repo_table}.repo = datasette_repos.nameWithOwner
