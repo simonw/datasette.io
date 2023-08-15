@@ -14,8 +14,9 @@ markdown-to-sqlite content.db uses for/*.md
 
 # Build plugin and tools directories
 sqlite-utils drop-table content.db plugin_repos
+sqlite-utils drop-table content.db tool_repos
 yaml-to-sqlite content.db plugin_repos plugin_repos.yml
-yaml-to-sqlite content.db tool_repos tool_repos.yml --single-column repo
+yaml-to-sqlite content.db tool_repos tool_repos.yml
 python build_directory.py content.db --fetch-missing-releases \
    --always-fetch-releases-for-repo simonw/datasette-app
 

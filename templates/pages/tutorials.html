@@ -3,14 +3,21 @@
 {% block title %}Datasette Tutorials{% endblock %}
 
 {% block content %}
-{{ render_markdown("""
+
+{% markdown %}
 # Datasette Tutorials
 
 These tutorials are intended to complement the official [Datasette documentation](https://docs.datasette.io/) by providing step-by-step guides to learning Datasette and the Datasette ecosystem tools.
 
 - **[Exploring a database with Datasette](/tutorials/explore)** shows how to use the Datasette web interface to explore a new database.
 - **[Learn SQL with Datasette](/tutorials/learn-sql)** introduces SQL, and shows how to use that query language to ask questions of your data.
+- **[Using Datasette in GitHub Codespaces](/tutorials/codespaces)** shows how Datasette can be installed and used in free GitHub Codespaces browser-based development environments.
 - **[Cleaning data with sqlite-utils and Datasette](/tutorials/clean-data)** shows how to use <code>sqlite-utils</code> to clean data, import it into SQLite and then explore it with Datasette. Includes a ten minute accompanying video.
+- **[Building a location to time zone API with SpatiaLite](/tutorials/spatialite)** shows how to use SpatiaLite and Datasette to create an API for looking up time zones based on latitude/longitude points.
+
+If you're looking for something longer:
+
+- **[Data analysis with SQLite and Python](/tutorials/data-analysis)** is a 2hr45m tutorial presented at PyCon 2023. The full video and handout are available here.
 
 ## Other tutorials
 
@@ -18,6 +25,6 @@ These tutorials are intended to complement the official [Datasette documentation
 - **[Using a self-rewriting README powered by GitHub Actions to track TILs](https://simonwillison.net/2020/Apr/20/self-rewriting-readme/)** is another example showing how to use GitHub Actions to store content in a repository and then build and deploy it using Datasette, illustrated by the implementation of [til.simonwillison.net](https://til.simonwillison.net/).
 
 Suggestions for more tutorials are welcome! Please share those on the [Datasette Discord](https://datasette.io/discord).
-""") }}
+{% endmarkdown %}
 
 {% endblock %}

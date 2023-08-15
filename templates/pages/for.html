@@ -3,11 +3,11 @@
 {% block title %}Use cases for Datasette{% endblock %}
 
 {% block content %}
-{{ render_markdown("""
+{% markdown %}
 # Use cases for Datasette
 
 Datasette can be applied to all kinds of interesting problems.
-""") }}
+{% endmarkdown %}
 
 {% for row in sql("select _path, title, summary from uses order by [order]", database="content") %}
     <h2><a href="/{{ row._path.replace(".md", "") }}">{{ row.title }}</a></h2>

@@ -1,6 +1,5 @@
 from datasette import hookimpl
 from dateutil import parser
-import datetime
 
 
 def suffix(d):

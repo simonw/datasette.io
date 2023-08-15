@@ -1,3 +1,24 @@
+- date: 2023-08-09
+  body: |-
+     [Datasette 1.0a3](https://docs.datasette.io/en/latest/changelog.html#a3-2023-08-09) is an alpha release of Datasette that previews the new default JSON API design that’s coming in version 1.0 - the single most significant change planned for that 1.0 release.
+- date: 2023-07-01
+  body: |-
+    New tutorial: [Data analysis with SQLite and Python](https://datasette.io/tutorials/data-analysis). This tutorial, originally presented at PyCon 2023, includes a 2h45m video and an extensive handout that should be useful with or without the video. Topics covered include Python's `sqlite3` module, `sqlite-utils`, Datasette, Datasette Lite, advanced SQL patterns and more.
+- date: 2023-03-24
+  body: |-
+    [I built a ChatGPT plugin to answer questions about data hosted in Datasette](https://simonwillison.net/2023/Mar/24/datasette-chatgpt-plugin/) describes a new experimental Datasette plugin to enable people to query data hosted in a Datasette interface via ChatGPT, asking human language questions that are automatically converted to SQL and used to generate a readable response.
+- date: 2023-02-23
+  body: |-
+    [Using Datasette in GitHub Codespaces](https://datasette.io/tutorials/codespaces) is a new tutorial showing how Datasette can be run in GitHub's free Codespaces browser-based development environments, using the new [datasette-codespaces plugin](https://datasette.io/plugins/datasette-codespaces).
+- date: 2023-01-28
+  body: |-
+    [Examples of sites built using Datasette](https://datasette.io/examples) now includes screenshots of Datasette deployments that illustrate a variety of problems that can be addressed using Datasette and its plugins.
+- date: 2023-01-13
+  body: |-
+    [Semantic search answers: Q&A against documentation with GPT3 + OpenAI embeddings](https://simonwillison.net/2023/Jan/13/semantic-search-answers/) shows how Datasette can be used to implement semantic search and build a system for answering questions against an existing corpus of text, using two new plugins: [datasette-openai](https://datasette.io/plugins/datasette-openai) and [datasette-faiss](https://datasette.io/plugins/datasette-faiss), and a new tool: [openai-to-sqlite](https://datasette.io/tools/openai-to-sqlite).
+- date: 2023-01-09
+  body: |-
+    [Datasette 0.64](https://docs.datasette.io/en/stable/changelog.html#v0-64) is out, and includes [a strong warning](https://docs.datasette.io/en/stable/spatialite.html#warning) against running SpatiaLite in production without disabling arbitrary SQL queries, plus a new [--setting default_allow_sql off](https://docs.datasette.io/en/stable/settings.html#setting-default-allow-sql) setting to make it easier to do that. See [Datasette 0.64, with a warning about SpatiaLite](https://simonwillison.net/2023/Jan/9/datasette-064/) for more about this release. A new tutorial, [Building a location to time zone API with SpatiaLite](https://datasette.io/tutorials/spatialite), describes how to safely use SpatiaLite and Datasette to build and deploy an API for looking up time zones for a latitude/longitude location.
 - date: 2022-12-15
   body: |-
     [Datasette 1.0a2: Upserts and finely grained permissions](https://simonwillison.net/2022/Dec/15/datasette-1a2/) describes the new upsert API and much improved permissions capabilities introduced in the latest [Datasette 1.0a2 alpha](https://docs.datasette.io/en/latest/changelog.html#a2-2022-12-14) release.

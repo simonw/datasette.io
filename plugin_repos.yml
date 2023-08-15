@@ -14,6 +14,7 @@
 - repo: simonw/datasette-vega
   tags:
   - Visualization
+  extra_search: plot chart graph
 - repo: simonw/datasette-auth-github
   tags:
   - Authentication
@@ -321,3 +322,66 @@
 - repo: cldellow/datasette-scraper
   tags:
   - Data Import
+- repo: simonw/datasette-openai
+  tags:
+  - AI
+  - SQL Functions
+- repo: simonw/datasette-faiss
+  tags:
+  - AI
+  - SQL Functions
+  - Search
+- repo: simonw/datasette-cookies-for-magic-parameters
+  tags:
+  - Authentication
+- repo: simonw/datasette-simple-html
+  tags:
+  - SQL Functions
+- repo: simonw/datasette-youtube-embed
+  tags:
+  - Render Cell
+- repo: simonw/datasette-codespaces
+  tags:
+  - Ops
+- repo: simonw/datasette-explain
+  tags:
+  - Debug
+- repo: UUDigitalHumanitieslab/datasette-matomo
+  tags:
+  - Analytics
+- repo: simonw/datasette-chatgpt-plugin
+  tags:
+  - API
+- repo: asg017/sqlite-vss
+  tags:
+  - SQLite Extension
+- repo: asg017/sqlite-regex
+  tags:
+  - SQLite Extension
+- repo: asg017/sqlite-ulid
+  tags:
+  - SQLite Extension
+- repo: asg017/sqlite-jsonschema
+  tags:
+  - SQLite Extension
+- repo: asg017/sqlite-fastrand
+  tags:
+  - SQLite Extension
+- repo: asg017/sqlite-path
+  tags:
+  - SQLite Extension
+- repo: asg017/sqlite-url
+  tags:
+  - SQLite Extension
+- repo: asg017/sqlite-html
+  tags:
+  - SQLite Extension
+- repo: asg017/sqlite-http
+  tags:
+  - SQLite Extension
+- repo: asg017/sqlite-lines
+  tags:
+  - SQLite Extension
+- repo: rclement/datasette-ml
+  tags:
+  - Machine Learning

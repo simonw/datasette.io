@@ -20,7 +20,7 @@
 
 <p class="breadcrumbs"><a href="/tutorials">Tutorials</a> &gt; Learn SQL with Datasette</p>
 
-{{ render_markdown("""
+{% markdown %}
 # Learn SQL with Datasette
 
 This tutorial follows the tutorial on [exploring data with Datasette](/tutorials/explore) and shows how you can use Datasette to start learning to write custom SQL queries of your own.
@@ -41,7 +41,7 @@ You may not realize it, but you already use SQLite every day: it is built into m
 
 ## View and edit SQL
 
-Every table page in Datasette - such as [this one](https://congress-legislators.datasettes.com/legislators/legislators?bio_gender__exact=F) - includes a \"View and edit SQL\" link that looks like this:
+Every table page in Datasette - such as [this one](https://congress-legislators.datasettes.com/legislators/legislators?bio_gender__exact=F) - includes a "View and edit SQL" link that looks like this:
 
 ![The link is directly below the filters interface](/static/tutorials/learn-sql/view-and-edit-sql.jpg)
 
@@ -55,7 +55,7 @@ You can then edit that query to make it do something else!
 
 [Start with that example](https://congress-legislators.datasettes.com/legislators?sql=select+id%2C+name%2C+id_bioguide%2C+id_govtrack%2C+id_icpsr%2C+id_wikipedia%2C+id_wikidata%2C+id_google_entity_id%2C+name_first%2C+name_last%2C+bio_birthday%2C+bio_gender%2C+id_house_history%2C+name_middle%2C+name_nickname%2C+id_ballotpedia%2C+name_suffix%2C+id_bioguide_previous%2C+id_house_history_alternate%2C+other_names%2C+id_thomas%2C+id_cspan%2C+id_votesmart%2C+id_lis%2C+name_official_full%2C+id_opensecrets%2C+id_fec%2C+id_maplight%2C+leadership_roles%2C+family+from+legislators+where+%22bio_gender%22+%3D+%3Ap0+order+by+id+limit+101&p0=F), then:
 
-1.  Click \"Format SQL\" to tidy this up and make it easier to read and edit
+1.  Click "Format SQL" to tidy this up and make it easier to read and edit
 2.  Modify that query to return only the id and name columns
 3.  Get it to order by ``name`` instead of sorting by ``id``
 4.  Change the `p0` value to `M` to return male instead of female legislators
@@ -151,9 +151,9 @@ In the previous tutorial we [used filters](/tutorials/explore#using-filters) to 
 
 [Here's that example](https://congress-legislators.datasettes.com/legislators/executive_terms?_sort=rowid&type__exact=prez&start__startswith=18) as a filtered table.
 
-![29 rows where start starts with \"18\" and type = \"prez\" sorted by rowid](/static/tutorials/learn-sql/filtered-rows.jpg)
+![29 rows where start starts with "18" and type = "prez" sorted by rowid](/static/tutorials/learn-sql/filtered-rows.jpg)
 
-Clicking that [\"View and edit SQL\"](https://congress-legislators.datasettes.com/legislators?sql=select%0D%0A++rowid%2C%0D%0A++type%2C%0D%0A++start%2C%0D%0A++%5Bend%5D%2C%0D%0A++party%2C%0D%0A++how%2C%0D%0A++executive_id%0D%0Afrom%0D%0A++executive_terms%0D%0Awhere%0D%0A++%22start%22+like+%3Ap0%0D%0A++and+%22type%22+%3D+%3Ap1%0D%0Aorder+by%0D%0A++rowid%0D%0Alimit%0D%0A++101&p0=18%25&p1=prez) link (and then clicking \"Format SQL\") shows this query:
+Clicking that ["View and edit SQL"](https://congress-legislators.datasettes.com/legislators?sql=select%0D%0A++rowid%2C%0D%0A++type%2C%0D%0A++start%2C%0D%0A++%5Bend%5D%2C%0D%0A++party%2C%0D%0A++how%2C%0D%0A++executive_id%0D%0Afrom%0D%0A++executive_terms%0D%0Awhere%0D%0A++%22start%22+like+%3Ap0%0D%0A++and+%22type%22+%3D+%3Ap1%0D%0Aorder+by%0D%0A++rowid%0D%0Alimit%0D%0A++101&p0=18%25&p1=prez) link (and then clicking "Format SQL") shows this query:
 
 ![An interface showing the SQL query plus two additional input boxes, named p0 and p1. p0 contains the text 18% and p1 contains the text prez](/static/tutorials/learn-sql/named-parameters.jpg)
 
@@ -171,7 +171,7 @@ Clicking that [\"View and edit SQL\"](https://congress-legislators.datasettes.co
       start like :p0
       and type= :p1
 
-The `:p0` and `:p1` fields here correspond to \"named parameters\" - they provide a safe way to pass values to a SQL query, without having to worry about [SQL injection](https://en.wikipedia.org/wiki/SQL_injection).
+The `:p0` and `:p1` fields here correspond to "named parameters" - they provide a safe way to pass values to a SQL query, without having to worry about [SQL injection](https://en.wikipedia.org/wiki/SQL_injection).
 
 These field names are extracted from the query. If you change the where clause to look like this:
 
@@ -204,7 +204,7 @@ To find rows where the `start` column begins with the string `18` we use this wh
     where
       start like '18%'
 
-The SQL `like` operator applies wildcards to strings - `%` means \"match anything\" and `_` (underscore) means \"match a single character\".
+The SQL `like` operator applies wildcards to strings - `%` means "match anything" and `_` (underscore) means "match a single character".
 
 ### Exercise
 
@@ -216,7 +216,7 @@ The [executive_terms table](https://congress-legislators.datasettes.com/legislat
 
 ![The values in the executive_id column show a linked name and a numeric ID](/static/tutorials/learn-sql/table-with-foreign-key.jpg)
 
-But... when you click the \"View and edit SQL\" link the [resulting query](https://congress-legislators.datasettes.com/legislators?sql=select%0D%0A++rowid%2C%0D%0A++type%2C%0D%0A++start%2C%0D%0A++%5Bend%5D%2C%0D%0A++party%2C%0D%0A++how%2C%0D%0A++executive_id%0D%0Afrom%0D%0A++executive_terms%0D%0Aorder+by%0D%0A++rowid%0D%0Alimit%0D%0A++101) returns just the ID, not the name.
+But... when you click the "View and edit SQL" link the [resulting query](https://congress-legislators.datasettes.com/legislators?sql=select%0D%0A++rowid%2C%0D%0A++type%2C%0D%0A++start%2C%0D%0A++%5Bend%5D%2C%0D%0A++party%2C%0D%0A++how%2C%0D%0A++executive_id%0D%0Afrom%0D%0A++executive_terms%0D%0Aorder+by%0D%0A++rowid%0D%0Alimit%0D%0A++101) returns just the ID, not the name.
 
 ![Here the executive_id column only includes those numeric IDs](/static/tutorials/learn-sql/select-no-foreign-keys.jpg)
 
@@ -261,13 +261,13 @@ We are joining `executive_terms` to `executives`, using the fact that the `execu
 
 This is why IDs and foreign keys are important concepts to understand in SQL databases!
 
-This kind of join is also known as an \"inner join\" - it is the most commonly used join. Other join types include outer joins and full joins, but those are beyond the scope of this tutorial.
+This kind of join is also known as an "inner join" - it is the most commonly used join. Other join types include outer joins and full joins, but those are beyond the scope of this tutorial.
 
 ## GROUP BY / COUNT
 
 A common operation in SQL is to ask for a count of the most popular values in a column.
 
-Datasette exposes this capability in its [faceting feature](/tutorials/explore#sharing-links). Under the hood, that feature works by executing a group by / count query.
+Datasette exposes this capability in its [faceting feature](/tutorials/explore#using-facets). Under the hood, that feature works by executing a group by / count query.
 
 The following query answers the question: which party has had the most presidental terms?
 
@@ -420,7 +420,7 @@ Entering a date - [for example 2016-01-01](https://congress-legislators.datasett
 
 We've built an application! We can send this link to anyone right now and they'll be able to run that same query.
 
-The SQL at the top of the page could feel a little intimidating though. That's what the \"hide\" link is for - clicking on that hides the SQL query, providing [a new link](https://congress-legislators.datasettes.com/legislators?sql=select%0D%0A++executives.name%2C%0D%0A++executive_terms.type%2C%0D%0A++executive_terms.start%2C%0D%0A++executive_terms.end%2C%0D%0A++executive_terms.party%0D%0Afrom%0D%0A++executive_terms%0D%0A++join+executives+on+executive_terms.executive_id+%3D+executives.id%0D%0Awhere%0D%0A++start+%3C%3D+%3Adate%0D%0A++and+end+%3E+%3Adate&date=2016-01-01&_hide_sql=1) that you can share that won't cause the user to scroll down past the SQL in order to interact with the query.
+The SQL at the top of the page could feel a little intimidating though. That's what the "hide" link is for - clicking on that hides the SQL query, providing [a new link](https://congress-legislators.datasettes.com/legislators?sql=select%0D%0A++executives.name%2C%0D%0A++executive_terms.type%2C%0D%0A++executive_terms.start%2C%0D%0A++executive_terms.end%2C%0D%0A++executive_terms.party%0D%0Afrom%0D%0A++executive_terms%0D%0A++join+executives+on+executive_terms.executive_id+%3D+executives.id%0D%0Awhere%0D%0A++start+%3C%3D+%3Adate%0D%0A++and+end+%3E+%3Adate&date=2016-01-01&_hide_sql=1) that you can share that won't cause the user to scroll down past the SQL in order to interact with the query.
 
 One last note: the application we have built also doubles up as an API. Add `.json` to the path portion of the URL, or click [the .json link](https://congress-legislators.datasettes.com/legislators.json?sql=select%0D%0A++executives.name%2C%0D%0A++executive_terms.type%2C%0D%0A++executive_terms.start%2C%0D%0A++executive_terms.end%2C%0D%0A++executive_terms.party%0D%0Afrom%0D%0A++executive_terms%0D%0A++join+executives+on+executive_terms.executive_id+%3D+executives.id%0D%0Awhere%0D%0A++start+%3C%3D+%3Adate%0D%0A++and+end+%3E+%3Adate&date=2016-01-01), to get back the data as JSON. Add [&_shape=array to the URL](https://congress-legislators.datasettes.com/legislators.json?sql=select%0D%0A++executives.name%2C%0D%0A++executive_terms.type%2C%0D%0A++executive_terms.start%2C%0D%0A++executive_terms.end%2C%0D%0A++executive_terms.party%0D%0Afrom%0D%0A++executive_terms%0D%0A++join+executives+on+executive_terms.executive_id+%3D+executives.id%0D%0Awhere%0D%0A++start+%3C%3D+%3Adate%0D%0A++and+end+%3E+%3Adate&date=2016-01-01&_shape=array) to get back a more compact form of JSON, ideal for integrating with other applications.
 
@@ -428,7 +428,7 @@ One last note: the application we have built also doubles up as an API. Add `.js
 
 Fully mastering SQL can take years. This tutorial has attempted to cover SQL basics and introduce some more advanced techniques to help manage larger queries, but there's plenty more to learn. The [SQLite SELECT documentation](https://www.sqlite.org/lang_select.html) offers a comprehensive reference to SQL as understood by SQLite, but the best way to learn is to keep on trying new things against different data, looking things up as you go along.
 
-""") }}
+{% endmarkdown %}
 
 {% include "_more_tutorials.html" %}
 

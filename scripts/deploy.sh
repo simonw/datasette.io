@@ -5,13 +5,14 @@ gcloud config set run/region us-central1
 gcloud config set project datasette-222320
 datasette publish cloudrun \
   content.db docs-index.db dogsheep-index.db blog.db tils.db \
-  --branch main \
+  --branch 1.0a2 \
   --service datasette-io \
   --template-dir=templates \
   --metadata=metadata.yml \
   --plugins-dir=plugins \
   --static=static:static \
-  --install=datasette-render-markdown \
+  --install='datasette-render-markdown>=2.2' \
+  --install=Pygments \
   --install=datasette-template-sql \
   --install=python-dateutil \
   --install=datasette-vega \
@@ -22,4 +23,5 @@ datasette publish cloudrun \
   --install=datasette-gzip \
   --install=html5lib \
   --install=beautifulsoup4 \
-  --install 'dogsheep-beta>=0.10.1'
+  --install 'dogsheep-beta>=0.10.1' \
+  --install datasette-chatgpt-plugin

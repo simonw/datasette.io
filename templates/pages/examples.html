@@ -2,34 +2,142 @@
 
 {% block title %}Datasette Examples{% endblock %}
 
+{% block extra_head %}
+<style>
+.example-container {
+  display: flex;
+  flex-wrap: wrap;
+  padding-bottom: 2em;
+}
+.example-container h2 {
+  margin-top: 0;
+}
+
+.example-content {
+  flex: 1;
+}
+
+.example-image {
+  width: 100%;
+  max-width: 350px;
+  align-self: flex-start;
+  border: 1px solid #ccc;
+  margin-left: 1em;
+  flex: 1;
+}
+
+@media (max-width: 600px) {
+  .example-container {
+    display: block;
+  }
+  .example-container .example-image {
+    display: block;
+    margin: 0 auto;
+  }
+}
+</style>
+{% endblock %}
+
 {% block content %}
-<h1>Datasette Examples</h1>
+<h1>Examples of sites built using Datasette</h1>
 
-{{ render_markdown("""
+<div class="example-container">
+  <div class="example-content">
+    <h2><a href="https://datasette.io/">datasette.io</a> (this website)</h2>
+    {% markdown %}
+[datasette.io](https://datasette.io/) runs using a heavily customized Datasette instance implementing the [Baked Data](https://simonwillison.net/2021/Jul/28/baked-data/) pattern.
+Read more about how it works in [datasette.io, an official project website for Datasette](https://simonwillison.net/2020/Dec/13/datasette-io/) and [Building a search engine for datasette.io](https://simonwillison.net/2020/Dec/19/dogsheep-beta/).
 
-## This website
+You can explore the database that powers this site at [datasette.io/content](https://datasette.io/content).
+    {% endmarkdown %}
+  </div>
+  <img class="example-image" alt="A screenshot of the datasette.io homepage" src="https://simonw.github.io/datasette-screenshots/non-retina/datasette-io.png">
+</div>
+<div class="example-container">
+  <div class="example-content">
+    <h2><a href="https://laion-aesthetic.datasette.io/laion-aesthetic-6pls/images">LAION-Aesthetics v2 6+</a></h2>
+    {% markdown %}
+The Stable Diffusion text-to-image model was trained primarily using [LAION-5B](https://laion.ai/blog/laion-5b/) and [LAION-Aesthetics](https://laion.ai/blog/laion-aesthetics/), enormous datasets of images scraped from the web.
 
-[datasette.io](https://datasette.io/) runs using a heavily customized Datasette instance implementing the [Baked Data](https://simonwillison.net/2021/Jul/28/baked-data/) pattern. Read more about how it works in [datasette.io, an official project website for Datasette](https://simonwillison.net/2020/Dec/13/datasette-io/) and [Building a search engine for datasette.io](https://simonwillison.net/2020/Dec/19/dogsheep-beta/).
+[laion-aesthetic.datasette.io](https://laion-aesthetic.datasette.io/laion-aesthetic-6pls/images) presents a subset of 12 million images from LAION-Aesthetics, filtered to the images with an aesthetic score of 6 or higher. The goal is to help people understand the kind of images that are used to train these image generation models.
 
-## Covid-19 cases and deaths
+[Exploring the training data behind Stable Diffusion](https://simonwillison.net/2022/Sep/5/laion-aesthetics-weeknotes/) explains how the Datasette instance was constructed in detail, and [Exploring 12 Million of the 2.3 Billion Images Used to Train Stable Diffusion’s Image Generator](https://waxy.org/2022/08/exploring-12-million-of-the-images-used-to-train-stable-diffusions-image-generator/) describes the results of the exploration.
+    {% endmarkdown %}
+  </div>
+  <img class="example-image" alt="Screenshot of a Datasette table containing 12 million images, with preview thumbnails of the first two." src="https://simonw.github.io/datasette-screenshots/non-retina/laion-aesthetic.png">
+</div>
+<div class="example-container">
+  <div class="example-content">
+    <h2><a href="https://github-to-sqlite.dogsheep.net/">github-to-sqlite with GraphQL</a></h2>
+    {% markdown %}
+[github-to-sqlite](https://datasette.io/tools/github-to-sqlite) is a tool for loading data from GitHub - repositories, issues, issue comments, commits and more - into a SQLite database.
 
-https://covid-19.datasettes.com/ uses data from Johns Hopkins CSSE, the New York Times and the LA Times to show Covid-19 cases and deaths around the USA and the world. It updates several times a day as new data becomes available.
+[github-to-sqlite.dogsheep.net](https://github-to-sqlite.dogsheep.net/) provides a demo of that tool running against hundreds of Datasette repositories. It also demonstrates two plugins: [datasette-graphql](https://datasette.io/plugins/datasette-graphql) for providing a GraphQL API to Datasette, and [datasette-search-all](https://datasette.io/plugins/datasette-search-all) for searching multiple database tables at once.
+
+* [Try out the GraphQL API](https://github-to-sqlite.dogsheep.net/graphql?query=%7B%0A%20%20repos(search%3A%20%22datasette%22%2C%20sort_desc%3A%20updated_at)%20%7B%0A%20%20%20%20totalCount%0A%20%20%20%20pageInfo%20%7B%0A%20%20%20%20%20%20endCursor%0A%20%20%20%20%20%20hasNextPage%0A%20%20%20%20%7D%0A%20%20%20%20nodes%20%7B%0A%20%20%20%20%20%20full_name%0A%20%20%20%20%20%20description_%0A%20%20%20%20%20%20issues_list%20%7B%0A%20%20%20%20%20%20%20%20totalCount%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20stars_list(first%3A%203%2C%20sort_desc%3A%20starred_at)%20%7B%0A%20%20%20%20%20%20%20%20totalCount%0A%20%20%20%20%20%20%20%20nodes%20%7B%0A%20%20%20%20%20%20%20%20%20%20user%20%7B%0A%20%20%20%20%20%20%20%20%20%20%20%20login%0A%20%20%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%20%20%7D%0A%20%20%20%20%20%20%7D%0A%20%20%20%20%7D%0A%20%20%7D%0A%7D)
+* [Search everything for render_cell](https://github-to-sqlite.dogsheep.net/-/search?q=render_cell)
+    {% endmarkdown %}
+  </div>
+  <img class="example-image" alt="Screenshot of the GraphiQL GraphQL explorer interface running in Datasette, showing an example GraphQL query and the JSON response" src="https://simonw.github.io/datasette-screenshots/non-retina/graphiql.png">
+</div>
+<div class="example-container">
+  <div class="example-content">
+    <h2><a href="https://calands.datasettes.com/">California Protected Areas</a></h2>
+    {% markdown %}
+CPAD, the [California Protected Areas Database](https://www.calands.org/cpad/), is a remarkable GIS dataset maintained by [GreenInfo Network](https://www.greeninfo.org/), an Oakland non-profit.
+
+This example uses the [shapefile-to-sqlite](https://datasette.io/tools/shapefile-to-sqlite) tool to import Shapefiles from that project into a [SpatiaLite](https://www.gaia-gis.it/fossil/libspatialite/index) database, then demonstrates a number of different Datasette geospatial plugins, including:
+
+- [datasette-leaflet-geojson](https://datasette.io/plugins/datasette-leaflet-geojson) to render the data on a map
+- [datasette-leaflet-freedraw](https://datasette.io/plugins/datasette-leaflet-freedraw) to allow users to draw shapes on the map and query the database for matching records
+
+For more on this project, see [California Protected Areas in Datasette](https://simonwillison.net/2020/Aug/28/weeknotes-cpad/) and [Drawing shapes on a map to query a SpatiaLite database](https://simonwillison.net/2021/Jan/24/drawing-shapes-spatialite/).
+
+[Building a location to time zone API with SpatiaLite](https://datasette.io/tutorials/spatialite) is a tutorial showing how to use SpatiaLite with Datasette.
+    {% endmarkdown %}
+  </div>
+  <img class="example-image" alt="Screnshot of a Datasette table displaying a map of San Francisco with a rough shape drawn around it - the query has returned 290 rows that intersect the geometry of the drawn shape" src="https://simonw.github.io/datasette-screenshots/non-retina/calands-freedraw.png">
+</div>
+<div class="example-container">
+  <div class="example-content">
+    <h2><a href="https://archive.sfmicrosociety.org/">San Francisco Microscopical Society Archive</a></h2>
+    {% markdown %}
+The [San Francisco Microscopical Society](https://sfmicrosociety.org/) have archives dating back to 1870, and recently started digitizing them as scanned images in PDF files.
+
+[s3-ocr](https://datasette.io/tools/s3-ocr) is a tool for bulk OCRing PDF files in an S3 bucket and extracting out the resulting text into a searchable SQLite database.
+
+Their [archive site](https://archive.sfmicrosociety.org/) uses a templated Datasette instance to allow people to search and browse through their archives.
+
+[Building a searchable archive for the San Francisco Microscopical Society](https://simonwillison.net/2022/Aug/25/sfms-archive/) describes in detail how this project was built.
+    {% endmarkdown %}
+  </div>
+  <img class="example-image" alt="Screenshot of the homepage of the San Francisco Microscopical Society Archive website, showing thumbnails of scanned PDF pages" src="https://simonw.github.io/datasette-screenshots/non-retina/sfmicrosociety.png">
+</div>
+<div class="example-container">
+  <div class="example-content">
+    <h2><a href="https://global-power-plants.datasettes.com/global-power-plants/global-power-plants">Global Power Plants</a></h2>
+    {% markdown %}
+The World Resources Institute publishes a [Global Power Plants Database](https://www.wri.org/research/global-database-power-plants) with information about over 30,000 power plants around the world.
+
+[This Datasette instance](https://global-power-plants.datasettes.com/global-power-plants/global-power-plants) presents those power plants on a map, using the [datasette-cluster-map](https://datasette.io/plugins/datasette-cluster-map) plugin to support zooming in to see individual plants.
+    {% endmarkdown %}
+  </div>
+  <img class="example-image" alt="Screenshot of a Datasette instance showing a map of North America, covered in markers representing different power plants. The table also has facets showing the top values for primary_fuel, owner and country_long in the table." src="https://simonw.github.io/datasette-screenshots/non-retina/global-power-plants.png">
+</div>
+
+{% markdown %}
+
+# More examples
 
 ## United States members of congress
 
-https://congress-legislators.datasettes.com/ shows United States members of congress, plus Presidents and Vice Presidents, using data from [unitedstates/congress-legislators](https://github.com/unitedstates/congress-legislators) on GitHub.
+[congress-legislators.datasettes.com](https://congress-legislators.datasettes.com/) lists United States members of congress, plus Presidents and Vice Presidents, using data from [unitedstates/congress-legislators](https://github.com/unitedstates/congress-legislators) on GitHub.
+
+The official Datasette tutorials [Exploring a database with Datasette](https://datasette.io/tutorials/explore) and [Learn SQL with Datasette](https://datasette.io/tutorials/learn-sql) demonstrate how to use Datasette to explore and query this database.
 
 ## SBA Paycheck Protection Program Loan Data
 
-https://sba-loans-covid-19.datasettes.com/ shows recipients of Covid-19 Paycheck Protection Program loans, using data released by the Small Business Administration.
-
-## Global Power Plants Database
-
-https://global-power-plants.datasettes.com
-
-Data from http://www.wri.org/publication/global-power-plant-database
-
-Deployed automatically when the underlying data changes by https://github.com/simonw/global-power-plants-datasette
+[sba-loans-covid-19.datasettes.com](https://sba-loans-covid-19.datasettes.com/) shows recipients of Covid-19 Paycheck Protection Program loans, using data released by the Small Business Administration.
 
 ## The Foreign Agents Registration Act
 
@@ -39,33 +147,17 @@ Deployed automatically when the underlying data changes by https://github.com/si
 
 You can read more about how the project works in [Tracking FARA by deploying a data API using GitHub Actions and Cloud Run](https://simonwillison.net/2020/Jan/21/github-actions-cloud-run/).
 
+## Covid-19 cases and deaths
+
+[covid-19.datasettes.com](https://covid-19.datasettes.com/) uses data from Johns Hopkins CSSE, the New York Times and the LA Times to show Covid-19 cases and deaths around the USA and the world.
+
 ## UK Register of Members Interests
 
-https://register-of-members-interests.datasettes.com/ - background here: https://simonwillison.net/2018/Apr/25/register-members-interests/ source code here: https://github.com/simonw/register-of-members-interests
+[register-of-members-interests.datasettes.com](https://register-of-members-interests.datasettes.com/) provides a searchable interface to the UK Register of Members Interests - a database of the financial interests of members of the UK Parliament.
 
-## FiveThirtyEight
+See [Exploring the UK Register of Members Interests with SQL and Datasette](https://simonwillison.net/2018/Apr/25/register-members-interests/) for background on this project.
 
-https://fivethirtyeight.datasettes.com/ - data derived from https://github.com/fivethirtyeight/data
-
-## San Francisco Open Data
-
-https://san-francisco.datasettes.com/ - datasets derived from https://data.sfgov.org/browse
-
-https://simonwillison.net/2017/Nov/25/new-in-datasette/ has various tutorials relating to this data.
-
-## Lahman’s Baseball Database
-
-https://baseballdb.lawlesst.net/ - published by Ted Lawless: http://lawlesst.github.io/notebook/baseball-datasette.html
-
-## ParlGov
-
-https://parlgov.datasettes.com/ - worldwide political data from http://www.parlgov.org/
-
-## Australian Open Data
-
-https://australian-dunnies.now.sh/ - public toilets in Australia, from https://data.gov.au/dataset/national-public-toilet-map
-
-""") }}
+{% endmarkdown %}
 
 
 {% endblock %}

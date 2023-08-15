@@ -12,7 +12,7 @@ def _quote(s):
 
 def build_directory_sql(q, table, count=False):
     wheres = " and ".join(
-        "(name || ' ' || description) like '%' || {} || '%'".format(
+        "(name || ' ' || coalesce(description, '') || ' ' || coalesce(extra_search, '')) like '%' || {} || '%'".format(
             _quote(word.strip())
         )
         for word in q.split()
