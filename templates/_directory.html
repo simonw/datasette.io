@@ -61,7 +61,7 @@
 {% for row in sql(query, {"q": args["q"] or ""}, database="content") %}
 <div class="directory">
     <h3><a href="/{% if row["is_plugin"] %}plugins{% else %}tools{% endif %}/{{ row["name"] }}">{{ row["name"] }}</a> <span class="by"> by {{ row.owner }}</span></h3>
-    <p>{{ row["description"] }}</p>
+    <p>{{ row["description"] or "" }}</p>
     <p>{% if row.downloads_this_week %}{{ "{:,}".format(row.downloads_this_week) }} downloads this week &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; {% endif %}⭐ {{ row.stargazers_count }}</p>
     {% if row["usesCustomOpenGraphImage"] %}
         <img style="max-width: 100%" src="{{ row["openGraphImageUrl"] }}" alt="Screenshot of {{ row["full_name"] }}">
