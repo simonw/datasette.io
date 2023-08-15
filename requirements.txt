@@ -2,7 +2,7 @@ click
 python-dateutil
 datasette
 datasette-template-sql
-datasette-render-markdown>=2.2
+datasette-render-markdown>=2.2.1
 datasette-vega
 datasette-atom
 dogsheep-beta>=0.10.2

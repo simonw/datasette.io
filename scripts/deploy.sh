@@ -11,7 +11,7 @@ datasette publish cloudrun \
   --metadata=metadata.yml \
   --plugins-dir=plugins \
   --static=static:static \
-  --install='datasette-render-markdown>=2.2' \
+  --install='datasette-render-markdown>=2.2.1' \
   --install=Pygments \
   --install=datasette-template-sql \
   --install=python-dateutil \
