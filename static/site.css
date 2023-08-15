@@ -18,6 +18,9 @@ footer {
 .homepage h1 {
     margin-bottom: 0;
 }
+.homepage pre {
+    white-space: pre-wrap;
+}
 .tagline {
     font-size: 1.4em;
     color: #0e0c82;
