@@ -89,7 +89,7 @@ svg.octicon-link {
 {% endif %}
 
 {% if tool.readme_html %}
-    <h2>README</h2>
+<h2>README <a href="https://github.com/{{ tool["full_name"] }}" style="font-size: 0.7em;vertical-align: middle;padding-left: 1em;">source code</a></h2>
     <div class="plugin">
     {{ tool.readme_html|safe }}
     </div>
