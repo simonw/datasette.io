@@ -1,3 +1,6 @@
+- date: 2023-08-22
+  body: |-
+    [Datasette 1.0a4](https://docs.datasette.io/en/1.0a4/changelog.html#a4-2023-08-21) has a fix for a security vulnerability in the Datasette 1.0 alpha series: the API explorer interface exposed the names of private databases and tables in public instances that were protected by a plugin such as [datasette-auth-passwords](https://datasette.io/plugins/datasette-auth-passwords), though not the actual content of those tables. See the [security advisory](https://github.com/simonw/datasette/security/advisories/GHSA-7ch3-7pp7-7cpq) for more details and workarounds for if you can't upgrade immediately. The [latest edition of the Datasette Newsletter](https://datasette.substack.com/p/datasette-cloud-and-the-datasette) also talks about this issue.
 - date: 2023-08-15
   body: |-
     [datasette-write-ui: a Datasette plugin for editing, inserting, and deleting rows](https://www.datasette.cloud/blog/2023/datasette-write-ui/) introduces a new plugin adding add/edit/delete functionality to Datasette, developed by Alex Garcia. Alex built this for [Datasette Cloud](https://www.datasette.cloud/), and this post is the first announcement made on the new Datasette Cloud blog - see also [Welcome to Datasette Cloud](https://www.datasette.cloud/blog/2023/welcome/).
