@@ -5,6 +5,7 @@ gcloud config set run/region us-central1
 gcloud config set project datasette-222320
 datasette publish cloudrun \
   content.db docs-index.db dogsheep-index.db blog.db tils.db \
+  --branch 1.0a2 \
   --service datasette-io \
   --template-dir=templates \
   --metadata=metadata.yml \

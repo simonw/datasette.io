@@ -51,3 +51,4 @@ python index_tutorials.py
 
 # Build search index
 dogsheep-beta index dogsheep-index.db templates/dogsheep-beta.yml
+sqlite-utils rebuild-fts dogsheep-index.db
