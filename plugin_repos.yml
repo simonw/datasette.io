@@ -346,7 +346,7 @@
 - repo: simonw/datasette-explain
   tags:
   - Debug
-- repo: UUDigitalHumanitieslab/datasette-matomo
+- repo: CentreForDigitalHumanities/datasette-matomo
   tags:
   - Analytics
 - repo: simonw/datasette-chatgpt-plugin
