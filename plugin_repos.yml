@@ -389,3 +389,7 @@
   tags:
   - Data Import
   - UI
+- repo: simonw/datasette-llm-embed
+  tags:
+  - SQLite Extension
+  - AI
