@@ -396,3 +396,6 @@
 - repo: datasette/datasette-comments
   tags:
   - Collaboration
+- repo: simonw/datasette-statistics
+  tags:
+  - SQL Functions
