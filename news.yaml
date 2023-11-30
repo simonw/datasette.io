@@ -1,4 +1,4 @@
-- dates: 2023-11-30
+- date: 2023-11-30
   body: |-
     [datasette-comments](https://datasette.io/plugins/datasette-comments) is a new plugin by Alex Garcia which adds collaborative commenting to Datasette. Alex built the plugin for Datasette Cloud, but it's also available as an open source package for people who are hosting their own Datasette instances. See [Annotate and explore your data with datasette-comments](https://www.datasette.cloud/blog/2023/datasette-comments/) on the Datasette Cloud blog for more details.
 - date: 2023-08-22
