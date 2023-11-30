@@ -393,3 +393,6 @@
   tags:
   - SQLite Extension
   - AI
+- repo: datasette/datasette-comments
+  tags:
+  - Collaboration
