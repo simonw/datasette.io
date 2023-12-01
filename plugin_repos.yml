@@ -399,3 +399,18 @@
 - repo: simonw/datasette-statistics
   tags:
   - SQL Functions
+- repo: datasette/datasette-enrichments
+  tags:
+  - Enrichment
+- repo: datasette/datasette-enrichments-gpt
+  tags:
+  - Enrichment
+- repo: datasette/datasette-enrichments-opencage
+  tags:
+  - Enrichment
+- repo: datasette/datasette-enrichments-jinja
+  tags:
+  - Enrichment
+- repo: datasette/datasette-enrichments-re2
+  tags:
+  - Enrichment
