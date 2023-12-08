@@ -414,3 +414,5 @@
 - repo: datasette/datasette-enrichments-re2
   tags:
   - Enrichment
+- repo: datasette/datasette-chronicle
+  - Ops
