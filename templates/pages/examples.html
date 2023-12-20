@@ -55,19 +55,6 @@ You can explore the database that powers this site at [datasette.io/content](htt
 </div>
 <div class="example-container">
   <div class="example-content">
-    <h2><a href="https://laion-aesthetic.datasette.io/laion-aesthetic-6pls/images">LAION-Aesthetics v2 6+</a></h2>
-    {% markdown %}
-The Stable Diffusion text-to-image model was trained primarily using [LAION-5B](https://laion.ai/blog/laion-5b/) and [LAION-Aesthetics](https://laion.ai/blog/laion-aesthetics/), enormous datasets of images scraped from the web.
-
-[laion-aesthetic.datasette.io](https://laion-aesthetic.datasette.io/laion-aesthetic-6pls/images) presents a subset of 12 million images from LAION-Aesthetics, filtered to the images with an aesthetic score of 6 or higher. The goal is to help people understand the kind of images that are used to train these image generation models.
-
-[Exploring the training data behind Stable Diffusion](https://simonwillison.net/2022/Sep/5/laion-aesthetics-weeknotes/) explains how the Datasette instance was constructed in detail, and [Exploring 12 Million of the 2.3 Billion Images Used to Train Stable Diffusion’s Image Generator](https://waxy.org/2022/08/exploring-12-million-of-the-images-used-to-train-stable-diffusions-image-generator/) describes the results of the exploration.
-    {% endmarkdown %}
-  </div>
-  <img class="example-image" alt="Screenshot of a Datasette table containing 12 million images, with preview thumbnails of the first two." src="https://simonw.github.io/datasette-screenshots/non-retina/laion-aesthetic.png">
-</div>
-<div class="example-container">
-  <div class="example-content">
     <h2><a href="https://github-to-sqlite.dogsheep.net/">github-to-sqlite with GraphQL</a></h2>
     {% markdown %}
 [github-to-sqlite](https://datasette.io/tools/github-to-sqlite) is a tool for loading data from GitHub - repositories, issues, issue comments, commits and more - into a SQLite database.
