@@ -417,3 +417,6 @@
 - repo: datasette/datasette-chronicle
   tags:
   - Ops
+- repo: datasette/datasette-plot
+  tags:
+  - Visualization
