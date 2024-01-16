@@ -181,6 +181,7 @@ def cli(
         if (
             row["latest_commit"] != previous_hashes.get(row["nameWithOwner"])
             or force_fetch_readmes
+            or row["nameWithOwner"] == "simonw/datasette-atom"
         ):
             repos_to_fetch_readme_for.append(row["nameWithOwner"])
     if repos_to_fetch_readme_for:
