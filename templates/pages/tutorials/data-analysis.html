@@ -279,13 +279,13 @@ We now have a list of dictionaries. Let's load them into SQLite:
 ```python
 import sqlite_utils
 db = sqlite_utils.Database("/tmp/peps.db")
-db["peps"].insert_all(peps, pk="PEP", alter=True, replace=True)
+db["peps"].insert_all(peps, pk="PEP", replace=True)
 ```
 I got this error:
 ```
 OperationalError: table peps has no column named PEP-Delegate
 ```
-To fix that:
+To fix that, use `alter=True` to automatically add any missing columns:
 ```python
 db["peps"].insert_all(peps, pk="PEP", alter=True, replace=True)
 print(db["peps"].count)
