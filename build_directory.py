@@ -3,6 +3,8 @@ from github_to_sqlite.cli import (
     releases as github_to_sqlite_releases,
     repos as github_to_sqlite_repos,
 )
+import httpx
+import json
 from python_graphql_client import GraphqlClient
 import sqlite_utils
 
@@ -118,13 +120,11 @@ def fetch_plugins(oauth_token, repos):
 @click.option("--github-token", envvar="GITHUB_TOKEN", required=True)
 @click.option("--fetch-missing-releases", is_flag=True)
 @click.option("--always-fetch-releases-for-repo", multiple=True)
-@click.option("--force-fetch-readmes", is_flag=True)
 def cli(
     db_filename,
     github_token,
     fetch_missing_releases,
     always_fetch_releases_for_repo,
-    force_fetch_readmes,
 ):
     db = sqlite_utils.Database(db_filename)
     repos_to_fetch_releases_for = {"simonw/datasette"}
@@ -175,26 +175,77 @@ def cli(
             db_filename, list(repos_to_fetch_releases_for), auth="auth.json"
         )
 
-    # Fetch README for any repos that have changed since last time
-    repos_to_fetch_readme_for = []
+    # Fetch details for any repos that have changed since last time
+    repos_to_fetch = []
     for row in db["datasette_repos"].rows:
-        if (
-            row["latest_commit"] != previous_hashes.get(row["nameWithOwner"])
-            or force_fetch_readmes
-            or row["nameWithOwner"] == "simonw/datasette-atom"
-        ):
-            repos_to_fetch_readme_for.append(row["nameWithOwner"])
-    if repos_to_fetch_readme_for:
-        print("Fetching README for {}".format(repos_to_fetch_readme_for))
+        if row["latest_commit"] != previous_hashes.get(row["nameWithOwner"]):
+            repos_to_fetch.append(row["nameWithOwner"])
+
+    # Fix up 3 repos with camo.githubusercontent.com at random
+    # https://github.com/simonw/datasette.io/issues/156#issuecomment-1894795880
+    fix_repo_names = [
+        row[0]
+        for row in db.execute(
+            """
+        select full_name from repos
+        where readme_html like '%camo.githubusercontent.com%'
+        and readme not like '%camo.githubusercontent.com%'
+        limit 3
+    """
+        ).fetchall()
+    ]
+    print("Fixing HTML for {}".format(fix_repo_names))
+    repos_to_fetch.extend(fix_repo_names)
+
+    if repos_to_fetch:
+        print("Fetching repo details for {}".format(repos_to_fetch))
         github_to_sqlite_repos.callback(
             db_filename,
             usernames=[],
             auth="auth.json",
-            repo=repos_to_fetch_readme_for,
+            repo=repos_to_fetch,
             load=None,
-            readme=True,
-            readme_html=True,
+            readme=False,
+            readme_html=False,
         )
+
+    # Separate step to fetch their READMEs
+    for repo in repos_to_fetch:
+        print("Fetching README for {}".format(repo))
+        # curl 'https://api.github.com/repos/simonw/datasette/readme' -H 'Accept: application/vnd.github.raw'
+        response = httpx.get(
+            "https://api.github.com/repos/{}/readme".format(repo),
+            headers={
+                "Accept": "application/vnd.github.raw",
+                "Authorization": "Bearer {}".format(github_token),
+            },
+        )
+        response.raise_for_status()
+        readme_md = response.text
+        # Now convert that markdown to HTML
+        response2 = httpx.post(
+            "https://api.github.com/markdown",
+            json={
+                "text": readme_md,
+                "mode": "markdown",
+                "context": repo,
+            },
+            headers={
+                "Accept": "application/vnd.github.v3+json",
+                "Authorization": "Bearer {}".format(github_token),
+            },
+        )
+        response2.raise_for_status()
+        readme_html = response2.text
+        with db.conn:
+            db.execute(
+                "update repos set readme = :readme, readme_html = :readme_html where full_name = :full_name",
+                {
+                    "readme": readme_md,
+                    "readme_html": readme_html,
+                    "full_name": repo,
+                },
+            )
 
     for view_name, repo_table in (("plugins", "plugin_repos"), ("tools", "tool_repos")):
         db.create_view(
