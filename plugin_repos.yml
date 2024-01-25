@@ -420,3 +420,9 @@
 - repo: datasette/datasette-plot
   tags:
   - Visualization
+- repo: drkane/datasette-reconcile
+  tags:
+  - API
+- repo: datasette/datasette-proxy-url
+  tags:
+  - Ops
