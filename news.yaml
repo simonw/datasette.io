@@ -1,3 +1,6 @@
+- date: 2024-02-07
+  body: |-
+    [Datasette 1.0a8](https://docs.datasette.io/en/1.0a8/changelog.html#a8-2024-02-07) introduces several new plugin hooks, a JavaScript plugin system and moves plugin configuration from `metadata.yaml` to `datasette.yaml`. Read more about the release in [the annotated release notes for 1.0a8](https://simonwillison.net/2024/Feb/7/datasette-1a8/).
 - date: 2023-12-01
   body: |-
     [Datasette Enrichments](https://enrichments.datasette.io/) is a new feature for Datasette that supports enriching data by running custom code against every selected row in a table. Read [Datasette Enrichments: a new plugin framework for augmenting your data](https://simonwillison.net/2023/Dec/1/datasette-enrichments/) for more details, plus a video demo of enrichments for geocoding addresses and processing text and images using GPT-4.
