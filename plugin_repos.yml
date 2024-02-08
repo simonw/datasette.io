@@ -426,3 +426,7 @@
 - repo: datasette/datasette-proxy-url
   tags:
   - Ops
+- repo: datasette/datasette-events-db
+  tags:
+  - Debug
+  - Events
