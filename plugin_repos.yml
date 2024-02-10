@@ -430,3 +430,6 @@
   tags:
   - Debug
   - Events
+- repo: datasette/datasette-homepage-table
+  tags:
+  - Ops
