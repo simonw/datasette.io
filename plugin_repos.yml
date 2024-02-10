@@ -433,3 +433,6 @@
 - repo: datasette/datasette-homepage-table
   tags:
   - Ops
+- repo: datasette/datasette-enrichments-quickjs
+  tags:
+  - Enrichment
