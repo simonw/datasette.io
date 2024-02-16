@@ -1,3 +1,6 @@
+- date: 2024-02-16
+  body: |-
+    [Datasette 1.0a9](https://docs.datasette.io/en/latest/changelog.html#a9-2024-02-16) adds basic alter table support to the JSON API, tweaks how permissions works and introduces some new plugin debugging utilities.
 - date: 2024-02-07
   body: |-
     [Datasette 1.0a8](https://docs.datasette.io/en/1.0a8/changelog.html#a8-2024-02-07) introduces several new plugin hooks, a JavaScript plugin system and moves plugin configuration from `metadata.yaml` to `datasette.yaml`. Read more about the release in [the annotated release notes for 1.0a8](https://simonwillison.net/2024/Feb/7/datasette-1a8/).
