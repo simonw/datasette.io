@@ -1,3 +1,6 @@
+- date: 2024-02-18
+  body: |-
+    [Datasette 1.0a10](https://docs.datasette.io/en/latest/changelog.html#a10-2024-02-17) is a focused alpha that changes some internal details about how Datasette handles transactions. The `datasette.execute_write_fn()` internal method now wraps the function in a database transaction unless you pass `transaction=False`.
 - date: 2024-02-16
   body: |-
     [Datasette 1.0a9](https://docs.datasette.io/en/latest/changelog.html#a9-2024-02-16) adds basic alter table support to the JSON API, tweaks how permissions works and introduces some new plugin debugging utilities.
