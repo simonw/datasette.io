@@ -436,3 +436,9 @@
 - repo: datasette/datasette-enrichments-quickjs
   tags:
   - Enrichment
+- repo: datasette/datasette-visible-internal-db
+  tags:
+  - Debug
+- repo: datasette/datasette-unsafe-actor-debug
+  tags:
+  - Debug
