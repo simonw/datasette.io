@@ -442,3 +442,6 @@
 - repo: datasette/datasette-unsafe-actor-debug
   tags:
   - Debug
+- repo: datasette/datasette-events-forward
+  tags:
+  - Events
