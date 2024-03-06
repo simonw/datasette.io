@@ -14,7 +14,7 @@ github-to-sqlite>=2.8.2
 python-graphql-client
 httpx
 feedparser
-pypi-to-sqlite
+pypi-to-sqlite>=0.2.3
 pytest
 # These are used in deploy, listing them here so they
 # show up in the GitHub dependency graph:
