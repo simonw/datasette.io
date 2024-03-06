@@ -445,3 +445,19 @@
 - repo: datasette/datasette-events-forward
   tags:
   - Events
+- repo: datasette/datasette-uptime
+  tags:
+  - Debug
+  - Ops
+- repo: datasette/datasette-sqlite-authorizer
+  tags:
+  - Ops
+- repo: datasette/datasette-sqlite-debug-authorizer
+  tags:
+  - Debug
+- repo: datasette/datasette-tail
+  tags:
+  - Debug
+- repo: datasette/datasette-column-sum
+  tags:
+  - Column Actions
