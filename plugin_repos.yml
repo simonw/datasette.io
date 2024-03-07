@@ -461,3 +461,6 @@
 - repo: datasette/datasette-column-sum
   tags:
   - Column Actions
+- repo: datasette/datasette-create-view
+  tags:
+  - Query Actions
