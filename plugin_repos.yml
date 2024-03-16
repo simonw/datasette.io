@@ -89,6 +89,8 @@
   tags:
   - Template
 - repo: simonw/datasette-edit-schema
+  tags:
+  - Schema
 - repo: simonw/datasette-ics
   tags:
   - Output
@@ -385,6 +387,7 @@
 - repo: rclement/datasette-ml
   tags:
   - Machine Learning
+  - AI
 - repo: datasette/datasette-write-ui
   tags:
   - Data Import
@@ -405,6 +408,7 @@
 - repo: datasette/datasette-enrichments-gpt
   tags:
   - Enrichment
+  - AI
 - repo: datasette/datasette-enrichments-opencage
   tags:
   - Enrichment
@@ -464,3 +468,7 @@
 - repo: datasette/datasette-create-view
   tags:
   - Query Actions
+- repo: datasette/datasette-extract
+  tags:
+  - AI
+  - Data Import
