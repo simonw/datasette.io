@@ -137,6 +137,7 @@
 - repo: simonw/datasette-configure-fts
   tags:
   - Search
+  - Schema
 - repo: simonw/datasette-render-html
   tags:
   - Render Cell
@@ -185,6 +186,7 @@
   tags:
   - API
   - Debug
+  - Schema
 - repo: simonw/datasette-permissions-sql
   tags:
   - Authentication
@@ -472,3 +474,6 @@
   tags:
   - AI
   - Data Import
+- repo: datasette/datasette-export-database
+  tags:
+  - Ops
