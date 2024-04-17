@@ -477,3 +477,13 @@
 - repo: datasette/datasette-export-database
   tags:
   - Ops
+- repo: datasette/datasette-embeddings
+  tags:
+  - AI
+  - Enrichment
+- repo: datasette/datasette-import
+  tags:
+  - Data Import
+- repo: datasette/datasette-query-assistant
+  tags:
+  - AI
