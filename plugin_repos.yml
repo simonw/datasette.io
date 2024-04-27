@@ -487,3 +487,6 @@
 - repo: datasette/datasette-query-assistant
   tags:
   - AI
+- repo: datasette/datasette-secrets
+  tags:
+  - Ops
