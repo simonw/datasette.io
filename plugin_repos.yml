@@ -490,3 +490,6 @@
 - repo: datasette/datasette-secrets
   tags:
   - Ops
+- repo: datasette/datasette-checkbox
+  tags:
+  - UI
