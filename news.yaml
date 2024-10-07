@@ -1,3 +1,6 @@
+- date: 2024-10-07
+  body: |-
+    [Python 3.13](https://docs.python.org/3.13/whatsnew/3.13.html) was released today. [Datasette 1.0a16](https://docs.datasette.io/en/latest/changelog.html#a16-2024-09-05) is compatible with Python 3.13, but Datasette 0.64.8 was not. The new [Datasette 0.65](https://docs.datasette.io/en/stable/changelog.html#v0-65) release fixes compatibility with the new version of Python.
 - date: 2024-08-05
   body: |-
     [Datasette 1.0a14](https://docs.datasette.io/en/latest/changelog.html#a14-2024-08-05) includes some breaking changes to how metadata works for plugins, described in detail in the new [upgrade guide](https://docs.datasette.io/en/latest/upgrade_guide.html). See also the [annotated release notes](https://simonwillison.net/2024/Aug/5/datasette-1a14/) that accompany this release.
