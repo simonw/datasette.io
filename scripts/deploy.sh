@@ -24,6 +24,6 @@ datasette publish cloudrun \
   --install=html5lib \
   --install=beautifulsoup4 \
   --install 'dogsheep-beta>=0.10.1' \
-  --install 'httpx==0.27.2' \ # https://github.com/simonw/datasette.io/issues/161'
+  --install 'httpx==0.27.2' \
   --install datasette-chatgpt-plugin \
   --extra-options '--setting sql_time_limit_ms 2000'
