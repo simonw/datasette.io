@@ -12,7 +12,7 @@ yaml-to-sqlite>=1.0
 markdown-to-sqlite>=1.0
 github-to-sqlite>=2.8.2
 python-graphql-client
-httpx
+httpx==0.27.2 # https://github.com/simonw/datasette.io/issues/161
 feedparser
 pypi-to-sqlite>=0.2.3
 pytest
