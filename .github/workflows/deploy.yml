@@ -34,11 +34,11 @@ jobs:
     - name: Download previous content.db
       if: github.event.inputs.from_scratch != 'skip'
       run: |
-        curl -O https://datasette.io/content.db
+        curl -O https://datasette-io-99025868001.us-central1.run.app/content.db
     - name: Download previous blog.db
       if: github.event.inputs.from_scratch != 'skip'
       run: |
-        curl --fail -o blog.db https://datasette.io/blog.db
+        curl --fail -o blog.db https://datasette-io-99025868001.us-central1.run.app/blog.db
       continue-on-error: true
     - name: Build databases
       run: scripts/build.sh
@@ -48,11 +48,10 @@ jobs:
       run: curl -o docs-index.db https://stable-docs.datasette.io/docs.db
     - name: Soundness check
       run: scripts/test.sh
-    - name: Set up Cloud Run
-      uses: google-github-actions/setup-gcloud@v0
-      with:
-        version: '318.0.0'
-        service_account_email: ${{ secrets.GCP_SA_EMAIL }}
-        service_account_key: ${{ secrets.GCP_SA_KEY }}
-    - name: Deploy to Cloud Run
+    - name: Install Fly
+      run: |
+        curl -L https://fly.io/install.sh | sh
+    - name: Deploy to Fly
+      env:
+        FLY_API_TOKEN: ${{ secrets.FLY_TOKEN }}
       run: scripts/deploy.sh
