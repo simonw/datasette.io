@@ -1,13 +1,13 @@
 name: Deploy
 
 on:
-  push:
+  # push:
   workflow_dispatch:
     inputs:
       from_scratch:
         description: Enter 'skip' to create a new database from scratch
-  schedule:
-    - cron:  '26 4 * * *'
+  # schedule:
+  #  - cron:  '26 4 * * *'
 
 jobs:
   scheduled:
