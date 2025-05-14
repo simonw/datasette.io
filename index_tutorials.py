@@ -7,6 +7,11 @@ import sqlite_utils
 
 async def main():
     db = sqlite_utils.Database("content.db")
+    db["tutorials"].create({
+        "path": str,
+        "title": str,
+        "body": str,
+    }, pk="path")
     ds = Datasette(config_dir=pathlib.Path("."))
     index_response = await ds.client.get("/tutorials")
     index_soup = Soup(index_response.text, "html5lib")

@@ -183,19 +183,19 @@ def cli(
 
     # Fix up 3 repos with camo.githubusercontent.com at random
     # https://github.com/simonw/datasette.io/issues/156#issuecomment-1894795880
-    fix_repo_names = [
-        row[0]
-        for row in db.execute(
-            """
-        select full_name from repos
-        where readme_html like '%camo.githubusercontent.com%'
-        and readme not like '%camo.githubusercontent.com%'
-        limit 3
-    """
-        ).fetchall()
-    ]
-    print("Fixing HTML for {}".format(fix_repo_names))
-    repos_to_fetch.extend(fix_repo_names)
+    # fix_repo_names = [
+    #     row[0]
+    #     for row in db.execute(
+    #         """
+    #     select full_name from repos
+    #     where readme_html like '%camo.githubusercontent.com%'
+    #     and readme not like '%camo.githubusercontent.com%'
+    #     limit 3
+    # """
+    #     ).fetchall()
+    # ]
+    # print("Fixing HTML for {}".format(fix_repo_names))
+    # repos_to_fetch.extend(fix_repo_names)
 
     if repos_to_fetch:
         print("Fetching repo details for {}".format(repos_to_fetch))

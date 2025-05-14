@@ -37,7 +37,7 @@ eval "pypi-to-sqlite content.db $args
 python fetch_blog_content.py blog.db datasette dogsheep sqliteutils
 
 # Fetch TILs
-curl -L -o tils.db https://s3.amazonaws.com/til.simonwillison.net/tils.db
+curl -L -o tils.db https://github.com/simonw/til-db/raw/main/tils.db
 
 # Fetch documentation database for search index
 curl -o docs-index.db https://stable-docs.datasette.io/docs.db
