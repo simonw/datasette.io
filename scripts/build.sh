@@ -13,8 +13,8 @@ yaml-to-sqlite content.db example_csvs example_csvs.yml
 markdown-to-sqlite content.db uses for/*.md
 
 # Build plugin and tools directories
-sqlite-utils drop-table content.db plugin_repos
-sqlite-utils drop-table content.db tool_repos
+sqlite-utils drop-table content.db plugin_repos --ignore
+sqlite-utils drop-table content.db tool_repos --ignore
 yaml-to-sqlite content.db plugin_repos plugin_repos.yml
 yaml-to-sqlite content.db tool_repos tool_repos.yml
 python build_directory.py content.db --fetch-missing-releases \
@@ -37,7 +37,7 @@ eval "pypi-to-sqlite content.db $args
 python fetch_blog_content.py blog.db datasette dogsheep sqliteutils
 
 # Fetch TILs
-curl -L -o tils.db https://github.com/simonw/til-db/raw/main/tils.db
+curl -L -o tils.db https://s3.amazonaws.com/til.simonwillison.net/tils.db
 
 # Fetch documentation database for search index
 curl -o docs-index.db https://stable-docs.datasette.io/docs.db
