@@ -3,8 +3,7 @@
 {% set plugins = sql("""
 select
     plugins.*,
-    '' as readme_html
-    -- repos.readme_html as readme_html
+    repos.readme_html as readme_html
 from
     repos
 join

@@ -3,8 +3,7 @@ from github_to_sqlite.cli import (
     releases as github_to_sqlite_releases,
     repos as github_to_sqlite_repos,
 )
-import httpx
-import json
+import pathlib
 from python_graphql_client import GraphqlClient
 import sqlite_utils
 
@@ -117,15 +116,27 @@ def fetch_plugins(oauth_token, repos):
     "db_filename",
     type=click.Path(file_okay=True, dir_okay=False),
 )
+@click.argument(
+    "path_to_readmes",
+    type=click.Path(file_okay=False, dir_okay=True),
+)
 @click.option("--github-token", envvar="GITHUB_TOKEN", required=True)
 @click.option("--fetch-missing-releases", is_flag=True)
 @click.option("--always-fetch-releases-for-repo", multiple=True)
 def cli(
     db_filename,
+    path_to_readmes,
     github_token,
     fetch_missing_releases,
     always_fetch_releases_for_repo,
 ):
+    """
+    Run like this:
+
+    python build_directory.py content.db path/to/readmes
+
+    path/to/readmes should be a checkout of https://github.com/datasette/stashed-readmes
+    """
     db = sqlite_utils.Database(db_filename)
     repos_to_fetch_releases_for = {"simonw/datasette"}
     if "latest_commit" not in db["datasette_repos"].columns_dict:
@@ -181,22 +192,6 @@ def cli(
         if row["latest_commit"] != previous_hashes.get(row["nameWithOwner"]):
             repos_to_fetch.append(row["nameWithOwner"])
 
-    # Fix up 3 repos with camo.githubusercontent.com at random
-    # https://github.com/simonw/datasette.io/issues/156#issuecomment-1894795880
-    # fix_repo_names = [
-    #     row[0]
-    #     for row in db.execute(
-    #         """
-    #     select full_name from repos
-    #     where readme_html like '%camo.githubusercontent.com%'
-    #     and readme not like '%camo.githubusercontent.com%'
-    #     limit 3
-    # """
-    #     ).fetchall()
-    # ]
-    # print("Fixing HTML for {}".format(fix_repo_names))
-    # repos_to_fetch.extend(fix_repo_names)
-
     if repos_to_fetch:
         print("Fetching repo details for {}".format(repos_to_fetch))
         github_to_sqlite_repos.callback(
@@ -205,45 +200,33 @@ def cli(
             auth="auth.json",
             repo=repos_to_fetch,
             load=None,
-            readme=False,
+            readme=False,  # We have a diiferent mechanism for this
             readme_html=False,
         )
 
-    # Separate step to fetch their READMEs
-    for repo in repos_to_fetch:
-        print("Fetching README for {}".format(repo))
-        # curl 'https://api.github.com/repos/simonw/datasette/readme' -H 'Accept: application/vnd.github.raw'
-        response = httpx.get(
-            "https://api.github.com/repos/{}/readme".format(repo),
-            headers={
-                "Accept": "application/vnd.github.raw",
-                "Authorization": "Bearer {}".format(github_token),
-            },
-        )
-        response.raise_for_status()
-        readme_md = response.text
-        # Now convert that markdown to HTML
-        response2 = httpx.post(
-            "https://api.github.com/markdown",
-            json={
-                "text": readme_md,
-                "mode": "markdown",
-                "context": repo,
-            },
-            headers={
-                "Accept": "application/vnd.github.v3+json",
-                "Authorization": "Bearer {}".format(github_token),
-            },
-        )
-        response2.raise_for_status()
-        readme_html = response2.text
+    # Load READMEs for everything
+    # First ensure the columns exist
+    if "readme" not in db["repos"].columns_dict:
+        db["repos"].add_column("readme", str)
+        db["repos"].add_column("readme_html", str)
+    path_to_readmes = pathlib.Path(path_to_readmes)
+    for row in db["datasette_repos"].rows:
+        folder = path_to_readmes / row["nameWithOwner"]
+        readme_md = ""
+        readme_html = ""
+        if (folder / "README.md").exists():
+            with open(folder / "README.md", "r") as f:
+                readme_md = f.read()
+        if (folder / "README.html").exists():
+            with open(folder / "README.html", "r") as f:
+                readme_html = f.read()
         with db.conn:
             db.execute(
                 "update repos set readme = :readme, readme_html = :readme_html where full_name = :full_name",
                 {
                     "readme": readme_md,
                     "readme_html": readme_html,
-                    "full_name": repo,
+                    "full_name": row["nameWithOwner"],
                 },
             )
 

@@ -17,7 +17,9 @@ sqlite-utils drop-table content.db plugin_repos --ignore
 sqlite-utils drop-table content.db tool_repos --ignore
 yaml-to-sqlite content.db plugin_repos plugin_repos.yml
 yaml-to-sqlite content.db tool_repos tool_repos.yml
-python build_directory.py content.db --fetch-missing-releases \
+rm -rf /tmp/stashed-readmes
+git clone https://github.com/datasette/stashed-readmes /tmp/stashed-readmes
+python build_directory.py content.db /tmp/stashed-readmes --fetch-missing-releases \
    --always-fetch-releases-for-repo simonw/datasette-app
 
 # And fetch data from PyPI via the pypi-datasette-packages cache
