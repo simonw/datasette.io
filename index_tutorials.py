@@ -14,6 +14,7 @@ async def main():
             "body": str,
         },
         pk="path",
+        if_not_exists=True,
     )
     ds = Datasette(config_dir=pathlib.Path("."))
     index_response = await ds.client.get("/tutorials")
