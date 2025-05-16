@@ -1,6 +1,8 @@
 #!/bin/bash
 set -euf -o pipefail
 
+alias flyctl="/home/runner/.fly/bin/flyctl"
+
 datasette publish fly \
   content.db docs-index.db dogsheep-index.db blog.db tils.db \
   --branch 1.0a2 \
