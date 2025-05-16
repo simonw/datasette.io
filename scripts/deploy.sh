@@ -1,6 +1,9 @@
 #!/bin/bash
 set -euf -o pipefail
 
+# Add GitHub Actions runner flyctl to the PATH
+export PATH="/home/runner/.fly/bin:$PATH"
+
 datasette publish fly \
   content.db docs-index.db dogsheep-index.db blog.db tils.db \
   --branch 1.0a2 \

@@ -13,11 +13,13 @@ yaml-to-sqlite content.db example_csvs example_csvs.yml
 markdown-to-sqlite content.db uses for/*.md
 
 # Build plugin and tools directories
-sqlite-utils drop-table content.db plugin_repos
-sqlite-utils drop-table content.db tool_repos
+sqlite-utils drop-table content.db plugin_repos --ignore
+sqlite-utils drop-table content.db tool_repos --ignore
 yaml-to-sqlite content.db plugin_repos plugin_repos.yml
 yaml-to-sqlite content.db tool_repos tool_repos.yml
-python build_directory.py content.db --fetch-missing-releases \
+rm -rf /tmp/stashed-readmes
+git clone https://github.com/datasette/stashed-readmes /tmp/stashed-readmes
+python build_directory.py content.db /tmp/stashed-readmes --fetch-missing-releases \
    --always-fetch-releases-for-repo simonw/datasette-app
 
 # And fetch data from PyPI via the pypi-datasette-packages cache
@@ -43,7 +45,7 @@ curl -L -o tils.db https://github.com/simonw/til-db/raw/main/tils.db
 curl -o docs-index.db https://stable-docs.datasette.io/docs.db
 
 # Import stats.json
-curl https://raw.githubusercontent.com/simonw/package-stats/main/stats.json \
+curl -f -S https://raw.githubusercontent.com/simonw/package-stats/main/stats.json \
   | python build_stats.py content.db -
 
 # Build tutorials table, for search
@@ -51,4 +53,8 @@ python index_tutorials.py
 
 # Build search index
 dogsheep-beta index dogsheep-index.db templates/dogsheep-beta.yml
+
+# Temp hack to remove any rogue tils
+sqlite-utils dogsheep-index.db "delete from search_index where type = 'tils.db/til'"
+
 sqlite-utils rebuild-fts dogsheep-index.db
