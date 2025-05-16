@@ -147,7 +147,7 @@ content.db:
         display_sql: |-
             select
               highlight(
-                plugins.description || ' ' || coalesce(repos.readme_html, ''), :q
+                plugins.description || ' ' || coalesce(repos.readme_html, ''),
                 :q
               ) as snippet,
               usesCustomOpenGraphImage,
