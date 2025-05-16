@@ -45,7 +45,7 @@ curl -L -o tils.db https://github.com/simonw/til-db/raw/main/tils.db
 curl -o docs-index.db https://stable-docs.datasette.io/docs.db
 
 # Import stats.json
-curl https://raw.githubusercontent.com/simonw/package-stats/main/stats.json \
+curl -f -S https://raw.githubusercontent.com/simonw/package-stats/main/stats.json \
   | python build_stats.py content.db -
 
 # Build tutorials table, for search
