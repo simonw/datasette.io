@@ -53,4 +53,8 @@ python index_tutorials.py
 
 # Build search index
 dogsheep-beta index dogsheep-index.db templates/dogsheep-beta.yml
+
+# Temp hack to remove any rogue tils
+sqlite-utils dogsheep-index.db "delete from search_index where type = 'tils.db/til'"
+
 sqlite-utils rebuild-fts dogsheep-index.db
