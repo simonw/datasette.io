@@ -113,13 +113,13 @@ content.db:
                 tools.name as key,
                 tools.name as title,
                 tools.created_at as timestamp,
-                tools.description as search_1, -- || ' ' || coalesce(repos.readme, '') as search_1,
+                tools.description || ' ' || coalesce(repos.readme, '') as search_1,
                 1 as is_public
             from tools join repos on tools.name = repos.name
         display_sql: |-
             select
               highlight(
-                tools.description, -- || ' ' || coalesce(repos.readme_html, ''),
+                tools.description || ' ' || coalesce(repos.readme_html, ''),
                 :q
               ) as snippet,
               usesCustomOpenGraphImage,
@@ -141,13 +141,13 @@ content.db:
                 plugins.name as key,
                 plugins.name as title,
                 plugins.created_at as timestamp,
-                plugins.description as search_1, -- || ' ' || coalesce(repos.readme, '') as search_1,
+                plugins.description || ' ' || coalesce(repos.readme, '') as search_1,
                 1 as is_public
             from plugins join repos on plugins.name = repos.name
         display_sql: |-
             select
               highlight(
-                plugins.description, -- || ' ' || coalesce(repos.readme_html, ''), :q
+                plugins.description || ' ' || coalesce(repos.readme_html, ''), :q
                 :q
               ) as snippet,
               usesCustomOpenGraphImage,
