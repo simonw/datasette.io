@@ -38,6 +38,7 @@ async def main():
             },
             pk="path",
             replace=True,
+            if_not_exists=True,
         )
 
 
