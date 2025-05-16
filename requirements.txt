@@ -1,6 +1,7 @@
 click
 python-dateutil
-datasette
+datasette==1.0a2
+datasette-publish-fly
 datasette-template-sql
 datasette-render-markdown>=2.2.1
 datasette-vega
