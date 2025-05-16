@@ -6,8 +6,8 @@ on:
     inputs:
       from_scratch:
         description: Enter 'skip' to create a new database from scratch
-#  schedule:
-#    - cron:  '26 4 * * *'
+  # schedule:
+  #  - cron:  '26 4 * * *'
 
 jobs:
   scheduled:
@@ -34,11 +34,11 @@ jobs:
     - name: Download previous content.db
       if: github.event.inputs.from_scratch != 'skip'
       run: |
-        curl -O https://datasette-io-99025868001.us-central1.run.app/content.db
+        curl -O https://datasette.io/content.db
     - name: Download previous blog.db
       if: github.event.inputs.from_scratch != 'skip'
       run: |
-        curl --fail -o blog.db https://datasette-io-99025868001.us-central1.run.app/blog.db
+        curl --fail -o blog.db https://datasette.io/blog.db
       continue-on-error: true
     - name: Build databases
       run: scripts/build.sh
