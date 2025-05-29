@@ -12,6 +12,4 @@ Data published by Datasette can be deployed to both traditional and serverless h
 
 The `datasette publish` command, [documented here](https://docs.datasette.io/en/stable/publish.html), can deploy to [Heroku](https://heroku.com/) and [Google Cloud Run](https://cloud.google.com/run). Plugins can be used to deploy Datasette on [Vercel](https://vercel.com/) or [fly.io](https://fly.io/).
 
-Datasette also works great on [Glitch](https://glitch.com/).
-
 When combined with GitHub Actions, Datasette can be used to automatically deploy new databases on a scheduled basis. See [Deploying a data API using GitHub Actions and Cloud Run](https://simonwillison.net/2020/Jan/21/github-actions-cloud-run/) for more details on implementing this pattern.
