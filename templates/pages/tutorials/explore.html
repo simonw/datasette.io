@@ -31,7 +31,7 @@ Datasette offers flexible tools for exploring data tables. It's always worth spe
 
 We'll be using an example database of Members of the United States Congress, 1789 to present. I built this example using data from the [unitedstates/congress-legislators](https://github.com/unitedstates/congress-legislators) project on GitHub, maintained by Joshua Tauberer, Eric Mill and over 100 other contributors.
 
-Access the example in Datasette here: **https://congress-legislators.datasettes.com/legislators**
+Access the example in Datasette here: **https://datasette.io/legislators**
 
 ![Screenshot of database index page, showing a box to enter SQL queries and a list of their tables](/static/tutorials/explore/legislators-index.jpg)
 
@@ -47,22 +47,22 @@ Each column in a table has a type. In SQLite these types can be one of ``text``,
 
 The tables in our example database are:
 
-- [legislators](https://congress-legislators.datasettes.com/legislators/legislators) - 12,590 rows - individuals who have served as senators or representatives
-- [legislator_terms](https://congress-legislators.datasettes.com/legislators/legislator_terms) - 44,542 rows - terms served by legislators, back to 1789
-- [executives](https://congress-legislators.datasettes.com/legislators/executives) - 80 rows - individuals who have served as President or Vice President
-- [executive_terms](https://congress-legislators.datasettes.com/legislators/executive_terms) - 129 rows - terms served by executives
-- [offices](https://congress-legislators.datasettes.com/legislators/offices) - 1,192 rows - district officers maintained by current legislators
-- [social_media](https://congress-legislators.datasettes.com/legislators/social_media) - 525 rows - social media accounts for current legislators
+- [legislators](https://datasette.io/legislators/legislators) - 12,590 rows - individuals who have served as senators or representatives
+- [legislator_terms](https://datasette.io/legislators/legislator_terms) - 44,542 rows - terms served by legislators, back to 1789
+- [executives](https://datasette.io/legislators/executives) - 80 rows - individuals who have served as President or Vice President
+- [executive_terms](https://datasette.io/legislators/executive_terms) - 129 rows - terms served by executives
+- [offices](https://datasette.io/legislators/offices) - 1,192 rows - district officers maintained by current legislators
+- [social_media](https://datasette.io/legislators/social_media) - 525 rows - social media accounts for current legislators
 
 Follow these links now and explore the tables to get a feel for the way the data is organized in this database.
 
 ## Tables can relate to each other
 
-Sometimes you'll see a row in a table that links to another table, for example the `legislator_id` column in the [legislator_terms table](https://congress-legislators.datasettes.com/legislators/legislator_terms):
+Sometimes you'll see a row in a table that links to another table, for example the `legislator_id` column in the [legislator_terms table](https://datasette.io/legislators/legislator_terms):
 
 ![A table where the legislator_id column contains names that link to other rows](/static/tutorials/explore/foreign-key-links.jpg)
 
-Clicking one of the linked names in that column will take you to a page for that individual legislator row that [looks like this](https://congress-legislators.datasettes.com/legislators/legislators/K000393):
+Clicking one of the linked names in that column will take you to a page for that individual legislator row that [looks like this](https://datasette.io/legislators/legislators/K000393):
 
 ![The page for a row includes links to related rows](/static/tutorials/explore/row-with-links.jpg)
 
@@ -76,13 +76,13 @@ Foreign keys are key to understanding why relational databases are so much more 
 
 Facets are one of the most powerful Datasette features. They can help you take a table with thousands of rows and start quickly identifying interesting trends and patterns within that data.
 
-I'll show some examples using the [executive_terms](https://congress-legislators.datasettes.com/legislators/executive_terms) table.
+I'll show some examples using the [executive_terms](https://datasette.io/legislators/executive_terms) table.
 
 Facets can be applied in two ways: you can select an option from the "suggested facets" list, or you can select the "Facet by this" option from the cog menu next to each column.
 
 ![Screenshot of a table showing the suggested facet links and indicating where in the column cog menu the Facet by this link can be found](/static/tutorials/explore/select-facets.jpg)
 
-Once selected, the facet interface is shown above the table, like in [this example](https://congress-legislators.datasettes.com/legislators/executive_terms?_facet=type&_facet=party#facet-party):
+Once selected, the facet interface is shown above the table, like in [this example](https://datasette.io/legislators/executive_terms?_facet=type&_facet=party#facet-party):
 
 ![Facets show as two lists above the table - one of parties and one of types, where the types are prez or viceprez](/static/tutorials/explore/facets.jpg)
 
@@ -94,9 +94,9 @@ These numbers will update as you further filter the data: if you select "Democra
 
 ### Exercises
 
-1. Apply the `type`, `state` and `party` facets to the [legislator_terms table](https://congress-legislators.datasettes.com/legislators/legislator_terms)
+1. Apply the `type`, `state` and `party` facets to the [legislator_terms table](https://datasette.io/legislators/legislator_terms)
 2. Use them to filter just to Republican Senators from North Carolina (NC)
-3. Figure out which state has had the highest number of senatorial terms held by a member of the Republican party. ([solution if you get stuck](https://congress-legislators.datasettes.com/legislators/legislator_terms?_facet=party&party=Republican&_facet=state&_facet=type&type=sen))
+3. Figure out which state has had the highest number of senatorial terms held by a member of the Republican party. ([solution if you get stuck](https://datasette.io/legislators/legislator_terms?_facet=party&party=Republican&_facet=state&_facet=type&type=sen))
 
 ## Using filters<a name="using-filters"></a>
 
@@ -110,13 +110,13 @@ To see Democratic Vice Presidents just for the 1800s, we can add a filter for ro
 
 ![Here an additional row has been added to the filters, specifying that start should start with 18](/static/tutorials/explore/filter-starts-with.jpg)
 
-Here's [the result](https://congress-legislators.datasettes.com/legislators/executive_terms?_sort=rowid&_facet=type&_facet=party&start__startswith=18&party__exact=Democratic&type__exact=viceprez) of that query.
+Here's [the result](https://datasette.io/legislators/executive_terms?_sort=rowid&_facet=type&_facet=party&start__startswith=18&party__exact=Democratic&type__exact=viceprez) of that query.
 
 ![A table listing Democratic vice presidential terms served in the 1800s](/static/tutorials/explore/viceprez-result.jpg)
 
 ### Exercises
 
-Using the [legislator_terms](https://congress-legislators.datasettes.com/legislators/legislator_terms) table, find:
+Using the [legislator_terms](https://datasette.io/legislators/legislator_terms) table, find:
 
 1. Every senatorial term served in Delaware (DE)
 2. ... that started in a year starting with 18
@@ -130,8 +130,8 @@ This includes applied filters and facets - so if you find an interesting way to 
 
 Some examples:
 
-- [Every senatorial term in the state of Texas](https://congress-legislators.datasettes.com/legislators/legislator_terms?_facet=state&state=TX&_facet=type&type=sen)
-- [Every executive term held by a member of the Democratic-Republican party](https://congress-legislators.datasettes.com/legislators/executive_terms?_facet=party&party=Democratic-Republican)
+- [Every senatorial term in the state of Texas](https://datasette.io/legislators/legislator_terms?_facet=state&state=TX&_facet=type&type=sen)
+- [Every executive term held by a member of the Democratic-Republican party](https://datasette.io/legislators/executive_terms?_facet=party&party=Democratic-Republican)
 
 #### Exercise: share some links!
 
@@ -151,16 +151,16 @@ The "expand labels" option will add an extra column with the label associated wi
 
 Additional formats can be enabled using [plugins](https://datasette.io/plugins). The example instance is running the [datasette-copyable](https://datasette.io/plugins/datasette-copyable) plugin, which provides a `"copyable" link which can be used to export the data in different formats using copy-and-paste!
 
-Datasette can also be configured to allow users to download the entire database as a single file. You can find that `legislators.db` download option at the bottom of <https://congress-legislators.datasettes.com/legislators> - the entire database is only 5.2MB.
+Datasette can also be configured to allow users to download the entire database as a single file. You can find that `legislators.db` download option at the bottom of <https://datasette.io/legislators> - the entire database is only 5.2MB.
 
 ### Exercises
 
-1.  Download a CSV file of [Democratic Vice Presidents in the 1800s](https://congress-legislators.datasettes.com/legislators/executive_terms?_sort=rowid&_facet=party&_facet=type&start__startswith=18&party__in=Democratic%2CDemocrat&type__exact=viceprez#export), using the "download file" checkbox in the "Advanced export" box.
+1.  Download a CSV file of [Democratic Vice Presidents in the 1800s](https://datasette.io/legislators/executive_terms?_sort=rowid&_facet=party&_facet=type&start__startswith=18&party__in=Democratic%2CDemocrat&type__exact=viceprez#export), using the "download file" checkbox in the "Advanced export" box.
 2.  Use the "copyable" option to copy and paste that data directly into Google Sheets, Excel or Numbers.
 
 ## Data visualization via plugins
 
-You may have noticed this already on the [offices](https://congress-legislators.datasettes.com/legislators/offices) table, which shows an interactive map of all of the office locations:
+You may have noticed this already on the [offices](https://datasette.io/legislators/offices) table, which shows an interactive map of all of the office locations:
 
 ![A map of the United States and American Samoa, covered in markers and marker clusters representing congressional offices](/static/tutorials/explore/datasette-cluster-map.jpg)
 

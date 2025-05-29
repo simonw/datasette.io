@@ -5,7 +5,13 @@ set -euf -o pipefail
 export PATH="/home/runner/.fly/bin:$PATH"
 
 datasette publish fly \
-  content.db docs-index.db dogsheep-index.db blog.db tils.db global-power-plants.db \
+  content.db \
+  docs-index.db \
+  dogsheep-index.db \
+  blog.db \
+  tils.db \
+  global-power-plants.db \
+  legislators.db \
   --branch 1.0a2 \
   --app datasette-io \
   --template-dir=templates \

@@ -36,6 +36,14 @@ databases:
     tables:
       global-power-plants:
         facets: ["country_long", "owner", "primary_fuel"]
+  legislators:
+    title: Members of the United States Congress
+    license: CC0 1.0 Universal
+    license_url: https://github.com/unitedstates/congress-legislators/blob/main/LICENSE
+    source: unitedstates/congress-legislators
+    source_url: https://github.com/unitedstates/congress-legislators
+    about: simonw/congress-legislators-datasette
+    about_url: https://github.com/simonw/congress-legislators-datasette
 plugins:
   dogsheep-beta:
     database: dogsheep-index

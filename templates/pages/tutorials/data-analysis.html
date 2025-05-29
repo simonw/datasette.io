@@ -179,12 +179,12 @@ In Codespaces you should also install the `datasette-codespaces` plugin:
 ### Try a database: legislators.db
 
 ```
-wget https://congress-legislators.datasettes.com/legislators.db
+wget https://datasette.io/legislators.db
 ```
 
 This is a database of US legislators, presidents and vice presidents.
 
-You can explore it online at <https://congress-legislators.datasettes.com/legislators>
+You can explore it online at <https://datasette.io/legislators>
 
 Open it in Datasette like this:
 
@@ -417,7 +417,7 @@ where
 group by
   party
 ```
-[Try that query here](https://congress-legislators.datasettes.com/legislators?sql=select%0D%0A++party%2C%0D%0A++count%28*%29%0D%0Afrom%0D%0A++executive_terms%0D%0Awhere%0D%0A++type+%3D+%27prez%27%0D%0Agroup+by%0D%0A++party).
+[Try that query here](https://datasette.io/legislators?sql=select%0D%0A++party%2C%0D%0A++count%28*%29%0D%0Afrom%0D%0A++executive_terms%0D%0Awhere%0D%0A++type+%3D+%27prez%27%0D%0Agroup+by%0D%0A++party).
 
 The `group by` creates groups of rows, then the aggregation functions calculate a value across that entire group.
 
@@ -511,7 +511,7 @@ from
   presidents
 where name in vice_presidents
 ```
-[Try this CTE query here](https://congress-legislators.datasettes.com/legislators?sql=with+presidents+as+%28%0D%0A++select%0D%0A++++executives.name%0D%0A++from%0D%0A++++executive_terms%0D%0A++++join+executives+on+executive_terms.executive_id+%3D+executives.id%0D%0A++where%0D%0A++++executive_terms.type+%3D+%27prez%27%0D%0A%29%2C%0D%0Avice_presidents+as+%28%0D%0A++select%0D%0A++++executives.name%0D%0A++from%0D%0A++++executive_terms%0D%0A++++join+executives+on+executive_terms.executive_id+%3D+executives.id%0D%0A++where%0D%0A++++executive_terms.type+%3D+%27viceprez%27%0D%0A%29%0D%0Aselect%0D%0A++distinct+name%0D%0Afrom%0D%0A++presidents%0D%0Awhere%0D%0A++name+in+vice_presidents).
+[Try this CTE query here](https://datasette.io/legislators?sql=with+presidents+as+%28%0D%0A++select%0D%0A++++executives.name%0D%0A++from%0D%0A++++executive_terms%0D%0A++++join+executives+on+executive_terms.executive_id+%3D+executives.id%0D%0A++where%0D%0A++++executive_terms.type+%3D+%27prez%27%0D%0A%29%2C%0D%0Avice_presidents+as+%28%0D%0A++select%0D%0A++++executives.name%0D%0A++from%0D%0A++++executive_terms%0D%0A++++join+executives+on+executive_terms.executive_id+%3D+executives.id%0D%0A++where%0D%0A++++executive_terms.type+%3D+%27viceprez%27%0D%0A%29%0D%0Aselect%0D%0A++distinct+name%0D%0Afrom%0D%0A++presidents%0D%0Awhere%0D%0A++name+in+vice_presidents).
 
 ## JSON
 
@@ -539,7 +539,7 @@ order by
 limit
   10
 ```
-[Run that query](https://congress-legislators.datasettes.com/legislators?sql=select%0D%0A++legislators.id%2C%0D%0A++legislators.name%2C%0D%0A++json_group_array(json_object(%0D%0A++++%27type%27%2C+legislator_terms.type%2C%0D%0A++++%27state%27%2C+legislator_terms.state%2C%0D%0A++++%27start%27%2C+legislator_terms.start%2C%0D%0A++++%27end%27%2C+legislator_terms.end%2C%0D%0A++++%27party%27%2C+legislator_terms.party%0D%0A+++))+as+terms%2C%0D%0A+++count(*)+as+num_terms%0D%0Afrom%0D%0A++legislators+join+legislator_terms+on+legislator_terms.legislator_id+%3D+legislators.id%0D%0A++group+by+legislators.id%0D%0Aorder+by%0D%0A++id%0D%0Alimit%0D%0A++10).
+[Run that query](https://datasette.io/legislators?sql=select%0D%0A++legislators.id%2C%0D%0A++legislators.name%2C%0D%0A++json_group_array(json_object(%0D%0A++++%27type%27%2C+legislator_terms.type%2C%0D%0A++++%27state%27%2C+legislator_terms.state%2C%0D%0A++++%27start%27%2C+legislator_terms.start%2C%0D%0A++++%27end%27%2C+legislator_terms.end%2C%0D%0A++++%27party%27%2C+legislator_terms.party%0D%0A+++))+as+terms%2C%0D%0A+++count(*)+as+num_terms%0D%0Afrom%0D%0A++legislators+join+legislator_terms+on+legislator_terms.legislator_id+%3D+legislators.id%0D%0A++group+by+legislators.id%0D%0Aorder+by%0D%0A++id%0D%0Alimit%0D%0A++10).
 
 Paul Ford [said about SQLite's JSON support](https://simonwillison.net/2018/Jan/29/paul-ford/):
 
