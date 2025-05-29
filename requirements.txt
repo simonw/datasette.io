@@ -3,6 +3,7 @@ python-dateutil
 datasette==1.0a2
 datasette-publish-fly
 datasette-template-sql
+datasette-cluster-map
 datasette-render-markdown>=2.2.1
 datasette-vega
 datasette-atom

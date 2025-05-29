@@ -8,7 +8,7 @@ Datasette is built on top of [SQLite](https://sqlite.org/), which includes a rob
 
 Datasette automatically detects tables which have been configured for full-text search and adds a search box which can be used by human site users or accessed from the JSON or CSV APIs.
 
-You can try this out now by [searching FARA records](https://fara.datasettes.com/) or [global power plants](https://global-power-plants.datasettes.com/global-power-plants/global-power-plants).
+You can try this out now by [searching FARA records](https://fara.datasettes.com/) or [global power plants](https://datasette.io/global-power-plants/global-power-plants).
 
 ## Enabling search for a table
 

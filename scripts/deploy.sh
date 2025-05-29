@@ -5,7 +5,7 @@ set -euf -o pipefail
 export PATH="/home/runner/.fly/bin:$PATH"
 
 datasette publish fly \
-  content.db docs-index.db dogsheep-index.db blog.db tils.db \
+  content.db docs-index.db dogsheep-index.db blog.db tils.db global-power-plants.db \
   --branch 1.0a2 \
   --app datasette-io \
   --template-dir=templates \
@@ -22,6 +22,7 @@ datasette publish fly \
   --install=datasette-json-html \
   --install=datasette-debug-asgi \
   --install=datasette-gzip \
+  --install=datasette-cluster-map \
   --install=html5lib \
   --install=beautifulsoup4 \
   --install 'dogsheep-beta>=0.10.1' \

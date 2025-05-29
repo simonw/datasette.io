@@ -41,6 +41,9 @@ python fetch_blog_content.py blog.db datasette dogsheep sqliteutils
 # Fetch TILs
 curl -L -o tils.db https://github.com/simonw/til-db/raw/main/tils.db
 
+# Fetch global-power-plants.db
+curl -L -o global-power-plants.db https://static.simonwillison.net/static/2023/global-power-plants.db
+
 # Fetch documentation database for search index
 curl -o docs-index.db https://stable-docs.datasette.io/docs.db
 

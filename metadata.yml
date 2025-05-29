@@ -25,6 +25,17 @@ databases:
             date desc
           limit
             20
+  global-power-plants:
+    title: Global Power Plant Database
+    license: CC Attribution 4.0 License
+    license_url: https://creativecommons.org/licenses/by/4.0/
+    source: World Resources Institute
+    source_url: http://www.wri.org/publication/global-power-plant-database
+    about: global-power-plants-datasette
+    about_url: https://github.com/simonw/global-power-plants-datasette
+    tables:
+      global-power-plants:
+        facets: ["country_long", "owner", "primary_fuel"]
 plugins:
   dogsheep-beta:
     database: dogsheep-index
