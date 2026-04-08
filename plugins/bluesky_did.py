@@ -7,5 +7,5 @@ DID = "did:plc:5g7clyhlnvsbisbps3h7nvtr"
 @hookimpl
 def register_routes():
     return [
-        ("^/\.well-known/atproto-did$", lambda: Response.text(DID)),
+        (r"^/\.well-known/atproto-did$", lambda: Response.text(DID)),
     ]

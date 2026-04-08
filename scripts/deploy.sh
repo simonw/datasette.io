@@ -4,6 +4,9 @@ set -euf -o pipefail
 # Add GitHub Actions runner flyctl to the PATH
 export PATH="/home/runner/.fly/bin:$PATH"
 
+# Copy datasette.yml into templates dir so it gets included in the Docker context
+cp datasette.yml templates/datasette.yml
+
 datasette publish fly \
   content.db \
   docs-index.db \
@@ -12,7 +15,7 @@ datasette publish fly \
   tils.db \
   global-power-plants.db \
   legislators.db \
-  --branch 1.0a2 \
+  --branch 1.0a26 \
   --app datasette-io \
   --template-dir=templates \
   --metadata=metadata.yml \
@@ -23,16 +26,15 @@ datasette publish fly \
   --install=datasette-template-sql \
   --install=python-dateutil \
   --install=datasette-vega \
-  --install=datasette-atom \
-  --install=datasette-graphql \
+  --install='datasette-atom>=0.10a0' \
+  --install='datasette-graphql>=3.0a1' \
   --install=datasette-json-html \
   --install=datasette-debug-asgi \
   --install=datasette-gzip \
   --install=datasette-cluster-map \
-  --install='datasette-turnstile==0.1a2' \
+  --install='datasette-turnstile==0.1a3' \
   --install=html5lib \
   --install=beautifulsoup4 \
-  --install 'dogsheep-beta>=0.10.1' \
-  --install 'httpx==0.27.2' \
-  --install datasette-chatgpt-plugin \
-  --extra-options '--setting sql_time_limit_ms 2000'
+  --install='dogsheep-beta>=0.11' \
+  --install=httpx \
+  --extra-options '--config templates/datasette.yml'
