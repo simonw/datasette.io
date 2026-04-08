@@ -33,14 +33,23 @@ jobs:
         pip install -r requirements.txt
     - name: Run the pytest tests
       run: pytest
-    - name: Download previous content.db
+    - name: Download previous content.db from S3
       if: github.event.inputs.from_scratch != 'skip'
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       run: |
-        curl -O https://datasette.io/content.db
-    - name: Download previous blog.db
+        s3-credentials get-object datasette-io-files content.db -o content.db || \
+          curl -O https://datasette.io/content.db
+      continue-on-error: true
+    - name: Download previous blog.db from S3
       if: github.event.inputs.from_scratch != 'skip'
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       run: |
-        curl --fail -o blog.db https://datasette.io/blog.db
+        s3-credentials get-object datasette-io-files blog.db -o blog.db || \
+          curl --fail -o blog.db https://datasette.io/blog.db
       continue-on-error: true
     - name: Build databases
       run: scripts/build.sh
@@ -50,6 +59,16 @@ jobs:
       run: curl -o docs-index.db https://stable-docs.datasette.io/docs.db
     - name: Soundness check
       run: scripts/test.sh
+    - name: Upload content.db to S3
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      run: s3-credentials put-object datasette-io-files content.db content.db
+    - name: Upload blog.db to S3
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      run: s3-credentials put-object datasette-io-files blog.db blog.db
     - name: Install Fly
       run: |
         curl -L https://fly.io/install.sh | sh

@@ -32,3 +32,4 @@ datasette-debug-asgi
 html5lib
 beautifulsoup4
 Pygments
+s3-credentials
