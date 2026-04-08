@@ -1,0 +1,80 @@
+databases:
+  content:
+    queries:
+      feed:
+        title: Datasette News
+        sql: |-
+          select
+            'tag:datasette.io,' || date as atom_id,
+            'Datasette News: ' || date as atom_title,
+            date || 'T00:00:00-08:00' as atom_updated,
+            'https://datasette.io/news/' || date as atom_link,
+            render_markdown(group_concat(body, '
+
+          ')) as atom_content_html,
+            'Simon Willison' as atom_author_name,
+            'https://simonwillison.net/' as atom_author_uri
+          from
+            news
+          group by
+            date
+          order by
+            date desc
+          limit
+            20
+  global-power-plants:
+    tables:
+      global-power-plants:
+        facets: ["country_long", "owner", "primary_fuel"]
+plugins:
+  dogsheep-beta:
+    database: dogsheep-index
+    config_file: templates/dogsheep-beta.yml
+    template_debug: true
+  datasette-turnstile:
+    site_key:
+      $env: TURNSTILE_SITE_KEY
+    secret_key:
+      $env: TURNSTILE_SECRET_KEY
+    # Protect expensive crawler-shaped URLs while keeping normal demo pages open.
+    protected_paths:
+      # Arbitrary SQL on the public demo databases
+      - "/legislators?sql=*"
+      - "/legislators.json?sql=*"
+      - "/global-power-plants?sql=*"
+      - "/global-power-plants.json?sql=*"
+
+      # Multi-parameter table/API URLs on the public demo databases
+      - "/legislators/*?*&*&*"
+      - "/legislators/*.json?*&*&*"
+      - "/global-power-plants/*?*&*&*"
+      - "/global-power-plants/*.json?*&*&*"
+
+      # Arbitrary SQL on the other database areas
+      - "/content?sql=*"
+      - "/content.json?sql=*"
+      - "/docs-index?sql=*"
+      - "/docs-index.json?sql=*"
+      - "/dogsheep-index?sql=*"
+      - "/dogsheep-index.json?sql=*"
+      - "/blog?sql=*"
+      - "/blog.json?sql=*"
+      - "/tils?sql=*"
+      - "/tils.json?sql=*"
+
+      # Multi-parameter table/API URLs on the other database areas
+      - "/content/*?*&*&*"
+      - "/content/*.json?*&*&*"
+      - "/docs-index/*?*&*&*"
+      - "/docs-index/*.json?*&*&*"
+      - "/dogsheep-index/*?*&*&*"
+      - "/dogsheep-index/*.json?*&*&*"
+      - "/blog/*?*&*&*"
+      - "/blog/*.json?*&*&*"
+      - "/tils/*?*&*&*"
+      - "/tils/*.json?*&*&*"
+    exclude_patterns:
+      - "/content/feed.atom"
+    cookie_max_age: 86400
+settings:
+  sql_time_limit_ms: 2000
