@@ -26,8 +26,8 @@ datasette publish fly \
   --install=datasette-template-sql \
   --install=python-dateutil \
   --install=datasette-vega \
-  --install='datasette-atom>=0.10a0' \
-  --install='datasette-graphql>=3.0a1' \
+  --install='datasette-atom==0.10a0' \
+  --install='datasette-graphql==3.0a1' \
   --install=datasette-json-html \
   --install=datasette-debug-asgi \
   --install=datasette-gzip \

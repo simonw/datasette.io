@@ -7,9 +7,9 @@ datasette-template-sql
 datasette-cluster-map
 datasette-render-markdown>=2.2.1
 datasette-vega
-datasette-atom>=0.10a0
+datasette-atom==0.10a0
 dogsheep-beta>=0.11
-datasette-graphql>=3.0a1
+datasette-graphql==3.0a1
 sqlite-utils>=3.9.1
 yaml-to-sqlite>=1.0
 markdown-to-sqlite>=1.0
@@ -25,8 +25,8 @@ datasette-json-html
 datasette-template-sql
 python-dateutil
 datasette-vega
-datasette-atom>=0.10a0
-datasette-graphql>=3.0a1
+datasette-atom==0.10a0
+datasette-graphql==3.0a1
 datasette-json-html
 datasette-debug-asgi
 html5lib
