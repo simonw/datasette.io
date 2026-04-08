@@ -1,4 +1,5 @@
 click
+setuptools
 python-dateutil
 datasette==1.0a2
 datasette-turnstile==0.1a2
