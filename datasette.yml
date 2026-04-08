@@ -45,10 +45,10 @@ plugins:
       - "/global-power-plants.json?sql=*"
 
       # Multi-parameter table/API URLs on the public demo databases
-      - "/legislators/*?*&*&*"
-      - "/legislators/*.json?*&*&*"
-      - "/global-power-plants/*?*&*&*"
-      - "/global-power-plants/*.json?*&*&*"
+      - "/legislators/*?*&*"
+      - "/legislators/*.json?*&*"
+      - "/global-power-plants/*?*&*"
+      - "/global-power-plants/*.json?*&*"
 
       # Arbitrary SQL on the other database areas
       - "/content?sql=*"
@@ -63,16 +63,16 @@ plugins:
       - "/tils.json?sql=*"
 
       # Multi-parameter table/API URLs on the other database areas
-      - "/content/*?*&*&*"
-      - "/content/*.json?*&*&*"
-      - "/docs-index/*?*&*&*"
-      - "/docs-index/*.json?*&*&*"
-      - "/dogsheep-index/*?*&*&*"
-      - "/dogsheep-index/*.json?*&*&*"
-      - "/blog/*?*&*&*"
-      - "/blog/*.json?*&*&*"
-      - "/tils/*?*&*&*"
-      - "/tils/*.json?*&*&*"
+      - "/content/*?*&*"
+      - "/content/*.json?*&*"
+      - "/docs-index/*?*&*"
+      - "/docs-index/*.json?*&*"
+      - "/dogsheep-index/*?*&*"
+      - "/dogsheep-index/*.json?*&*"
+      - "/blog/*?*&*"
+      - "/blog/*.json?*&*"
+      - "/tils/*?*&*"
+      - "/tils/*.json?*&*"
     exclude_patterns:
       - "/content/feed.atom"
     cookie_max_age: 86400
