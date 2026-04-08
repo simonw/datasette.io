@@ -1,6 +1,7 @@
 click
 python-dateutil
 datasette==1.0a2
+datasette-turnstile==0.1a2
 datasette-publish-fly
 datasette-template-sql
 datasette-cluster-map

@@ -29,6 +29,7 @@ datasette publish fly \
   --install=datasette-debug-asgi \
   --install=datasette-gzip \
   --install=datasette-cluster-map \
+  --install='datasette-turnstile==0.1a2' \
   --install=html5lib \
   --install=beautifulsoup4 \
   --install 'dogsheep-beta>=0.10.1' \
