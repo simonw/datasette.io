@@ -1,3 +1,12 @@
+- date: 2026-04-15
+  body: |-
+    [Datasette 1.0a27](https://docs.datasette.io/en/latest/changelog.html#a27-2026-04-15) changes how CSRF protection works in a way that simplifies form and API integration, and introduces a new `RenameTableEvent` for when a table is renamed by a SQL query.
+- date: 2026-03-18
+  body: |-
+    [Datasette 1.0a26](https://docs.datasette.io/en/latest/changelog.html#a26-2026-03-18) adds a `column_types` system allowing columns to carry additional type information such as `email` or `url`, or extra types defined by plugins. This alpha also adds a UI for selecting and sorting visible columns on a table page.
+- date: 2026-02-25
+  body: |-
+    [Datasette 1.0a25](https://docs.datasette.io/en/latest/changelog.html#a25-2026-02-25) adds [write_wrapper()](https://docs.datasette.io/en/latest/plugin_hooks.html#plugin-hook-write-wrapper) and [register_token_handler()](https://docs.datasette.io/en/latest/plugin_hooks.html#plugin-hook-register-token-handler) plugin hooks.
 - date: 2026-01-29
   body: |-
     [Datasette 1.0a24](https://docs.datasette.io/en/latest/changelog.html#a24-2026-01-29) introduces a new `await request.form(files=True)` method for accepting file uploads, plus various other changes.
