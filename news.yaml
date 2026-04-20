@@ -1,3 +1,6 @@
+- date: 2026-04-19
+  body: |-
+    Here's a new TIL on [using SQL functions in Google Sheets to fetch data from Datasette](https://til.simonwillison.net/google-sheets/datasette-sql).
 - date: 2026-04-15
   body: |-
     [Datasette 1.0a27](https://docs.datasette.io/en/latest/changelog.html#a27-2026-04-15) changes how CSRF protection works in a way that simplifies form and API integration, and introduces a new `RenameTableEvent` for when a table is renamed by a SQL query.
