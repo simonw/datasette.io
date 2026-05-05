@@ -75,6 +75,7 @@ plugins:
       - "/tils/*.json?*&*"
     exclude_patterns:
       - "/content/feed.atom"
+      - "/global-power-plants/global-power-plants.json"
     cookie_max_age: 86400
 settings:
   sql_time_limit_ms: 2000
