@@ -1,6 +1,8 @@
 ---
 title: Welcome to the Datasette blog
 datetime_utc: 2026-05-13 20:58:56
+author: Simon Willison
+author_url: https://simonwillison.net
 ---
 
 It's about time the Datasette project had its own blog.

@@ -60,6 +60,8 @@ def parse_blog_post(path):
     datetime_utc = as_string(datetime_utc_value)
     year = year_from_datetime_utc(datetime_utc_value)
     slug = as_string(metadata.get("slug")) or path.stem
+    author = as_string(metadata.get("author"))
+    author_url = as_string(metadata.get("author_url"))
 
     if not title:
         raise ValueError("{} is missing title in front matter".format(path))
@@ -67,6 +69,8 @@ def parse_blog_post(path):
         raise ValueError("{} is missing datetime_utc in front matter".format(path))
     if not year:
         raise ValueError("{} has an invalid datetime_utc value".format(path))
+    if not author:
+        raise ValueError("{} is missing author in front matter".format(path))
 
     html = markdown.markdown(body, extensions=["extra"])
     return {
@@ -76,6 +80,8 @@ def parse_blog_post(path):
         "source_path": str(path),
         "title": title,
         "datetime_utc": datetime_utc,
+        "author": author,
+        "author_url": author_url,
         "body": body,
         "html": html,
         "summary": summary_from_html(html),
@@ -100,6 +106,8 @@ def load_blog_posts(db_path=DB_PATH, blog_dir=BLOG_DIR):
         "source_path": str,
         "title": str,
         "datetime_utc": str,
+        "author": str,
+        "author_url": str,
         "body": str,
         "html": str,
         "summary": str,

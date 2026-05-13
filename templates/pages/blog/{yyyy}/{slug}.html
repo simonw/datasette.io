@@ -21,7 +21,15 @@ where
 <p class="breadcrumbs"><a href="/blog/">Blog</a> &gt; {{ prettydate(post.datetime_utc[:10]) }}</p>
 
 <h1>{{ post.title }}</h1>
-<p class="blog-post-date"><small>{{ prettydate(post.datetime_utc[:10]) }}</small></p>
+<p class="blog-post-date">
+    <small>
+        {{ prettydate(post.datetime_utc[:10]) }}
+        at {{ post.datetime_utc[11:16] }} UTC
+        {% if post.author %}
+            by {% if post.author_url %}<a href="{{ post.author_url }}">{{ post.author }}</a>{% else %}{{ post.author }}{% endif %}
+        {% endif %}
+    </small>
+</p>
 
 {{ post.html|safe }}
 

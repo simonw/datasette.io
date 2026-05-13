@@ -9,6 +9,8 @@ def test_parse_blog_post(tmp_path):
         """---
 title: Hello world
 datetime_utc: 2026-05-13 20:58:56
+author: Simon Willison
+author_url: https://simonwillison.net
 ---
 
 First **paragraph**.
@@ -24,6 +26,8 @@ Second paragraph.
     assert post["slug"] == "hello-world"
     assert post["title"] == "Hello world"
     assert post["datetime_utc"] == "2026-05-13 20:58:56"
+    assert post["author"] == "Simon Willison"
+    assert post["author_url"] == "https://simonwillison.net"
     assert post["body"] == "First **paragraph**.\n\nSecond paragraph."
     assert "<strong>paragraph</strong>" in post["html"]
     assert post["summary"] == "First paragraph."
@@ -36,6 +40,8 @@ def test_load_blog_posts_replaces_existing_rows(tmp_path):
         """---
 title: New blog
 datetime_utc: 2026-05-13 20:58:56
+author: Simon Willison
+author_url: https://simonwillison.net
 ---
 
 Post body.
@@ -56,6 +62,8 @@ Post body.
             "source_path": str(blog_dir / "new-blog.md"),
             "title": "New blog",
             "datetime_utc": "2026-05-13 20:58:56",
+            "author": "Simon Willison",
+            "author_url": "https://simonwillison.net",
             "body": "Post body.",
             "html": "<p>Post body.</p>",
             "summary": "Post body.",
