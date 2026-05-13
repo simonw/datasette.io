@@ -36,7 +36,8 @@ eval "pypi-to-sqlite content.db $args
 --prefix pypi_"
 
 # Fetch my relevant blog content
-python fetch_blog_content.py blog.db datasette dogsheep sqliteutils
+rm -f blog.db
+python fetch_blog_content.py simon-blog.db datasette dogsheep sqliteutils
 
 # Fetch TILs
 curl -L -o tils.db https://github.com/simonw/til-db/raw/main/tils.db
@@ -57,6 +58,9 @@ python index_tutorials.py
 
 # Build search index
 dogsheep-beta index dogsheep-index.db templates/dogsheep-beta.yml
+
+# Remove stale entries from before blog.db was renamed to simon-blog.db
+sqlite-utils dogsheep-index.db "delete from search_index where type = 'blog.db/entries'"
 
 # Temp hack to remove any rogue tils
 sqlite-utils dogsheep-index.db "delete from search_index where type = 'tils.db/til'"

@@ -8,7 +8,7 @@ User-agent: *
 Disallow: /content
 Disallow: /docs-index
 Disallow: /dogsheep-index
-Disallow: /blog
+Disallow: /simon-blog
 Disallow: /-/beta
 """.strip()
 

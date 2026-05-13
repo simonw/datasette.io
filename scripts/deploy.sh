@@ -11,7 +11,7 @@ datasette publish fly \
   content.db \
   docs-index.db \
   dogsheep-index.db \
-  blog.db \
+  simon-blog.db \
   tils.db \
   global-power-plants.db \
   legislators.db \

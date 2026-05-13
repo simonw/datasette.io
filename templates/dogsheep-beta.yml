@@ -1,4 +1,4 @@
-blog.db:
+simon-blog.db:
     entries:
         sql: |-
             select
