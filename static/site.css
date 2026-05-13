@@ -116,7 +116,11 @@ body.page header {
         padding-right: 1em;
     }
     body.page nav ul {
-        display: block;
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        grid-auto-flow: column;
+        grid-template-rows: repeat(3, auto);
+        gap: 0 1em;
     }
 }
 
