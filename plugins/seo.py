@@ -26,7 +26,7 @@ def robots_txt():
 
 
 async def urls(datasette):
-    paths = ["/", "/for", "/examples", "/plugins", "/tools", "/news"]
+    paths = ["/", "/for", "/examples", "/plugins", "/tools", "/news", "/blog/"]
     db = datasette.get_database("content")
     for row in await db.execute("select _path from uses"):
         paths.append("/" + row["_path"].split(".")[0])
@@ -34,6 +34,8 @@ async def urls(datasette):
         paths.append("/plugins/" + row["name"])
     for row in await db.execute("select name from tools"):
         paths.append("/tools/" + row["name"])
+    for row in await db.execute("select path from blog_posts"):
+        paths.append(row["path"])
     return ("https://datasette.io{}".format(path) for path in paths)
 
 
