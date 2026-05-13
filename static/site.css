@@ -77,12 +77,29 @@ body.page main .content {
 body.page nav ul,
 body.page nav li {
     float: none;
-    display: inline;
+}
+body.page nav {
+    display: flex;
+    align-items: center;
+    gap: 2em;
+    margin-bottom: 1em;
+}
+body.page .datasette-logo-small {
+    flex: 0 0 auto;
+    padding-right: 0;
+}
+body.page nav ul {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 2em;
+    flex: 1;
+    margin-top: 0;
     position: relative;
     top: 1px;
 }
-body.page nav {
-    margin-bottom: 1em;
+body.page nav li {
+    display: block;
+    padding-right: 0;
 }
 body.page header {
     padding-top: 0.5em;
