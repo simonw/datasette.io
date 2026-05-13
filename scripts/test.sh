@@ -5,9 +5,17 @@ set -euf -o pipefail
 exec > /dev/null
 
 function test_path {
-  if ! datasette . --get $1
+  if ! datasette . --get "$1"
   then
     echo "Test failed to $1" >&2
+    exit 1
+  fi
+}
+
+function test_path_contains {
+  if ! datasette . --get "$1" | grep -F "$2"
+  then
+    echo "Test failed to find '$2' in $1" >&2
     exit 1
   fi
 }
@@ -28,5 +36,7 @@ test_path "/blog/2026/new-blog/"
 test_path "/-/beta"
 test_path "/robots.txt"
 test_path "/sitemap.xml"
+test_path_contains "/sitemap.xml" "https://datasette.io/blog/2026/new-blog/"
 test_path "/content/feed.atom"
 test_path "/-/beta?q=datasette"
+test_path_contains "/-/beta?q=welcome+blog" "content.db/blog_posts:/blog/2026/new-blog/"

@@ -208,6 +208,26 @@ content.db:
         display: |-
             <h3><a href="/news/{{ key }}">{{ title }}</a></h3>
             <p>{{ display.rendered_markdown|safe }}</p>
+    blog_posts:
+        sql: |-
+            select
+              path as key,
+              title,
+              datetime_utc as timestamp,
+              body as search_1,
+              1 as is_public
+            from
+              blog_posts
+        display_sql: |-
+            select
+              summary
+            from
+              blog_posts
+            where
+              blog_posts.path = :key
+        display: |-
+            <h3>Blog: <a href="{{ key }}">{{ title }}</a></h3>
+            <p>{{ display.summary }}</p>
     tutorials:
         sql: |-
             select
