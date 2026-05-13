@@ -12,6 +12,9 @@ yaml-to-sqlite content.db example_csvs example_csvs.yml
 # Populate uses table for the /for section
 markdown-to-sqlite content.db uses for/*.md
 
+# Populate blog_posts table for the /blog section
+python build_blog_posts.py
+
 # Build plugin and tools directories
 sqlite-utils drop-table content.db plugin_repos --ignore
 sqlite-utils drop-table content.db tool_repos --ignore

@@ -1,0 +1,28 @@
+{% extends "page_base.html" %}
+
+{% set posts = sql("""
+select
+    *
+from
+    blog_posts
+where
+    year = :year
+    and slug = :slug
+""", {"year": yyyy, "slug": slug}, database="content") %}
+{% if not posts %}
+    {{ raise_404("Blog post not found") }}
+{% endif %}
+{% set post = posts[0] %}
+
+{% block title %}{{ post.title }} - Datasette Blog{% endblock %}
+{% block body_class %}blog-page{% endblock %}
+
+{% block content %}
+<p class="breadcrumbs"><a href="/blog/">Blog</a> &gt; {{ prettydate(post.datetime_utc[:10]) }}</p>
+
+<h1>{{ post.title }}</h1>
+<p class="blog-post-date"><small>{{ prettydate(post.datetime_utc[:10]) }}</small></p>
+
+{{ post.html|safe }}
+
+{% endblock %}

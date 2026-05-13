@@ -1,0 +1,30 @@
+{% extends "page_base.html" %}
+
+{% block title %}Datasette Blog{% endblock %}
+{% block body_class %}blog-page{% endblock %}
+
+{% block content %}
+<h1>Datasette Blog</h1>
+
+{% for post in sql("""
+select
+    path,
+    title,
+    datetime_utc,
+    summary
+from
+    blog_posts
+order by
+    datetime_utc desc,
+    path desc
+""", database="content") %}
+    <article class="blog-post-summary">
+        <h2><a href="{{ post.path }}">{{ post.title }}</a></h2>
+        <p class="blog-post-date"><small>{{ prettydate(post.datetime_utc[:10]) }}</small></p>
+        <p>{{ post.summary }}</p>
+    </article>
+{% else %}
+    <p>No blog entries yet.</p>
+{% endfor %}
+
+{% endblock %}

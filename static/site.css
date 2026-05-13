@@ -261,3 +261,12 @@ span.by {
     line-height: 1;
     border-radius: .25rem;
 }
+
+body.blog-page .content h1,
+body.blog-page .blog-post-summary h2 {
+    margin-bottom: 0.15em;
+}
+
+body.blog-page .blog-post-date {
+    margin-top: 0;
+}
