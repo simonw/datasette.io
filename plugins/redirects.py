@@ -29,6 +29,13 @@ def register_routes():
                 "https://discord.gg/tcTpMVQdRc", status=301
             ),
         ),
+        (
+            r"^/global-power-plants\*/global-power-plants/?$",
+            lambda request: Response.redirect(
+                "https://datasette.io/global-power-plants/global-power-plants",
+                status=301,
+            ),
+        ),
         # /help/X may be linked to from the datasette CLI - served with 302 because I may change
         # what they target in the future.
         (
