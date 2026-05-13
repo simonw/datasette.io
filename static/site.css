@@ -270,3 +270,11 @@ body.blog-page .blog-post-summary h2 {
 body.blog-page .blog-post-date {
     margin-top: 0;
 }
+
+.blog-post-teaser h4 {
+    margin-bottom: 0.25em;
+}
+
+.blog-post-teaser p {
+    margin-top: 0;
+}

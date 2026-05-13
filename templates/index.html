@@ -104,12 +104,51 @@
       <path fill="#FFF" d="M184 213A140 140 0 0 0 44 73V38a175 175 0 0 1 175 175z" />
           </svg></a></h2>
         {% set ns = namespace(current_date="") %}
-        {% for row in sql("select date, body from news order by date desc limit 15", database="content") %}
+        {% for row in sql("""
+        with updates as (
+          select
+            'news' as type,
+            date,
+            date || 'T00:00:00' as sort_datetime,
+            null as path,
+            null as title,
+            body,
+            null as summary
+          from
+            news
+          union all
+          select
+            'blog' as type,
+            substr(datetime_utc, 1, 10) as date,
+            datetime_utc as sort_datetime,
+            path,
+            title,
+            null as body,
+            summary
+          from
+            blog_posts
+        )
+        select
+          *
+        from
+          updates
+        order by
+          sort_datetime desc
+        limit
+          15
+        """, database="content") %}
           {% if prettydate(row["date"]) != (ns.current_date and prettydate(ns.current_date)) %}
-            <h3>{{ prettydate(row["date"]) }} <a href="/news/{{ row["date"] }}" style="font-size: 0.8em; opacity: 0.4">#</a></h3>
+            <h3>{{ prettydate(row["date"]) }}{% if row["type"] == "news" %} <a href="/news/{{ row["date"] }}" style="font-size: 0.8em; opacity: 0.4">#</a>{% endif %}</h3>
             {% set ns.current_date = prettydate(row["date"]) %}
           {% endif %}
-          {{ render_markdown(row["body"]) }}
+          {% if row["type"] == "blog" %}
+            <div class="blog-post-teaser">
+              <h4><a href="{{ row["path"] }}">{{ row["title"] }}</a></h4>
+              <p>{{ row["summary"] }} <a href="{{ row["path"] }}">[...]</a></p>
+            </div>
+          {% else %}
+            {{ render_markdown(row["body"]) }}
+          {% endif %}
         {% endfor %}
         <p><a href="/news">All news</a></p>
       </div>

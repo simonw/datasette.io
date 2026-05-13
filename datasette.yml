@@ -2,24 +2,47 @@ databases:
   content:
     queries:
       feed:
-        title: Datasette News
+        title: Datasette News and Blog
         sql: |-
+          with feed_items as (
+            select
+              'tag:datasette.io,' || date as atom_id,
+              'Datasette News: ' || date as atom_title,
+              date || 'T00:00:00-08:00' as atom_updated,
+              'https://datasette.io/news/' || date as atom_link,
+              render_markdown(group_concat(body, char(10) || char(10))) as atom_content_html,
+              'Simon Willison' as atom_author_name,
+              'https://simonwillison.net/' as atom_author_uri,
+              date || 'T00:00:00' as sort_datetime
+            from
+              news
+            group by
+              date
+            union all
+            select
+              'tag:datasette.io,' || trim(path, '/') as atom_id,
+              title as atom_title,
+              replace(datetime_utc, ' ', 'T') || 'Z' as atom_updated,
+              'https://datasette.io' || path as atom_link,
+              html as atom_content_html,
+              author as atom_author_name,
+              author_url as atom_author_uri,
+              datetime_utc as sort_datetime
+            from
+              blog_posts
+          )
           select
-            'tag:datasette.io,' || date as atom_id,
-            'Datasette News: ' || date as atom_title,
-            date || 'T00:00:00-08:00' as atom_updated,
-            'https://datasette.io/news/' || date as atom_link,
-            render_markdown(group_concat(body, '
-
-          ')) as atom_content_html,
-            'Simon Willison' as atom_author_name,
-            'https://simonwillison.net/' as atom_author_uri
+            atom_id,
+            atom_title,
+            atom_updated,
+            atom_link,
+            atom_content_html,
+            atom_author_name,
+            atom_author_uri
           from
-            news
-          group by
-            date
+            feed_items
           order by
-            date desc
+            sort_datetime desc
           limit
             20
   global-power-plants:
