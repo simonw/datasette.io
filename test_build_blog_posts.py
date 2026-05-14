@@ -5,8 +5,7 @@ from build_blog_posts import load_blog_posts, parse_blog_post
 
 def test_parse_blog_post(tmp_path):
     path = tmp_path / "hello-world.md"
-    path.write_text(
-        """---
+    path.write_text("""---
 title: Hello world
 datetime_utc: 2026-05-13 20:58:56
 author: Simon Willison
@@ -16,8 +15,7 @@ author_url: https://simonwillison.net
 First **paragraph**.
 
 Second paragraph.
-"""
-    )
+""")
 
     post = parse_blog_post(path)
 
@@ -36,8 +34,7 @@ Second paragraph.
 def test_load_blog_posts_replaces_existing_rows(tmp_path):
     blog_dir = tmp_path / "blog-content"
     blog_dir.mkdir()
-    (blog_dir / "new-blog.md").write_text(
-        """---
+    (blog_dir / "new-blog.md").write_text("""---
 title: New blog
 datetime_utc: 2026-05-13 20:58:56
 author: Simon Willison
@@ -45,8 +42,7 @@ author_url: https://simonwillison.net
 ---
 
 Post body.
-"""
-    )
+""")
     db_path = tmp_path / "content.db"
     db = sqlite_utils.Database(db_path)
     db["blog_posts"].insert({"path": "/blog/old-post", "title": "Old"}, pk="path")

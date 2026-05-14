@@ -7,7 +7,6 @@ import pathlib
 from python_graphql_client import GraphqlClient
 import sqlite_utils
 
-
 REPO_FIELDS = """
 fragment repoFields on Repository {
   id
@@ -66,11 +65,7 @@ def build_query(repos):
     return """
     REPO_FIELDS
     { REPOS }
-    """.replace(
-        "REPOS", "\n".join(repo_fragments)
-    ).replace(
-        "REPO_FIELDS", REPO_FIELDS
-    )
+    """.replace("REPOS", "\n".join(repo_fragments)).replace("REPO_FIELDS", REPO_FIELDS)
 
 
 def transform_node(node):
@@ -285,9 +280,7 @@ group by
   repos.id
 order by
   latest_release_at desc;
-""".format(
-                repo_table=repo_table
-            ).strip(),
+""".format(repo_table=repo_table).strip(),
             replace=True,
         )
 
