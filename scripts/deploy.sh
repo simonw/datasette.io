@@ -34,6 +34,7 @@ datasette publish fly \
   --install=datasette-gzip \
   --install=datasette-cluster-map \
   --install='datasette-turnstile==0.1a3' \
+  --install='datasette-ip-rate-limit==0.1a0' \
   --install=html5lib \
   --install=beautifulsoup4 \
   --install='dogsheep-beta>=0.11' \

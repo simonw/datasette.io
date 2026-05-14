@@ -100,5 +100,19 @@ plugins:
       - "/content/feed.atom"
       - "/global-power-plants/global-power-plants.json"
     cookie_max_age: 86400
+  datasette-ip-rate-limit:
+    debug: true
+    max_keys: 10000
+    exempt_paths:
+    - "/static/*"
+    - "/-/turnstile*"
+    rules:
+    - name: public-demo-multi-parameter-table-pages
+      paths:
+      - "/global-power-plants/*"
+      - "/legislators/*"
+      window_seconds: 60
+      max_requests: 60
+      block_seconds: 20
 settings:
   sql_time_limit_ms: 2000

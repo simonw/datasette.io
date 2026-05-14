@@ -2,6 +2,7 @@ click
 python-dateutil
 datasette==1.0a26
 datasette-turnstile==0.1a3
+datasette-ip-rate-limit==0.1a0
 datasette-publish-fly
 datasette-template-sql
 datasette-cluster-map
