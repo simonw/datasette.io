@@ -1,5 +1,14 @@
 from datasette import hookimpl, Response
 
+GLOBAL_POWER_PLANTS_URL = "https://datasette.io/global-power-plants/global-power-plants"
+
+
+def redirect_global_power_plants(request):
+    url = GLOBAL_POWER_PLANTS_URL
+    if request.query_string:
+        url = "{}?{}".format(url, request.query_string)
+    return Response.redirect(url, status=301)
+
 
 @hookimpl
 def register_routes():
@@ -31,10 +40,7 @@ def register_routes():
         ),
         (
             r"^/global-power-plants\*/global-power-plants/?$",
-            lambda request: Response.redirect(
-                "https://datasette.io/global-power-plants/global-power-plants",
-                status=301,
-            ),
+            redirect_global_power_plants,
         ),
         # /help/X may be linked to from the datasette CLI - served with 302 because I may change
         # what they target in the future.
