@@ -107,7 +107,7 @@ plugins:
     - "/static/*"
     - "/-/turnstile*"
     rules:
-    - name: public-demo-multi-parameter-table-pages
+    - name: demo-databases
       paths:
       - "/global-power-plants/*"
       - "/legislators/*"
