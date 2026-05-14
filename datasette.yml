@@ -102,6 +102,7 @@ plugins:
     cookie_max_age: 86400
   datasette-ip-rate-limit:
     debug: true
+    header: Fly-Client-IP
     max_keys: 10000
     exempt_paths:
     - "/static/*"
