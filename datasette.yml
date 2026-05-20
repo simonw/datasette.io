@@ -99,6 +99,7 @@ plugins:
     exclude_patterns:
       - "/content/feed.atom"
       - "/global-power-plants/global-power-plants.json"
+      - "/legislators/offices.json"
     cookie_max_age: 86400
   datasette-ip-rate-limit:
     header: Fly-Client-IP
