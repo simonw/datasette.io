@@ -53,10 +53,19 @@ jobs:
           curl --fail -o simon-blog.db https://datasette.io/simon-blog.db || \
           curl --fail -o simon-blog.db https://datasette.io/blog.db
       continue-on-error: true
+    - name: Download legislators.db from S3
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      run: |
+        s3-credentials get-object datasette-io-files legislators.db -o legislators.db || \
+          curl --fail -L -o legislators.db https://datasette.io/legislators.db || \
+          curl --fail -L -o legislators.db https://static.simonwillison.net/static/2025/legislators.db
     - name: Build databases
       run: scripts/build.sh
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        SKIP_LEGISLATORS_DB_DOWNLOAD: 1
     - name: Fetch documentation database for search index
       run: curl -o docs-index.db https://stable-docs.datasette.io/docs.db
     - name: Soundness check

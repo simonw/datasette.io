@@ -42,6 +42,7 @@ jobs:
         sqlite-utils tables legislators.db --counts
         sqlite-utils legislators.db "select count(*) as count from legislators"
         sqlite-utils legislators.db "select count(*) as count from legislator_terms"
+        python scripts/test_legislators_tutorial_queries.py legislators.db
     - name: Upload legislators.db to S3
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}

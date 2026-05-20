@@ -47,12 +47,12 @@ Each column in a table has a type. In SQLite these types can be one of ``text``,
 
 The tables in our example database are:
 
-- [legislators](https://datasette.io/legislators/legislators) - 12,590 rows - individuals who have served as senators or representatives
-- [legislator_terms](https://datasette.io/legislators/legislator_terms) - 44,542 rows - terms served by legislators, back to 1789
+- [legislators](https://datasette.io/legislators/legislators) - over 12,000 rows - individuals who have served as senators or representatives
+- [legislator_terms](https://datasette.io/legislators/legislator_terms) - over 45,000 rows - terms served by legislators, back to 1789
 - [executives](https://datasette.io/legislators/executives) - 80 rows - individuals who have served as President or Vice President
-- [executive_terms](https://datasette.io/legislators/executive_terms) - 129 rows - terms served by executives
-- [offices](https://datasette.io/legislators/offices) - 1,192 rows - district officers maintained by current legislators
-- [social_media](https://datasette.io/legislators/social_media) - 525 rows - social media accounts for current legislators
+- [executive_terms](https://datasette.io/legislators/executive_terms) - over 130 rows - terms served by executives
+- [offices](https://datasette.io/legislators/offices) - over 1,300 rows - district officers maintained by current legislators
+- [social_media](https://datasette.io/legislators/social_media) - over 500 rows - social media accounts for current legislators
 
 Follow these links now and explore the tables to get a feel for the way the data is organized in this database.
 
@@ -110,7 +110,7 @@ To see Democratic Vice Presidents just for the 1800s, we can add a filter for ro
 
 ![Here an additional row has been added to the filters, specifying that start should start with 18](/static/tutorials/explore/filter-starts-with.jpg)
 
-Here's [the result](https://datasette.io/legislators/executive_terms?_sort=rowid&_facet=type&_facet=party&start__startswith=18&party__exact=Democratic&type__exact=viceprez) of that query.
+Here's [the result](https://datasette.io/legislators/executive_terms?_sort=rowid&_facet=type&_facet=party&start__startswith=18&party__exact=Democrat&type__exact=viceprez) of that query.
 
 ![A table listing Democratic vice presidential terms served in the 1800s](/static/tutorials/explore/viceprez-result.jpg)
 
@@ -151,7 +151,7 @@ The "expand labels" option will add an extra column with the label associated wi
 
 Additional formats can be enabled using [plugins](https://datasette.io/plugins). The example instance is running the [datasette-copyable](https://datasette.io/plugins/datasette-copyable) plugin, which provides a `"copyable" link which can be used to export the data in different formats using copy-and-paste!
 
-Datasette can also be configured to allow users to download the entire database as a single file. You can find that `legislators.db` download option at the bottom of <https://datasette.io/legislators> - the entire database is only 5.2MB.
+Datasette can also be configured to allow users to download the entire database as a single file. You can find that `legislators.db` download option at the bottom of <https://datasette.io/legislators> - the entire database is around 5.5MB.
 
 ### Exercises
 

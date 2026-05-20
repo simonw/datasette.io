@@ -47,7 +47,12 @@ curl -L -o tils.db https://github.com/simonw/til-db/raw/main/tils.db
 
 # Fetch global-power-plants.db and legislators.db
 curl -L -o global-power-plants.db https://static.simonwillison.net/static/2023/global-power-plants.db
-curl -L -o legislators.db https://static.simonwillison.net/static/2025/legislators.db
+if [ "${SKIP_LEGISLATORS_DB_DOWNLOAD:-}" = "1" ]; then
+  test -f legislators.db
+else
+  curl --fail -L -o legislators.db https://datasette.io/legislators.db || \
+    curl --fail -L -o legislators.db https://static.simonwillison.net/static/2025/legislators.db
+fi
 
 # Fetch documentation database for search index
 curl -o docs-index.db https://stable-docs.datasette.io/docs.db
