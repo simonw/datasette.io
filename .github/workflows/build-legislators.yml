@@ -1,0 +1,49 @@
+name: Build legislators.db
+
+on:
+  workflow_dispatch:
+  schedule:
+  - cron: '26 4 * * 1'
+  push:
+    branches:
+    - main
+    paths:
+    - .github/workflows/build-legislators.yml
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Check out repo
+      uses: actions/checkout@v6
+    - name: Check out unitedstates/congress-legislators
+      uses: actions/checkout@v6
+      with:
+        repository: unitedstates/congress-legislators
+        path: congress-legislators
+    - name: Set up Python
+      uses: actions/setup-python@v6
+      with:
+        python-version: '3.14'
+    - uses: actions/cache@v5
+      name: Configure pip caching
+      with:
+        path: ~/.cache/pip
+        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+        restore-keys: |
+          ${{ runner.os }}-pip-
+    - name: Install Python dependencies
+      run: |
+        pip install -r requirements.txt
+    - name: Build legislators.db
+      run: python scripts/build_legislators_database.py legislators.db congress-legislators
+    - name: Validate legislators.db
+      run: |
+        sqlite-utils tables legislators.db --counts
+        sqlite-utils legislators.db "select count(*) as count from legislators"
+        sqlite-utils legislators.db "select count(*) as count from legislator_terms"
+    - name: Upload legislators.db to S3
+      env:
+        AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+      run: s3-credentials put-object datasette-io-files legislators.db legislators.db

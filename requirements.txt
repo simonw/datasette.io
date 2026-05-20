@@ -20,6 +20,7 @@ python-graphql-client
 httpx
 feedparser
 pypi-to-sqlite>=0.2.3
+PyYAML
 pytest
 # These are used in deploy, listing them here so they
 # show up in the GitHub dependency graph:
