@@ -19,6 +19,8 @@ This [video demo](https://www.youtube.com/watch?v=AFZKp6hbFjI) shows how Dataset
 
 You can try the demo yourself [on agent.datasette.io](https://agent.datasette.io/). This requires you to sign in with a GitHub account to help prevent abuse.
 
+The demo uses [Gemini 3.1 Flash-Lite](https://ai.google.dev/gemini-api/docs/models/gemini-3.1-flash-lite) via the [llm-gemini](https://github.com/simonw/llm-gemini) plugin. That model is fast and inexpensive, and our testing has shown it to be proficient at the SQLite queries needed by Datasette Agent.
+
 ## Running Datasette Agent locally
 
 If you want to try out Datasette Agent yourself, the easiest way to do so is using `uv`.
