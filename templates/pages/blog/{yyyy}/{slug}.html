@@ -16,6 +16,10 @@ where
 
 {% block title %}{{ post.title }} - Datasette Blog{% endblock %}
 {% block body_class %}blog-page{% endblock %}
+{% block extra_head %}
+<link rel="stylesheet" href="/static/lite-yt-embed.css" />
+<script src="/static/lite-yt-embed.js"></script>
+{% endblock %}
 
 {% block content %}
 <p class="breadcrumbs"><a href="/blog/">Blog</a> &gt; {{ prettydate(post.datetime_utc[:10]) }}</p>
