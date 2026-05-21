@@ -21,6 +21,36 @@ You can try the demo yourself [on agent.datasette.io](https://agent.datasette.io
 
 The demo uses [Gemini 3.1 Flash-Lite](https://ai.google.dev/gemini-api/docs/models/gemini-3.1-flash-lite) via the [llm-gemini](https://github.com/simonw/llm-gemini) plugin. That model is fast and inexpensive, and our testing has shown it to be proficient at the SQLite queries needed by Datasette Agent.
 
+Datasette Agent includes an "export Markdown" option. Here's [the Markdown export](https://gist.github.com/simonw/a46d17b69659a4866adb1d868280091d) of the conversation I recorded for the demo.
+
+One of the questions I asked was this:
+
+> when did Simon most recently see a pelican?
+
+Which ran [this SQL query](https://datasette.simonwillison.net/simonwillisonblog?sql=SELECT+title%2C+commentary%2C+created+FROM+blog_beat+WHERE+beat_type+%3D+%27sighting%27+AND+%28title+LIKE+%27%25pelican%25%27+OR+commentary+LIKE+%27%25pelican%25%27%29+ORDER+BY+created+DESC+LIMIT+5):
+
+```sql
+SELECT
+  title, commentary, created
+FROM
+  blog_beat
+WHERE
+  beat_type = 'sighting'
+  AND (title LIKE '%pelican%' OR commentary LIKE '%pelican%')
+ORDER BY
+  created DESC
+LIMIT
+  5
+```
+
+And replied:
+
+> The most recent sighting of a pelican by Simon was recorded on **May 20, 2026**.
+>
+> The observation included a California Brown Pelican, along with a Common Loon, Canada Goose, Striped Shore Crab, and a California Sea Lion.
+
+Here's [that sighting on my blog](https://simonwillison.net/2026/May/20/sighting-363395265/).
+
 ## Running Datasette Agent locally
 
 If you want to try out Datasette Agent yourself, the easiest way to do so is using `uv`.
