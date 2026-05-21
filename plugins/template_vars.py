@@ -28,11 +28,6 @@ def adjust_header_hierarchy(html, max_heading_level):
     if not headings:
         return html
     highest_level_in_html = int(min(h.name.lower() for h in headings)[-1])
-    print(
-        "max_heading_level = {}, highest_level_in_html = {}".format(
-            max_heading_level, highest_level_in_html
-        )
-    )
     if highest_level_in_html >= max_heading_level:
         return html
     # Adjust all headers to fit the levels
