@@ -9,7 +9,7 @@ Datasette 1.0a30, released today, provides a new "Jump menu" for quickly navigat
 
 To activate the new menu, either select "Jump to..." from the main application menu, or hit the `/` key while focused on Datasette. This will bring up a modal panel where you can type to search - it looks like this:
 
-<center><img src="https://datasette.io/static/blog/2026/menu.gif" alt="Animated demo - the Jump to menu appears, and as the user types it filters to specific databases and tables and debug options" width="736" height="520" style="max-width: 100%"></center>
+<center><img src="https://datasette.io/static/blog/2026/menu.gif" alt="Animated demo - the Jump to menu appears, and as the user types it filters to specific databases and tables and debug options" style="max-width: 100%"></center>
 
 You can try out that demo on [latest.datasette.io](https://latest.datasette.io/).
 
@@ -63,4 +63,4 @@ The SQL query defined by plugins should always return the same set of columns: `
 
 Plugins can also influence the initial display of the menu when it first opens, thanks to the new [makeJumpSections()](https://docs.datasette.io/en/latest/javascript_plugins.html#makejumpsections) JavaScript plugin hook. The [datasette-agent](https://agent.datasette.io/) plugin now uses that hook to add a form for kicking off a new agent session, which looks like this:
 
-<center><img src="https://datasette.io/static/blog/2026/menu-agent.gif" alt="Animated demo - this time the demo starts on agent.datasette.io and when the menu opens it has a new Start chat box below the search box - entering 'count entries' and hitting the button causes it to start an agent conversation that counts the number of entries and returns 3300." width="736" height="520" style="max-width: 100%"></center>
+<center><img src="https://datasette.io/static/blog/2026/menu-agent.gif" alt="Animated demo - this time the demo starts on agent.datasette.io and when the menu opens it has a new Start chat box below the search box - entering 'count entries' and hitting the button causes it to start an agent conversation that counts the number of entries and returns 3300." style="max-width: 100%"></center>
