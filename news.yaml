@@ -1,3 +1,6 @@
+- date: 2026-05-22
+  body: |-
+    [CalcFi Open Data](https://calcfi-open-data.vercel.app/) is a new public Datasette deployment serving 117,956 observations across 34 free CC-BY financial and macroeconomic time series mirrored verbatim from primary sources (FRED, BLS, Freddie Mac, US Treasury, BEA, World Bank, Federal Reserve, FDIC). Five pre-built named queries cover series coverage, latest-per-series, and a live mortgage vs Treasury weekly spread. The same data is also available through a [Python client](https://pypi.org/project/calcfidata/), [Anaconda](https://anaconda.org/jeresalmisto/calcfidata), [Read the Docs](https://calcfidata.readthedocs.io/), [Google BigQuery Public Datasets](https://console.cloud.google.com/bigquery/analytics-hub/discovery/projects/1099067620437/locations/us/dataExchanges/calcfi_open_data_exchange/listings/calcfi_open_data), and a [Hugging Face dataset](https://huggingface.co/datasets/iizy/calcfi-open-data), with five permanent DOIs ([Figshare](https://doi.org/10.6084/m9.figshare.32332290), Zenodo, OSF, Kaggle, Mendeley).
 - date: 2026-04-19
   body: |-
     Here's a new TIL on [using SQL functions in Google Sheets to fetch data from Datasette](https://til.simonwillison.net/google-sheets/datasette-sql).
