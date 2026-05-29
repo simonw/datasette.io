@@ -282,3 +282,8 @@ body.blog-page .blog-post-date {
 .blog-post-teaser p {
     margin-top: 0;
 }
+
+body.blog-page .content img {
+    max-width: 100%;
+    height: auto;
+}
