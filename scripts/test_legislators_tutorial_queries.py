@@ -5,7 +5,6 @@ import sys
 from pathlib import Path
 from urllib.parse import parse_qs, unquote, urlparse
 
-
 TUTORIAL_FILES = sorted(Path("templates/pages/tutorials").glob("*.html")) + [
     Path("templates/pages/examples.html")
 ]
