@@ -1,0 +1,101 @@
+.codehilite {
+    background: #f6f8fa;
+    border-radius: 4px;
+}
+.codehilite pre {
+    margin: 1em 0;
+    padding: 0.85em 1em;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
+.codehilite .c,
+.codehilite .ch,
+.codehilite .cm,
+.codehilite .cp,
+.codehilite .cpf,
+.codehilite .c1,
+.codehilite .cs {
+    color: #6a737d;
+}
+.codehilite .k,
+.codehilite .kd,
+.codehilite .kn,
+.codehilite .kp,
+.codehilite .kr,
+.codehilite .kt {
+    color: #d73a49;
+}
+.codehilite .kc,
+.codehilite .m,
+.codehilite .mb,
+.codehilite .mf,
+.codehilite .mh,
+.codehilite .mi,
+.codehilite .mo,
+.codehilite .il {
+    color: #005cc5;
+}
+.codehilite .s,
+.codehilite .sa,
+.codehilite .sb,
+.codehilite .sc,
+.codehilite .dl,
+.codehilite .sd,
+.codehilite .s2,
+.codehilite .se,
+.codehilite .sh,
+.codehilite .si,
+.codehilite .sx,
+.codehilite .sr,
+.codehilite .s1,
+.codehilite .ss {
+    color: #032f62;
+}
+.codehilite .na,
+.codehilite .nc,
+.codehilite .nd,
+.codehilite .ne,
+.codehilite .nf,
+.codehilite .fm {
+    color: #6f42c1;
+}
+.codehilite .nb,
+.codehilite .nl,
+.codehilite .nt {
+    color: #005cc5;
+}
+.codehilite .no,
+.codehilite .nv,
+.codehilite .vc,
+.codehilite .vg,
+.codehilite .vi,
+.codehilite .vm {
+    color: #e36209;
+}
+.codehilite .o,
+.codehilite .ow {
+    color: #d73a49;
+}
+.codehilite .gd {
+    color: #b31d28;
+    background-color: #ffeef0;
+}
+.codehilite .gi {
+    color: #22863a;
+    background-color: #f0fff4;
+}
+.codehilite .gu {
+    color: #005cc5;
+    font-weight: bold;
+}
+.codehilite .gh,
+.codehilite .gp,
+.codehilite .gs {
+    font-weight: bold;
+}
+.codehilite .ge {
+    font-style: italic;
+}
+.codehilite .err {
+    color: #b31d28;
+}

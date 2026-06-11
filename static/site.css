@@ -21,6 +21,10 @@ footer {
 .homepage pre {
     white-space: pre-wrap;
 }
+.blog-page pre {
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+}
 .tagline {
     font-size: 1.4em;
     color: #0e0c82;

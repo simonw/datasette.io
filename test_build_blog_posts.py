@@ -31,6 +31,28 @@ Second paragraph.
     assert post["summary"] == "First paragraph."
 
 
+def test_parse_blog_post_highlights_fenced_json(tmp_path):
+    path = tmp_path / "json-post.md"
+    path.write_text("""---
+title: JSON post
+datetime_utc: 2026-05-13 20:58:56
+author: Simon Willison
+author_url: https://simonwillison.net
+---
+
+```json
+{"ok": true, "count": 15}
+```
+""")
+
+    post = parse_blog_post(path)
+
+    assert '<div class="codehilite">' in post["html"]
+    assert '<span class="nt">&quot;ok&quot;</span>' in post["html"]
+    assert '<span class="kc">true</span>' in post["html"]
+    assert '<span class="mi">15</span>' in post["html"]
+
+
 def test_load_blog_posts_replaces_existing_rows(tmp_path):
     blog_dir = tmp_path / "blog-content"
     blog_dir.mkdir()

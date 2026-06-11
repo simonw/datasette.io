@@ -9,6 +9,12 @@ import yaml
 
 BLOG_DIR = Path("blog-content")
 DB_PATH = "content.db"
+MARKDOWN_EXTENSIONS = ["extra", "codehilite"]
+MARKDOWN_EXTENSION_CONFIGS = {
+    "codehilite": {
+        "guess_lang": False,
+    },
+}
 
 
 def split_front_matter(text, path):
@@ -72,7 +78,11 @@ def parse_blog_post(path):
     if not author:
         raise ValueError("{} is missing author in front matter".format(path))
 
-    html = markdown.markdown(body, extensions=["extra"])
+    html = markdown.markdown(
+        body,
+        extensions=MARKDOWN_EXTENSIONS,
+        extension_configs=MARKDOWN_EXTENSION_CONFIGS,
+    )
     return {
         "path": "/blog/{}/{}/".format(year, slug),
         "year": year,
