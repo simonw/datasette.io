@@ -50,6 +50,12 @@ databases:
       global-power-plants:
         facets: ["country_long", "owner", "primary_fuel"]
 plugins:
+  datasette-atom:
+    # Without this, bleach escapes the Pygments <div>/<span> markup in
+    # blog post code blocks and feed readers show it as literal text
+    allow_unsafe_html_in_canned_queries:
+      content:
+        - feed
   dogsheep-beta:
     database: dogsheep-index
     config_file: templates/dogsheep-beta.yml
