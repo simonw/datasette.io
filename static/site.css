@@ -220,17 +220,6 @@ span.by {
 .two-col-column:first-of-type {
     padding-right: 1em;
 }
-/* News and release-note markdown can contain long inline <code> tokens and
-   links (often joined by &nbsp;, which cannot line-break). On narrow/mobile
-   viewports these overflow the column and cause a horizontal scrollbar, so
-   allow them to wrap. */
-.two-col-column {
-    overflow-wrap: break-word;
-}
-.two-col-column code,
-.two-col-column a {
-    overflow-wrap: anywhere;
-}
 
 .github-corner:hover .octo-arm{
     animation:octocat-wave 560ms ease-in-out
