@@ -11,11 +11,11 @@ The key problem with the 0.x API is its verbosity: Datasette usually returns mor
 
 The `?_extra=` mechanism, first introduced for tables [in Datasette 1.0a3](https://docs.datasette.io/en/latest/changelog.html#a3-2023-08-09), is designed to address that. 1.0a33 extends that pattern to rows and queries. Quoting the [1.0a33 release notes](https://docs.datasette.io/en/latest/changelog.html#a33-2026-06-11):
 
-> **`?_extra=` support for row and query pages**
+> **`?_extra=` support for row and query pages**
 > 
-> Row and query JSON pages now support the same `?_extra=` mechanism as table pages. Row pages can request extras such as `foreign_key_tables`, `query`, `metadata` and `database_color`; arbitrary SQL and stored query pages can request extras such as `columns`, `query`, `metadata` and `private`. The implementation was refactored into a registry of extra classes shared by all three page types.
+> Row and query JSON pages now support the same `?_extra=` mechanism as table pages. Row pages can request extras such as `foreign_key_tables`, `query`, `metadata` and `database_color`; arbitrary SQL and stored query pages can request extras such as `columns`, `query`, `metadata` and `private`. The implementation was refactored into a registry of extra classes shared by all three page types.
 >
-> New generated reference documentation describes every `?_extra=` parameter available on table, row and query JSON pages, with example output captured from a live Datasette instance at documentation build time. See [Expanding JSON responses](https://docs.datasette.io/en/latest/json_api.html#json-api-extra) for the full list.
+> New generated reference documentation describes every `?_extra=` parameter available on table, row and query JSON pages, with example output captured from a live Datasette instance at documentation build time. See [Expanding JSON responses](https://docs.datasette.io/en/latest/json_api.html#json-api-extra) for the full list.
 
 The minimal default response for a table page such as `/fixtures/facetable.json` in Datasette 1.0 [starts like this](https://latest.datasette.io/fixtures/facetable.json):
 
@@ -116,7 +116,7 @@ Which returns this JSON, with each requested extra corresponding to a key in the
 }
 ```
 
-You can explore the full set of available extras in the [Datasette extras API explorer tool](https://tools.simonwillison.net/datasette-extras-explorer):
+You can explore the full set of available extras in the [Datasette extras API explorer tool](https://tools.simonwillison.net/datasette-extras-explorer):
 
 ![Screenshot of a web application titled "Datasette extras explorer". A URL input field contains https://latest.datasette.io/fixtures/facetable.json with a teal Explore button next to it. Below, a left panel labeled EXTRAS (30) lists checkboxes: all_columns - All columns in the table, regardless of _col/_nocol filtering; column_types - Column type assignments for this table; columns (checked) - Column names returned by this query; count - Total count of rows matching these filters; count_sql - SQL query used to calculate the total count; custom_table_templates - Custom template names considered for this table; database - Database name; database_color - Color assigned to the database. A right panel labeled RESPONSE shows GET /fixtures/fac… with Copy JSON and Copy URL buttons, then a dark JSON viewer showing 200 - 9.9 KB - 114ms and JSON: "ok": true, "next": null, "columns": (highlighted array) "pk", "created", "planet_int", "on_earth", "state", "_city_id", "_neighborhood", "tags", "complex_array", "distinct_some_null", "n", "rows": list of objects.](https://datasette.io/static/blog/2026/extras-explorer.png)
 

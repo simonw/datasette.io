@@ -181,6 +181,16 @@ def cli(
             db_filename, list(repos_to_fetch_releases_for), auth="auth.json"
         )
 
+    # Release notes sometimes contain non-breaking spaces (U+00A0) around inline
+    # code and links, which render as &nbsp; and cannot line-break - causing
+    # horizontal overflow on narrow viewports. Normalize them to regular spaces.
+    if db["releases"].exists():
+        with db.conn:
+            db.execute(
+                "update releases set body = replace(body, char(160), ' ') "
+                "where body like '%' || char(160) || '%'"
+            )
+
     # Fetch details for any repos that have changed since last time
     repos_to_fetch = []
     for row in db["datasette_repos"].rows:
