@@ -97,7 +97,10 @@ limit 200
 As the user types, the query is executed by JavaScript that looks like this:
 ```javascript
 var results = await datasette.query("content", TIMELINE_SQL, {
-    "q": document.getElementById("q").value
+    "q": document.getElementById("q").value,
+    "news": +document.querySelector('[data-type=news]').checked,
+    "blog": +document.querySelector('[data-type=blog]').checked,
+    "release": +document.querySelector('[data-type=release]').checked
 });
 ```
 Here's [the full source code](https://gist.github.com/simonw/3be71f61ce1ae6bf7b4308e3284a73d7) for this example.
