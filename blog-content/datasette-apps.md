@@ -5,7 +5,7 @@ author: Simon Willison
 author_url: https://simonwillison.net
 ---
 
-Today we're launching Datasette Apps, a way to create and host custom HTML applications inside your Datasette instance.
+Today we're launching **[Datasette Apps](https://github.com/datasette/datasette-apps)**, a way to create and host custom HTML applications inside your Datasette instance.
 
 Datasette's JSON API is already useful as an application backend. The Datasette Apps plugin lets you edit and host those applications inside Datasette itself.
 ## What makes an app?
