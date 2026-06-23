@@ -1,6 +1,24 @@
 #!/bin/bash
 set -eu -o pipefail
 
+check_sqlite_db() {
+  db_path=$1
+  if [ ! -s "$db_path" ]; then
+    echo "SQLite database validation failed: $db_path is missing or empty" >&2
+    exit 1
+  fi
+  if ! output=$(sqlite3 "$db_path" 'PRAGMA quick_check;' 2>&1); then
+    echo "SQLite database validation failed for $db_path" >&2
+    echo "$output" >&2
+    exit 1
+  fi
+  if [ "$output" != "ok" ]; then
+    echo "SQLite database validation failed for $db_path" >&2
+    echo "$output" >&2
+    exit 1
+  fi
+}
+
 # Populate news database
 sqlite-utils content.db 'drop table if exists news'
 yaml-to-sqlite content.db news news.yaml
@@ -44,18 +62,22 @@ python fetch_blog_content.py simon-blog.db datasette dogsheep sqliteutils
 
 # Fetch TILs
 curl -L -o tils.db https://github.com/simonw/til-db/raw/main/tils.db
+check_sqlite_db tils.db
 
 # Fetch global-power-plants.db and legislators.db
 curl -L -o global-power-plants.db https://static.simonwillison.net/static/2023/global-power-plants.db
+check_sqlite_db global-power-plants.db
 if [ "${SKIP_LEGISLATORS_DB_DOWNLOAD:-}" = "1" ]; then
   test -f legislators.db
 else
   curl --fail -L -o legislators.db https://datasette.io/legislators.db || \
     curl --fail -L -o legislators.db https://static.simonwillison.net/static/2025/legislators.db
 fi
+check_sqlite_db legislators.db
 
 # Fetch documentation database for search index
 curl -o docs-index.db https://stable-docs.datasette.io/docs.db
+check_sqlite_db docs-index.db
 
 # Import stats.json
 curl -f -S https://raw.githubusercontent.com/simonw/package-stats/main/stats.json \
