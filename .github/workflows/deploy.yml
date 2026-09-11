@@ -84,4 +84,6 @@ jobs:
     - name: Deploy to Fly
       env:
         FLY_API_TOKEN: ${{ secrets.FLY_TOKEN }}
-      run: scripts/deploy.sh
+      run: |
+        flyctl apps list --json
+        scripts/deploy.sh
