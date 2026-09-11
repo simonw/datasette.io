@@ -1,4 +1,5 @@
 import sqlite_utils
+from bs4 import BeautifulSoup
 
 from build_blog_posts import load_blog_posts, parse_blog_post
 
@@ -48,7 +49,8 @@ author_url: https://simonwillison.net
     post = parse_blog_post(path)
 
     assert '<div class="codehilite">' in post["html"]
-    assert '<span class="nt">&quot;ok&quot;</span>' in post["html"]
+    soup = BeautifulSoup(post["html"], "html.parser")
+    assert soup.select_one(".codehilite .nt").get_text() == '"ok"'
     assert '<span class="kc">true</span>' in post["html"]
     assert '<span class="mi">15</span>' in post["html"]
 
