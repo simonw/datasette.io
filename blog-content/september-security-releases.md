@@ -1,6 +1,6 @@
 ---
 title: Datasette 1.0a39 and 0.65.4 security releases
-datetime_utc: 2026-09-10 17:04:50 -0700
+datetime_utc: 2026-09-11 00:04:50
 author: Simon Willison
 author_url: https://simonwillison.net
 ---
