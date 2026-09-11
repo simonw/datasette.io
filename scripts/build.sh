@@ -76,7 +76,7 @@ fi
 check_sqlite_db legislators.db
 
 # Fetch documentation database for search index
-curl -o docs-index.db https://stable-docs.datasette.io/docs.db
+curl --fail -L -o docs-index.db https://static.simonwillison.net/static/2026/docs.db
 check_sqlite_db docs-index.db
 
 # Import stats.json
