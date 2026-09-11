@@ -15,7 +15,7 @@ datasette publish fly \
   tils.db \
   global-power-plants.db \
   legislators.db \
-  --branch 1.0a26 \
+  --branch 1.0a39 \
   --app datasette-io \
   --template-dir=templates \
   --metadata=metadata.yml \
