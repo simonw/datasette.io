@@ -12,11 +12,10 @@ datasette-atom==0.10a0
 dogsheep-beta>=0.11
 datasette-graphql==3.0a1
 datasette-referrer-policy==0.1
-# github-to-sqlite 2.9 compares foreign keys using the pre-4 tuple shape.
-sqlite-utils>=3.9.1,<4
+sqlite-utils>=3.9.1
 yaml-to-sqlite>=1.0
 markdown-to-sqlite>=1.0
-github-to-sqlite>=2.8.2
+github-to-sqlite>=2.9.1
 python-graphql-client
 httpx
 feedparser
