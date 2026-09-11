@@ -7,8 +7,8 @@ author_url: https://simonwillison.net
 
 We have two big security updates for Datasette today - one for the 1.0 alpha series and another for the 0.65.x stable release:
 
-- [1.0a39](https://pypi.org/project/datasette/1.0a39/)
-- [0.65.4](https://pypi.org/project/datasette/0.65.4/)
+- [1.0a39](https://docs.datasette.io/en/latest/changelog.html#v1-0-a39)
+- [0.65.4](https://docs.datasette.io/en/stable/changelog.html#v0-65-4)
 
 If you are running Datasette instances on the public internet you should **upgrade now**, in particular if you are using a Datasette authentication plugin to protect private data.
 
