@@ -17,29 +17,22 @@ jobs:
     steps:
     - name: Check out repo
       uses: actions/checkout@v6
-    - name: Set up Python
-      uses: actions/setup-python@v6
+    - name: Set up uv
+      uses: astral-sh/setup-uv@v6
       with:
         python-version: '3.14'
-    - uses: actions/cache@v5
-      name: Configure pip caching
-      with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
+        enable-cache: true
     - name: Install Python dependencies
-      run: |
-        pip install -r requirements.txt
+      run: uv sync --locked
     - name: Run the pytest tests
-      run: pytest
+      run: uv run pytest
     - name: Download previous content.db from S3
       if: github.event.inputs.from_scratch != 'skip'
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       run: |
-        s3-credentials get-object datasette-io-files content.db -o content.db || \
+        uv run s3-credentials get-object datasette-io-files content.db -o content.db || \
           curl -O https://datasette.io/content.db
       continue-on-error: true
     - name: Download previous simon-blog.db from S3
@@ -48,8 +41,8 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       run: |
-        s3-credentials get-object datasette-io-files simon-blog.db -o simon-blog.db || \
-          s3-credentials get-object datasette-io-files blog.db -o simon-blog.db || \
+        uv run s3-credentials get-object datasette-io-files simon-blog.db -o simon-blog.db || \
+          uv run s3-credentials get-object datasette-io-files blog.db -o simon-blog.db || \
           curl --fail -o simon-blog.db https://datasette.io/simon-blog.db || \
           curl --fail -o simon-blog.db https://datasette.io/blog.db
       continue-on-error: true
@@ -58,26 +51,26 @@ jobs:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
       run: |
-        s3-credentials get-object datasette-io-files legislators.db -o legislators.db || \
+        uv run s3-credentials get-object datasette-io-files legislators.db -o legislators.db || \
           curl --fail -L -o legislators.db https://datasette.io/legislators.db || \
           curl --fail -L -o legislators.db https://static.simonwillison.net/static/2025/legislators.db
     - name: Build databases
-      run: scripts/build.sh
+      run: uv run scripts/build.sh
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         SKIP_LEGISLATORS_DB_DOWNLOAD: 1
     - name: Soundness check
-      run: scripts/test.sh
+      run: uv run scripts/test.sh
     - name: Upload content.db to S3
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      run: s3-credentials put-object datasette-io-files content.db content.db
+      run: uv run s3-credentials put-object datasette-io-files content.db content.db
     - name: Upload simon-blog.db to S3
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      run: s3-credentials put-object datasette-io-files simon-blog.db simon-blog.db
+      run: uv run s3-credentials put-object datasette-io-files simon-blog.db simon-blog.db
     - name: Install Fly
       run: |
         curl --fail -L https://fly.io/install.sh | sh
@@ -86,4 +79,4 @@ jobs:
       env:
         FLY_API_TOKEN: ${{ secrets.FLY_TOKEN }}
       run: |
-        scripts/deploy.sh
+        uv run scripts/deploy.sh

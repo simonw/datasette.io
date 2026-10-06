@@ -21,28 +21,21 @@ jobs:
       with:
         repository: unitedstates/congress-legislators
         path: congress-legislators
-    - name: Set up Python
-      uses: actions/setup-python@v6
+    - name: Set up uv
+      uses: astral-sh/setup-uv@v6
       with:
         python-version: '3.14'
-    - uses: actions/cache@v5
-      name: Configure pip caching
-      with:
-        path: ~/.cache/pip
-        key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
-        restore-keys: |
-          ${{ runner.os }}-pip-
+        enable-cache: true
     - name: Install Python dependencies
-      run: |
-        pip install -r requirements.txt
+      run: uv sync --locked
     - name: Build legislators.db
-      run: python scripts/build_legislators_database.py legislators.db congress-legislators
+      run: uv run python scripts/build_legislators_database.py legislators.db congress-legislators
     - name: Validate legislators.db
       run: |
-        sqlite-utils tables legislators.db --counts
-        sqlite-utils legislators.db "select count(*) as count from legislators"
-        sqlite-utils legislators.db "select count(*) as count from legislator_terms"
-        python scripts/test_legislators_tutorial_queries.py legislators.db
+        uv run sqlite-utils tables legislators.db --counts
+        uv run sqlite-utils legislators.db "select count(*) as count from legislators"
+        uv run sqlite-utils legislators.db "select count(*) as count from legislator_terms"
+        uv run python scripts/test_legislators_tutorial_queries.py legislators.db
     - name: Store legislators.db as artifact
       uses: actions/upload-artifact@v4
       with:
@@ -52,4 +45,4 @@ jobs:
       env:
         AWS_ACCESS_KEY_ID: ${{ secrets.AWS_ACCESS_KEY_ID }}
         AWS_SECRET_ACCESS_KEY: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-      run: s3-credentials put-object datasette-io-files legislators.db legislators.db
+      run: uv run s3-credentials put-object datasette-io-files legislators.db legislators.db
