@@ -182,3 +182,7 @@
   tags:
   - Untagged
   extra_search: ""
+- repo: Peterrallojay/sqlite-utils-jev
+  tags:
+  - Untagged
+  extra_search: "jev typesafe classification sqlite-utils"
