@@ -41,10 +41,14 @@ To see the site in your browser:
 
     ./dev-server.sh
 
-This will run a server at `http://localhost:9008/`, restarting when plugins or configuration change.
+This will run a server at `http://localhost:9008/` in dev mode: the server restarts when plugins or configuration change, and open pages automatically reload when templates, static files or blog posts change.
+
+Dev mode is enabled by the `plugins.datasette-io-blog.dev_mode` setting - see `plugins/dev_mode.py`. To enable it on a server you start yourself, pass `-c datasette.yml` as well, since any `-s` option stops Datasette from loading `datasette.yml` automatically:
+
+    uv run datasette . -c datasette.yml --reload -s plugins.datasette-io-blog.dev_mode 1
 
 ### Blog posts
 
-Blog posts live as Markdown files in `blog-content/`. After adding or editing one, rebuild the `blog_posts` table in `content.db` with:
+Blog posts live as Markdown files in `blog-content/`. With `./dev-server.sh` running, saving a post rebuilds the `blog_posts` table in `content.db` and reloads the page. Without dev mode, rebuild the table with:
 
     ./build-blog.sh
