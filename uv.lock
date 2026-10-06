@@ -449,7 +449,7 @@ wheels = [
 
 [[package]]
 name = "datasette"
-version = "1.0a40"
+version = "1.0a41"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "aiofiles" },
@@ -462,6 +462,7 @@ dependencies = [
     { name = "itsdangerous" },
     { name = "jinja2" },
     { name = "mergedeep" },
+    { name = "opentelemetry-api" },
     { name = "pip" },
     { name = "pluggy" },
     { name = "pydantic" },
@@ -470,23 +471,23 @@ dependencies = [
     { name = "sqlite-utils" },
     { name = "uvicorn" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/ef/b3/3f38d81bbee06578c1607433bd1e831d1d2bc1d6fad224db6f782a824750/datasette-1.0a40.tar.gz", hash = "sha256:b3fde0360f1fae58f7061f5756c200a53f9da592747154ff7a9189abb9b5923b", size = 764701, upload-time = "2026-09-16T23:56:32.312Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/dc/bd/6af4c2dfc6a10eacb8c2296dc7641f67cd3ee3b135a194ab27bebea548c1/datasette-1.0a41.tar.gz", hash = "sha256:d1cf980dc847af96eef9fc933a63d1947c23da54b9aa8f23ff9c74d3918ef097", size = 833150, upload-time = "2026-09-24T19:28:35.807Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/4c/ff/4e81526ab06c8c82a1859c90590c73732996954fabf0689a5064768b873f/datasette-1.0a40-py3-none-any.whl", hash = "sha256:c31e3a197554f75449d224124e9fe3a9f3537eee5bf8c3fc776074107301ef5f", size = 556091, upload-time = "2026-09-16T23:56:30.329Z" },
+    { url = "https://files.pythonhosted.org/packages/ac/9f/dc00efbe1ffecf99f71fbaba3328148765fbf5edc18c9f668566eba929dc/datasette-1.0a41-py3-none-any.whl", hash = "sha256:9bf657d0a3081ab05f742815d56088bcd587fa6e9eebeffb2166d8026e1eadcf", size = 585250, upload-time = "2026-09-24T19:28:34.367Z" },
 ]
 
 [[package]]
 name = "datasette-atom"
-version = "0.10a0"
+version = "0.11a0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "bleach" },
     { name = "datasette" },
     { name = "feedgen" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/be/0d/eb81ccaf67d5ee61c6227b3eacb78a061e6657d39254a2caf55495b1b3bf/datasette_atom-0.10a0.tar.gz", hash = "sha256:cb957a1483659b0a71096b2984c7bdd68d2a36d524e8e1eb93817bcdaad31c39", size = 4033, upload-time = "2026-04-08T18:03:45.836Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/21/19/216c10076533163c665333dd7f0b7b7468a18bc7498c445c95617a182ba6/datasette_atom-0.11a0.tar.gz", hash = "sha256:8f8769d34e519dffbe6e0b2c3ea3f79fd6796b1747cc71e479aeaa797d6120f1", size = 3985, upload-time = "2026-10-06T17:36:51.974Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/43/48/c3d082bd0df825bc3938b3fb82ab13af3a6cf18e4767eaa61370018bd15e/datasette_atom-0.10a0-py3-none-any.whl", hash = "sha256:7e9e9e03e597bf68f5cf1be2af6f3f8250fb75eb93ce4b790bb49db02477d743", size = 4960, upload-time = "2026-04-08T18:03:44.936Z" },
+    { url = "https://files.pythonhosted.org/packages/44/40/c336261d7e4fe983acf6883197436c8ab45454939f62b64cec61deb48e51/datasette_atom-0.11a0-py3-none-any.whl", hash = "sha256:dcdf81621a9567105fe4cb66b5a37d630aa1ad50aacfb11e07a1390e76594f6c", size = 4895, upload-time = "2026-10-06T17:36:51.173Z" },
 ]
 
 [[package]]
@@ -575,8 +576,8 @@ dev = [
 requires-dist = [
     { name = "beautifulsoup4" },
     { name = "click" },
-    { name = "datasette", specifier = "==1.0a40" },
-    { name = "datasette-atom", specifier = "==0.10a0" },
+    { name = "datasette", specifier = "==1.0a41" },
+    { name = "datasette-atom", specifier = "==0.11a0" },
     { name = "datasette-cluster-map" },
     { name = "datasette-debug-asgi" },
     { name = "datasette-graphql", specifier = "==3.0a1" },
@@ -1441,6 +1442,18 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/02/8b/b2c2805c3eb6fa4cdf5512fb95ac6174dde71e34dd601c5be52f4df5dc82/multidict-6.9.1-cp315-cp315t-win_amd64.whl", hash = "sha256:e96ca64383efa107262ee3949f047af5ee4f1845ba09463466c04d35a83bd3ec", size = 64984, upload-time = "2026-09-21T17:58:59.446Z" },
     { url = "https://files.pythonhosted.org/packages/fd/34/03f1d204d698c408f4754c969882609b6b7a902c0e3d16a7033f219cdeda/multidict-6.9.1-cp315-cp315t-win_arm64.whl", hash = "sha256:501ed8b02a5990c67a91c732843609d43a6be1f7576fcdfc867331239f37fbd3", size = 58742, upload-time = "2026-09-21T17:59:01.726Z" },
     { url = "https://files.pythonhosted.org/packages/be/59/e26cb779be4c591d1a910f59d29aca9fba4de70349840a833beba2652371/multidict-6.9.1-py3-none-any.whl", hash = "sha256:7bf6478188f4e47bf5686e8a33da4ae28bf43b1b2528d9ee144d28492bfac60b", size = 19176, upload-time = "2026-09-21T17:59:03.501Z" },
+]
+
+[[package]]
+name = "opentelemetry-api"
+version = "1.45.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "typing-extensions" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/2e/02/6e0ae9cc61bd3169d401077b507b3ebc344745171e1051ab430be012dcd9/opentelemetry_api-1.45.1.tar.gz", hash = "sha256:aa38ed19bcc084ba42782a73255b3582283eced7ad6dddbd6695189e69adfb75", size = 72804, upload-time = "2026-10-06T17:32:58.133Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/1e/41/f7dcf80b81ee8e71c1a2b59f14208bc723edbd89ed027a73b175abf6348e/opentelemetry_api-1.45.1-py3-none-any.whl", hash = "sha256:b31553efa588ae44bc306f863c785c5333a9ecc091248c6ee68b4b6c87fdedfb", size = 60256, upload-time = "2026-10-06T17:32:33.506Z" },
 ]
 
 [[package]]

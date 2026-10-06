@@ -6,8 +6,8 @@ requires-python = ">=3.12"
 dependencies = [
     "beautifulsoup4",
     "click",
-    "datasette==1.0a40",
-    "datasette-atom==0.10a0",
+    "datasette==1.0a41",
+    "datasette-atom==0.11a0",
     "datasette-cluster-map",
     "datasette-debug-asgi",
     "datasette-graphql==3.0a1",
