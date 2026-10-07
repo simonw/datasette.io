@@ -30,8 +30,7 @@ select
     title,
     datetime_utc,
     summary,
-    author,
-    author_url
+    author
 from
     blog_posts
 order by
@@ -44,7 +43,7 @@ order by
             <small>
                 {{ prettydate(post.datetime_utc[:10]) }}
                 {% if post.author %}
-                    by {% if post.author_url %}<a href="{{ post.author_url }}">{{ post.author }}</a>{% else %}{{ post.author }}{% endif %}
+                    by {{ post.author }}
                 {% endif %}
             </small>
         </p>
