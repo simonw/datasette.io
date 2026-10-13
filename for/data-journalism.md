@@ -10,4 +10,4 @@ Datasette was originally designed as a tool for data journalists, to help report
 
 <iframe style="max-width: 100%" src="https://player.vimeo.com/video/436903714" width="640" height="400" frameborder="0" allow="autoplay; fullscreen" allowfullscreen></iframe>
 
-You can try the demo [here](https://sba-loans-covid-19.datasettes.com/), or read more about it in [this article](https://simonwillison.net/2020/Jul/9/sba-covid-19-ppp-loans/).
+The original `sba-loans-covid-19.datasettes.com` demo is no longer live, but you can read about the project in [this article](https://simonwillison.net/2020/Jul/9/sba-covid-19-ppp-loans/) or browse an [archived copy on the Wayback Machine](https://web.archive.org/web/2024/https://sba-loans-covid-19.datasettes.com/).
