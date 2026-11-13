@@ -15,7 +15,7 @@ datasette publish fly \
   tils.db \
   global-power-plants.db \
   legislators.db \
-  --branch 1.0a41 \
+  --branch 1.0a42 \
   --app datasette-io \
   --template-dir=templates \
   --metadata=metadata.yml \
@@ -32,7 +32,7 @@ datasette publish fly \
   --install=datasette-json-html \
   --install=datasette-debug-asgi \
   --install=datasette-gzip \
-  --install=datasette-cluster-map \
+  --install='datasette-cluster-map>=0.19' \
   --install='datasette-turnstile==0.1a3' \
   --install='datasette-ip-rate-limit==0.1a0' \
   --install=html5lib \
