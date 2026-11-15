@@ -1,3 +1,6 @@
+- date: 2026-11-15
+  body: |-
+    Datasette [0.65.6](https://docs.datasette.io/en/stable/changelog.html#v0-65-6) and [1.0a43](https://docs.datasette.io/en/latest/changelog.html#a43-2026-11-15) are out. Both include a security fix for database downloads: a database registered with a route that differs from its name could be downloaded by actors who were denied access to it. Datasette 1.0a43 also fixes [an issue that exposed private stored queries](https://github.com/simonw/datasette/security/advisories/GHSA-mw6v-83vp-7c4c), and adds [streaming output renderers](https://docs.datasette.io/en/latest/plugin_hooks.html#plugin-register-output-renderer-streaming) and a new [JSON format for individual rows](https://docs.datasette.io/en/latest/json_api.html#json-api-row), plus many bug fixes and smaller improvements.
 - date: 2026-09-16
   body: |-
     Datasette [0.65.5](https://docs.datasette.io/en/stable/changelog.html#v0-65-5) and [1.0a40](https://docs.datasette.io/en/latest/changelog.html#a40-2026-09-16) are out, with a security fix for [a table permisisons bypass](https://github.com/simonw/datasette/security/advisories/GHSA-h547-rmjf-5m2m). Datasette 1.0a40 also adds a mechanism for plugins to [run background tasks](https://docs.datasette.io/en/latest/internals.html#datasette-add-background-task).

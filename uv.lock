@@ -449,7 +449,7 @@ wheels = [
 
 [[package]]
 name = "datasette"
-version = "1.0a42"
+version = "1.0a43"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "aiofiles" },
@@ -471,9 +471,9 @@ dependencies = [
     { name = "sqlite-utils" },
     { name = "uvicorn" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/b9/40/d92f076376620a2eaa1209fd3092771016b43bfbc8b7454a7448b4397fe9/datasette-1.0a42.tar.gz", hash = "sha256:9d0a96ac89eeb7fc45d3a6ea374bb6b3353c3585be4e25419a9ed8a94c990bfc", size = 927563, upload-time = "2026-11-09T00:01:11.965Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/61/7f/ab8776a654288b53a652524b2ec6ce7ef1abc699751e187418d1dc53bbba/datasette-1.0a43.tar.gz", hash = "sha256:71f8b7c41fe4eb5071e279b584e7bbd442e8d57170f6b5df8d861ece09df55d2", size = 963959, upload-time = "2026-11-15T23:24:46.238Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/ca/fa/1422af633c534a2f32f58a4f72dff39d6319952ed79e035cc3b16f89ee38/datasette-1.0a42-py3-none-any.whl", hash = "sha256:9a33a9635d734d74a132633597858939cefa81b7b0253a22338c5f5e73ca4015", size = 660642, upload-time = "2026-11-09T00:01:09.202Z" },
+    { url = "https://files.pythonhosted.org/packages/6d/62/2e3e3c336e7688b161669fd71c836da3426b785ff97589a6e4b67c460f89/datasette-1.0a43-py3-none-any.whl", hash = "sha256:f6caa7b2baef3bb74751501e621967c121e8e6b480a99fecd5989354d7bf3c8c", size = 677547, upload-time = "2026-11-15T23:24:44.591Z" },
 ]
 
 [[package]]
@@ -576,7 +576,7 @@ dev = [
 requires-dist = [
     { name = "beautifulsoup4" },
     { name = "click" },
-    { name = "datasette", specifier = "==1.0a42" },
+    { name = "datasette", specifier = "==1.0a43" },
     { name = "datasette-atom", specifier = "==0.11a0" },
     { name = "datasette-cluster-map", specifier = ">=0.19" },
     { name = "datasette-debug-asgi" },
