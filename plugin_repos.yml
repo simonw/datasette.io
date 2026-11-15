@@ -33,9 +33,6 @@
 - repo: simonw/datasette-media
   tags:
   - Ops
-- repo: simonw/datasette-seaborn
-  tags:
-  - Visualization
 - repo: simonw/datasette-jq
   tags:
   - SQL Functions
