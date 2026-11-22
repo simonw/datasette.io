@@ -11,10 +11,7 @@ join
 where
     repos.name = :name
 """, {"name": name}, database="content") %}
-{% if not plugins %}
-    {{ raise_404("Plugin not found") }}
-{% endif %}
-{% set plugin = plugins[0] %}
+{% set plugin = plugins[0] if plugins else raise_404("Plugin not found") %}
 
 {% block title %}{{ name }} - a plugin for Datasette{% endblock %}
 

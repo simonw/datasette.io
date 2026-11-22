@@ -8,10 +8,7 @@ from
 where
     uses._path = :path
 """, {"path": "for/{}.md".format(slug)}, database="content") %}
-{% if not pages %}
-    {{ raise_404("Page not found") }}
-{% endif %}
-{% set page = pages[0] %}
+{% set page = pages[0] if pages else raise_404("Page not found") %}
 
 {% block extra_head %}
 <style>
