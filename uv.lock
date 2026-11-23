@@ -198,15 +198,6 @@ wheels = [
 ]
 
 [[package]]
-name = "asgiref"
-version = "3.13.0"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/6b/90/f5fce14e95fccf53b58e8e2c47cd84d40d105d64073ae1ac75166db150e0/asgiref-3.13.0.tar.gz", hash = "sha256:034cc8cbf72d00553b4be256703ac545120b4e50af13b49dec99da899aeeecb4", size = 52941, upload-time = "2026-10-23T08:13:14.715Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/2e/b0/ec211e1f7966247cb6469158d856bac9aa4c2fe13621bd6a352e4f850453/asgiref-3.13.0-py3-none-any.whl", hash = "sha256:f9596a2434512686473d50f96ff6207fbba49ae1a785dfac614df4aeb085674d", size = 27593, upload-time = "2026-10-23T08:13:13.394Z" },
-]
-
-[[package]]
 name = "asyncinject"
 version = "0.7"
 source = { registry = "https://pypi.org/simple" }
@@ -449,11 +440,10 @@ wheels = [
 
 [[package]]
 name = "datasette"
-version = "1.0a43"
+version = "1.0a44"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "aiofiles" },
-    { name = "asgiref" },
     { name = "asyncinject" },
     { name = "click" },
     { name = "click-default-group" },
@@ -471,9 +461,9 @@ dependencies = [
     { name = "sqlite-utils" },
     { name = "uvicorn" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/61/7f/ab8776a654288b53a652524b2ec6ce7ef1abc699751e187418d1dc53bbba/datasette-1.0a43.tar.gz", hash = "sha256:71f8b7c41fe4eb5071e279b584e7bbd442e8d57170f6b5df8d861ece09df55d2", size = 963959, upload-time = "2026-11-15T23:24:46.238Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/0e/7e/81f88a46c89758ca13abdd7bef8d63fc6065aaa052ea2a6fd14a67ec516f/datasette-1.0a44.tar.gz", hash = "sha256:b0524aaeb28466420b12c1da047f67cc016554ea3b424f7dfa8a7b09da2ba46d", size = 1031878, upload-time = "2026-11-23T00:05:02.19Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/6d/62/2e3e3c336e7688b161669fd71c836da3426b785ff97589a6e4b67c460f89/datasette-1.0a43-py3-none-any.whl", hash = "sha256:f6caa7b2baef3bb74751501e621967c121e8e6b480a99fecd5989354d7bf3c8c", size = 677547, upload-time = "2026-11-15T23:24:44.591Z" },
+    { url = "https://files.pythonhosted.org/packages/26/22/02298b871784bbf4361d74383cf28faa3786febda2f5103935875c334149/datasette-1.0a44-py3-none-any.whl", hash = "sha256:c7d51d7fee711b45e3bcf5646d782de3325b0a436efae4f203aef2abad8e400f", size = 708726, upload-time = "2026-11-23T00:05:00.308Z" },
 ]
 
 [[package]]
@@ -488,6 +478,18 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/21/19/216c10076533163c665333dd7f0b7b7468a18bc7498c445c95617a182ba6/datasette_atom-0.11a0.tar.gz", hash = "sha256:8f8769d34e519dffbe6e0b2c3ea3f79fd6796b1747cc71e479aeaa797d6120f1", size = 3985, upload-time = "2026-10-06T17:36:51.974Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/44/40/c336261d7e4fe983acf6883197436c8ab45454939f62b64cec61deb48e51/datasette_atom-0.11a0-py3-none-any.whl", hash = "sha256:dcdf81621a9567105fe4cb66b5a37d630aa1ad50aacfb11e07a1390e76594f6c", size = 4895, upload-time = "2026-10-06T17:36:51.173Z" },
+]
+
+[[package]]
+name = "datasette-charts"
+version = "0.1a0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "datasette" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/77/3d/c6eb4f332925ff44069158ba3201b4a52e3177d5e5e5f87643c1087aef66/datasette_charts-0.1a0.tar.gz", hash = "sha256:cec2a56ea133690ff0d23b3587c29e1e27d0ef507ac5a2fa833d936dd54d4543", size = 281372, upload-time = "2026-11-23T00:38:23.317Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/ad/e0/75b298dd14bb466ffc2a6913d8011aad73036cd2dd5c16b8baf46f4b8afe/datasette_charts-0.1a0-py3-none-any.whl", hash = "sha256:4c9313d80c41df90c3d5def70c37e1255278d3d0918783fc38a75ccc9ea5985d", size = 281585, upload-time = "2026-11-23T00:38:21.76Z" },
 ]
 
 [[package]]
@@ -539,6 +541,7 @@ dependencies = [
     { name = "click" },
     { name = "datasette" },
     { name = "datasette-atom" },
+    { name = "datasette-charts" },
     { name = "datasette-cluster-map" },
     { name = "datasette-debug-asgi" },
     { name = "datasette-graphql" },
@@ -549,7 +552,6 @@ dependencies = [
     { name = "datasette-render-markdown" },
     { name = "datasette-template-sql" },
     { name = "datasette-turnstile" },
-    { name = "datasette-vega" },
     { name = "dogsheep-beta" },
     { name = "feedparser" },
     { name = "github-to-sqlite" },
@@ -576,8 +578,9 @@ dev = [
 requires-dist = [
     { name = "beautifulsoup4" },
     { name = "click" },
-    { name = "datasette", specifier = "==1.0a43" },
+    { name = "datasette", specifier = ">=1.0a44" },
     { name = "datasette-atom", specifier = "==0.11a0" },
+    { name = "datasette-charts", specifier = "==0.1a0" },
     { name = "datasette-cluster-map", specifier = ">=0.19" },
     { name = "datasette-debug-asgi" },
     { name = "datasette-graphql", specifier = "==3.0a1" },
@@ -588,7 +591,6 @@ requires-dist = [
     { name = "datasette-render-markdown", specifier = ">=2.2.1" },
     { name = "datasette-template-sql" },
     { name = "datasette-turnstile", specifier = "==0.1a3" },
-    { name = "datasette-vega" },
     { name = "dogsheep-beta", specifier = ">=0.11" },
     { name = "feedparser" },
     { name = "github-to-sqlite", specifier = ">=2.9.1" },
@@ -706,18 +708,6 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/80/fd/6e7d6138b00541225b2c6323e94f19d823c023b5491d98ef86bd58530863/datasette_turnstile-0.1a3.tar.gz", hash = "sha256:f36532fd591bbfca139e93bc65df41b64ba0e635ecd8f9a95802ada9e51a05b9", size = 16136, upload-time = "2026-04-08T19:01:36.02Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/ce/71/1f4abe145eaf5e5cd70f3a74c3344c6f80e3ab6c08d7ef7c8ef8439f9da1/datasette_turnstile-0.1a3-py3-none-any.whl", hash = "sha256:ce5a5c7835a52e8ff4be1e29c89b605e35957ac6afe65c4f6968d6f6b93f3fec", size = 13395, upload-time = "2026-04-08T19:01:34.702Z" },
-]
-
-[[package]]
-name = "datasette-vega"
-version = "0.7"
-source = { registry = "https://pypi.org/simple" }
-dependencies = [
-    { name = "datasette" },
-]
-sdist = { url = "https://files.pythonhosted.org/packages/ee/d7/0d72b1ff72b2b3a628a9631d3cbb7330c7f4f0c5a97e17e5c86c8170e666/datasette_vega-0.7.tar.gz", hash = "sha256:1efbc4bbac60e4dd6246b555df4e5f109dcb0874588631c8a7c963f15beacbdd", size = 351834, upload-time = "2026-11-14T17:10:13.629Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/c1/03/87456a0fcc475c51d0a3a3ecbe0acb0c816be9a3c289fecf96504a7d8d42/datasette_vega-0.7-py3-none-any.whl", hash = "sha256:a7a845a0e0e1719dd01e13236b0279d2207369ca3ea8f9a7d5f67694b15c2072", size = 352352, upload-time = "2026-11-14T17:10:11.892Z" },
 ]
 
 [[package]]

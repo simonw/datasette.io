@@ -64,7 +64,7 @@ join repos on releases.repo = repos.id
   where repos.full_name = 'simonw/datasette-app'
 order by published_at desc limit 2
 """, database="content") %}
-    {% if loop.first %}<p><a class="download-button" href="{{ row.browser_download_url }}">Download and install Datasette</a> <span style="white-space: nowrap">{{ format_bytes(row.size) }}</span></p>{% endif %}
+    {% if loop.first %}<p><a class="download-button" href="{{ row.browser_download_url }}">Download and install Datasette</a> <span style="white-space: nowrap">{{ row.size|filesizeformat }}</span></p>{% endif %}
     <div class="latest-release">
       <h2>{% if loop.first %}<span style="font-weight: normal">Latest release: </span>{% endif %}{{ row.tag_name }} <span style="font-weight: normal">on</span> {{ prettydate(row.published_at) }}</h2>
       {{ render_markdown(row.release_notes) }}

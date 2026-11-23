@@ -20,6 +20,6 @@ Datasette automatically identifies columns with less than twenty unique values a
 
 ## Visualization
 
-Plugins such as [datasette-vega](https://github.com/simonw/datasette-vega) and [datasette-cluster-map](https://github.com/simonw/datasette-cluster-map) provide tools for interactively visualizing data directly within the Datasette interface.
+Plugins such as [datasette-charts](https://github.com/datasette/datasette-charts) and [datasette-cluster-map](https://github.com/simonw/datasette-cluster-map) provide tools for interactively visualizing data directly within the Datasette interface.
 
 ![Screenshot of datasette-cluster-map](/static/screenshots/datasette-cluster-map.png)

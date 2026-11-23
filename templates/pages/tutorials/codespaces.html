@@ -134,7 +134,6 @@ To install these, we first need to stop the Datasette server running. To do this
 The `datasette install ...` command installs new plugins. Let's install a few of them:
 {% endmarkdown %}
 <pre><code>datasette install \
-  datasette-vega \
   datasette-cluster-map \
   datasette-copyable \
   datasette-configure-fts \
@@ -144,7 +143,6 @@ The `datasette install ...` command installs new plugins. Let's install a few of
 {% markdown %}
 Here's what each of these plugins does:
 
-- [datasette-vega](https://datasette.io/plugins/datasette-vega) adds line, bar and scatter chart visualizations
 - [datasette-cluster-map](https://datasette.io/plugins/datasette-cluster-map) adds a map visualization for any table with latitude and longitude columns
 - [datasette-copyable](https://datasette.io/plugins/datasette-copyable) provides additional export options for copying and pasting data out of Datasette
 - [datasette-configure-fts](https://datasette.io/plugins/datasette-configure-fts) helps you to configure full-text search for your tables
@@ -177,6 +175,8 @@ Return to the table page and you should see this map of Florida with manatee loc
 ![Screenshot of Datasette showing a map of manatee locations in Florida](https://raw.githubusercontent.com/simonw/codespaces-datasette/main/manatees.jpg)
 
 ## Next steps
+
+If you use Datasette 1.0a44 or later, [datasette-charts](https://datasette.io/plugins/datasette-charts) can suggest charts for your tables and SQL queries.
 
 Try working through the rest of the [Cleaning data with sqlite-utils and Datasette](https://datasette.io/tutorials/clean-data) tutorial to learn more about how to use `sqlite-utils` and Datasette together.
 

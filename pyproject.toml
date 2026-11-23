@@ -6,8 +6,9 @@ requires-python = ">=3.12"
 dependencies = [
     "beautifulsoup4",
     "click",
-    "datasette==1.0a43",
+    "datasette>=1.0a44",
     "datasette-atom==0.11a0",
+    "datasette-charts==0.1a0",
     "datasette-cluster-map>=0.19",
     "datasette-debug-asgi",
     "datasette-graphql==3.0a1",
@@ -18,7 +19,6 @@ dependencies = [
     "datasette-render-markdown>=2.2.1",
     "datasette-template-sql",
     "datasette-turnstile==0.1a3",
-    "datasette-vega",
     "dogsheep-beta>=0.11",
     "feedparser",
     "github-to-sqlite>=2.9.1",

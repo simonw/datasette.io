@@ -15,7 +15,6 @@ datasette publish fly \
   tils.db \
   global-power-plants.db \
   legislators.db \
-  --branch 1.0a43 \
   --app datasette-io \
   --template-dir=templates \
   --metadata=metadata.yml \
@@ -25,7 +24,7 @@ datasette publish fly \
   --install=Pygments \
   --install=datasette-template-sql \
   --install=python-dateutil \
-  --install=datasette-vega \
+  --install='datasette-charts==0.1a0' \
   --install='datasette-atom==0.11a0' \
   --install='datasette-graphql==3.0a1' \
   --install='datasette-referrer-policy==0.1' \

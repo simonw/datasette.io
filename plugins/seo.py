@@ -47,4 +47,4 @@ async def sitemap_xml(datasette):
     for url in await urls(datasette):
         content.append("<url><loc>{}</loc></url>".format(url))
     content.append("</urlset>")
-    return Response("\n".join(content), 200, content_type="application/xml")
+    return Response("\n".join(content), content_type="application/xml")

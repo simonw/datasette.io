@@ -11,7 +11,7 @@
   - Geospatial
   - Leaflet
   - Maps
-- repo: simonw/datasette-vega
+- repo: datasette/datasette-charts
   tags:
   - Visualization
   extra_search: plot chart graph
