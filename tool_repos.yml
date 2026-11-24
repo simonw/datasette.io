@@ -182,3 +182,7 @@
   tags:
   - Untagged
   extra_search: ""
+- repo: hockinghills/claude-code-to-sqlite
+  tags:
+  - Untagged
+  extra_search: "claude anthropic ai sessions"
