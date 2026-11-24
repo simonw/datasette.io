@@ -490,3 +490,6 @@
 - repo: datasette/datasette-checkbox
   tags:
   - UI
+- repo: ngshiheng/datasette-google-analytics
+  tags:
+  - Analytics
