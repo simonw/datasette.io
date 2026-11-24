@@ -490,3 +490,6 @@
 - repo: datasette/datasette-checkbox
   tags:
   - UI
+- repo: codemicro/datasette-auth-headers
+  tags:
+  - Authentication
